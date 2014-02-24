@@ -41,6 +41,9 @@
 		18DF826A187BC074000FDCFF /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DF825D187BC074000FDCFF /* me.png */; };
 		18DF826B187BC074000FDCFF /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DF825E187BC074000FDCFF /* search.png */; };
 		18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8261187BC074000FDCFF /* MainPageCell.m */; };
+		18E7FB4018BB621400148255 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB3F18BB621400148255 /* LoginView.m */; };
+		18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4218BB63CE00148255 /* LoginViewController.m */; };
+		18E7FB4618BB63E300148255 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4518BB63E300148255 /* Login.m */; };
 		954B7E2178394CCAB0C27F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF8EE90C2547EE8CD04AE7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +110,12 @@
 		18DF825E187BC074000FDCFF /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		18DF8260187BC074000FDCFF /* MainPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageCell.h; sourceTree = "<group>"; };
 		18DF8261187BC074000FDCFF /* MainPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageCell.m; sourceTree = "<group>"; };
+		18E7FB3E18BB621400148255 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		18E7FB3F18BB621400148255 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		18E7FB4118BB63CE00148255 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		18E7FB4218BB63CE00148255 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		18E7FB4418BB63E300148255 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		18E7FB4518BB63E300148255 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
 		A4F55087C9D14FCA9019DEAC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		DDEF8EE90C2547EE8CD04AE7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -225,6 +234,8 @@
 				18DF822F187BC025000FDCFF /* ConversationListVC.m */,
 				18DF8232187BC025000FDCFF /* RootViewController.h */,
 				18DF8233187BC025000FDCFF /* RootViewController.m */,
+				18E7FB4118BB63CE00148255 /* LoginViewController.h */,
+				18E7FB4218BB63CE00148255 /* LoginViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -246,6 +257,8 @@
 				18DF8244187BC053000FDCFF /* TextMessage.m */,
 				18DF8245187BC053000FDCFF /* User.h */,
 				18DF8246187BC053000FDCFF /* User.m */,
+				18E7FB4418BB63E300148255 /* Login.h */,
+				18E7FB4518BB63E300148255 /* Login.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,6 +309,8 @@
 			children = (
 				18DF8260187BC074000FDCFF /* MainPageCell.h */,
 				18DF8261187BC074000FDCFF /* MainPageCell.m */,
+				18E7FB3E18BB621400148255 /* LoginView.h */,
+				18E7FB3F18BB621400148255 /* LoginView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -443,14 +458,17 @@
 				18DF8248187BC053000FDCFF /* CommonData.m in Sources */,
 				18DF8263187BC074000FDCFF /* ChatViewCompent.m in Sources */,
 				18DF8247187BC053000FDCFF /* BaseMesage.m in Sources */,
+				18E7FB4618BB63E300148255 /* Login.m in Sources */,
 				18DF822A187BBFFF000FDCFF /* AppDelegate.m in Sources */,
 				18DF8237187BC025000FDCFF /* RootViewController.m in Sources */,
 				18DF8249187BC053000FDCFF /* Conversation.m in Sources */,
 				18AFAA03187B18A500036ED8 /* main.m in Sources */,
+				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18DF824B187BC053000FDCFF /* TextConversation.m in Sources */,
 				18DF824D187BC053000FDCFF /* User.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
+				18E7FB4018BB621400148255 /* LoginView.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
 				18DF8264187BC074000FDCFF /* InputCompent.m in Sources */,

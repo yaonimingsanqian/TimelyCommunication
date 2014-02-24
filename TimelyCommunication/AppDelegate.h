@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SMClient.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UITabBarControllerDelegate>
 
@@ -15,4 +16,5 @@
 @property (strong, nonatomic) UINavigationController *contactNavi;
 @property (strong, nonatomic) UINavigationController *searchNavi;
 @property (strong, nonatomic) UINavigationController *meNavi;
+@property (strong, nonatomic) SMClient *client;
 @end
