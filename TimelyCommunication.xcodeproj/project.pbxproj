@@ -44,6 +44,9 @@
 		18E7FB4018BB621400148255 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB3F18BB621400148255 /* LoginView.m */; };
 		18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4218BB63CE00148255 /* LoginViewController.m */; };
 		18E7FB4618BB63E300148255 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4518BB63E300148255 /* Login.m */; };
+		18E7FB4A18BB771E00148255 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4918BB771E00148255 /* MBProgressHUD.m */; };
+		18E7FB4D18BB7C9C00148255 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4C18BB7C9C00148255 /* RegisterView.m */; };
+		18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4F18BB7DAA00148255 /* RegisterViewController.m */; };
 		954B7E2178394CCAB0C27F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF8EE90C2547EE8CD04AE7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +119,12 @@
 		18E7FB4218BB63CE00148255 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		18E7FB4418BB63E300148255 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		18E7FB4518BB63E300148255 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		18E7FB4818BB771E00148255 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		18E7FB4918BB771E00148255 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		18E7FB4B18BB7C9C00148255 /* RegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
+		18E7FB4C18BB7C9C00148255 /* RegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterView.m; sourceTree = "<group>"; };
+		18E7FB4E18BB7DAA00148255 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		18E7FB4F18BB7DAA00148255 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		A4F55087C9D14FCA9019DEAC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		DDEF8EE90C2547EE8CD04AE7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -180,6 +189,7 @@
 		18AFA9FC187B18A500036ED8 /* TimelyCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				18E7FB4718BB76FE00148255 /* Helper */,
 				18DF824E187BC074000FDCFF /* Compent */,
 				18DF8255187BC074000FDCFF /* images */,
 				18DF825F187BC074000FDCFF /* Views */,
@@ -236,6 +246,8 @@
 				18DF8233187BC025000FDCFF /* RootViewController.m */,
 				18E7FB4118BB63CE00148255 /* LoginViewController.h */,
 				18E7FB4218BB63CE00148255 /* LoginViewController.m */,
+				18E7FB4E18BB7DAA00148255 /* RegisterViewController.h */,
+				18E7FB4F18BB7DAA00148255 /* RegisterViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -311,8 +323,19 @@
 				18DF8261187BC074000FDCFF /* MainPageCell.m */,
 				18E7FB3E18BB621400148255 /* LoginView.h */,
 				18E7FB3F18BB621400148255 /* LoginView.m */,
+				18E7FB4B18BB7C9C00148255 /* RegisterView.h */,
+				18E7FB4C18BB7C9C00148255 /* RegisterView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		18E7FB4718BB76FE00148255 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				18E7FB4818BB771E00148255 /* MBProgressHUD.h */,
+				18E7FB4918BB771E00148255 /* MBProgressHUD.m */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,10 +482,13 @@
 				18DF8263187BC074000FDCFF /* ChatViewCompent.m in Sources */,
 				18DF8247187BC053000FDCFF /* BaseMesage.m in Sources */,
 				18E7FB4618BB63E300148255 /* Login.m in Sources */,
+				18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */,
 				18DF822A187BBFFF000FDCFF /* AppDelegate.m in Sources */,
 				18DF8237187BC025000FDCFF /* RootViewController.m in Sources */,
 				18DF8249187BC053000FDCFF /* Conversation.m in Sources */,
+				18E7FB4A18BB771E00148255 /* MBProgressHUD.m in Sources */,
 				18AFAA03187B18A500036ED8 /* main.m in Sources */,
+				18E7FB4D18BB7C9C00148255 /* RegisterView.m in Sources */,
 				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18DF824B187BC053000FDCFF /* TextConversation.m in Sources */,

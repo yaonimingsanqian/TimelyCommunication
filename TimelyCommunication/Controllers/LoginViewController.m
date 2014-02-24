@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "SMRequestOptions.h"
 #import "SMClient.h"
+#import "MBProgressHUD.h"
 @interface LoginViewController ()
 
 @end
@@ -22,11 +23,18 @@
 #pragma mark - 私有
 - (void)loginAction
 {
-    [[SMClient defaultClient]loginWithUsername:[loginView account] password:[loginView password] onSuccess:^(NSDictionary *result) {
-        NSLog(@"登陆成功");
-    } onFailure:^(NSError *error) {
-        NSLog(@"登陆失败");
+    [MBProgressHUD showHUDAddedTo:loginView animated:YES ];
+    login = [[Login alloc]init];
+    login.password = [loginView password];
+    login.account = [loginView account];
+    [login login:^(NSDictionary *success) {
+        [MBProgressHUD hideAllHUDsForView:loginView animated:YES];
+        NSLog(@"%@",success);
+    } :^(NSError *error) {
+        
     }];
+    
+    
 }
 - (void)registerAction
 {

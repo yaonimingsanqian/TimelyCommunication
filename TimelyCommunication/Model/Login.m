@@ -7,7 +7,18 @@
 //
 
 #import "Login.h"
+#import "SMClient.h"
 
 @implementation Login
 
+- (void)login:(LoginSuccess)success :(LoginFailed)failed
+{
+    loginSuccess = success;
+    loginFailed = failed;
+    [[SMClient defaultClient]loginWithUsername:self.account password:self.password onSuccess:^(NSDictionary *result) {
+        loginSuccess(result);
+    } onFailure:^(NSError *error) {
+        loginFailed(error);
+    }];
+}
 @end
