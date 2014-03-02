@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface RegisterViewController : UIViewController
-
+#import "RegisterView.h"
+#import "User.h"
+@interface RegisterViewController : UIViewController<UITextFieldDelegate>
+{
+    RegisterView *registerView;
+    User *user;
+}
 @end

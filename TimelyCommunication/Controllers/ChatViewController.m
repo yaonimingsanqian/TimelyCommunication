@@ -65,7 +65,7 @@
     chatViewCompent = [[ChatViewCompent alloc]initWithFrame:[[UIScreen mainScreen] bounds] delegate:self];
     chatViewCompent.delegate = self;
     [self.view addSubview:chatViewCompent];
-    [CommonData sharedCommonData].curentUser.account = @"zhaogwhebust";
+    [CommonData sharedCommonData].curentUser.username = @"zhaogwhebust";
     conversation = [[Conversation alloc]init];
     messageArray = [NSMutableArray arrayWithArray:[conversation loadHistoryMsg]];
     

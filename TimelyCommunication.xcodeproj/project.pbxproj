@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18A3842718C1CB91000EA528 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842618C1CB91000EA528 /* back.png */; };
+		18A3842918C1CE14000EA528 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842818C1CE14000EA528 /* register.png */; };
+		18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */; };
+		18A3843318C2E472000EA528 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3843218C2E472000EA528 /* icon.png */; };
 		18AFA9F7187B18A500036ED8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9F6187B18A500036ED8 /* Foundation.framework */; };
 		18AFA9F9187B18A500036ED8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9F8187B18A500036ED8 /* CoreGraphics.framework */; };
 		18AFA9FB187B18A500036ED8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9FA187B18A500036ED8 /* UIKit.framework */; };
@@ -20,7 +24,6 @@
 		18AFAA1B187B18A600036ED8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9FA187B18A500036ED8 /* UIKit.framework */; };
 		18AFAA23187B18A600036ED8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18AFAA21187B18A600036ED8 /* InfoPlist.strings */; };
 		18AFAA25187B18A600036ED8 /* TimelyCommunicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA24187B18A600036ED8 /* TimelyCommunicationTests.m */; };
-		18DF822A187BBFFF000FDCFF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8229187BBFFF000FDCFF /* AppDelegate.m */; };
 		18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF822D187BC025000FDCFF /* ChatViewController.m */; };
 		18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF822F187BC025000FDCFF /* ConversationListVC.m */; };
 		18DF8237187BC025000FDCFF /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8233187BC025000FDCFF /* RootViewController.m */; };
@@ -30,7 +33,6 @@
 		18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8240187BC053000FDCFF /* MsgSaveHelper.m */; };
 		18DF824B187BC053000FDCFF /* TextConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8242187BC053000FDCFF /* TextConversation.m */; };
 		18DF824C187BC053000FDCFF /* TextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8244187BC053000FDCFF /* TextMessage.m */; };
-		18DF824D187BC053000FDCFF /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8246187BC053000FDCFF /* User.m */; };
 		18DF8263187BC074000FDCFF /* ChatViewCompent.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8252187BC074000FDCFF /* ChatViewCompent.m */; };
 		18DF8264187BC074000FDCFF /* InputCompent.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8254187BC074000FDCFF /* InputCompent.m */; };
 		18DF8265187BC074000FDCFF /* face.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DF8257187BC074000FDCFF /* face.png */; };
@@ -43,7 +45,7 @@
 		18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8261187BC074000FDCFF /* MainPageCell.m */; };
 		18E7FB4018BB621400148255 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB3F18BB621400148255 /* LoginView.m */; };
 		18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4218BB63CE00148255 /* LoginViewController.m */; };
-		18E7FB4618BB63E300148255 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4518BB63E300148255 /* Login.m */; };
+		18E7FB4618BB63E300148255 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4518BB63E300148255 /* User.m */; };
 		18E7FB4A18BB771E00148255 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4918BB771E00148255 /* MBProgressHUD.m */; };
 		18E7FB4D18BB7C9C00148255 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4C18BB7C9C00148255 /* RegisterView.m */; };
 		18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4F18BB7DAA00148255 /* RegisterViewController.m */; };
@@ -61,6 +63,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18A3842618C1CB91000EA528 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../../../../../../../Downloads/back.png; sourceTree = "<group>"; };
+		18A3842818C1CE14000EA528 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
+		18A3842A18C1F898000EA528 /* iPhoneXMPPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneXMPPAppDelegate.h; sourceTree = "<group>"; };
+		18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneXMPPAppDelegate.m; sourceTree = "<group>"; };
+		18A3843218C2E472000EA528 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		18AFA9F3187B18A500036ED8 /* TimelyCommunication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimelyCommunication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFA9F6187B18A500036ED8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18AFA9F8187B18A500036ED8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -78,8 +85,6 @@
 		18AFAA22187B18A600036ED8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		18AFAA24187B18A600036ED8 /* TimelyCommunicationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimelyCommunicationTests.m; sourceTree = "<group>"; };
 		18DF81EC187BBEF7000FDCFF /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
-		18DF8228187BBFFF000FDCFF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		18DF8229187BBFFF000FDCFF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		18DF822C187BC025000FDCFF /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		18DF822D187BC025000FDCFF /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		18DF822E187BC025000FDCFF /* ConversationListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationListVC.h; sourceTree = "<group>"; };
@@ -98,8 +103,6 @@
 		18DF8242187BC053000FDCFF /* TextConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextConversation.m; sourceTree = "<group>"; };
 		18DF8243187BC053000FDCFF /* TextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessage.h; sourceTree = "<group>"; };
 		18DF8244187BC053000FDCFF /* TextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessage.m; sourceTree = "<group>"; };
-		18DF8245187BC053000FDCFF /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		18DF8246187BC053000FDCFF /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18DF8251187BC074000FDCFF /* ChatViewCompent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewCompent.h; sourceTree = "<group>"; };
 		18DF8252187BC074000FDCFF /* ChatViewCompent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewCompent.m; sourceTree = "<group>"; };
 		18DF8253187BC074000FDCFF /* InputCompent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputCompent.h; sourceTree = "<group>"; };
@@ -117,8 +120,8 @@
 		18E7FB3F18BB621400148255 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		18E7FB4118BB63CE00148255 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18E7FB4218BB63CE00148255 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		18E7FB4418BB63E300148255 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
-		18E7FB4518BB63E300148255 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		18E7FB4418BB63E300148255 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		18E7FB4518BB63E300148255 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		18E7FB4818BB771E00148255 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		18E7FB4918BB771E00148255 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		18E7FB4B18BB7C9C00148255 /* RegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
@@ -154,6 +157,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18A3842518C1CB83000EA528 /* button */ = {
+			isa = PBXGroup;
+			children = (
+				18A3842818C1CE14000EA528 /* register.png */,
+				18A3842618C1CB91000EA528 /* back.png */,
+			);
+			path = button;
+			sourceTree = "<group>";
+		};
 		18AFA9EA187B18A500036ED8 = {
 			isa = PBXGroup;
 			children = (
@@ -189,14 +201,14 @@
 		18AFA9FC187B18A500036ED8 /* TimelyCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				18A3842A18C1F898000EA528 /* iPhoneXMPPAppDelegate.h */,
+				18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */,
 				18E7FB4718BB76FE00148255 /* Helper */,
 				18DF824E187BC074000FDCFF /* Compent */,
 				18DF8255187BC074000FDCFF /* images */,
 				18DF825F187BC074000FDCFF /* Views */,
 				18DF8238187BC053000FDCFF /* Model */,
 				18DF822B187BC025000FDCFF /* Controllers */,
-				18DF8228187BBFFF000FDCFF /* AppDelegate.h */,
-				18DF8229187BBFFF000FDCFF /* AppDelegate.m */,
 				18AFAA08187B18A500036ED8 /* Main_iPhone.storyboard */,
 				18AFAA0B187B18A500036ED8 /* Main_iPad.storyboard */,
 				18AFAA11187B18A500036ED8 /* Images.xcassets */,
@@ -208,6 +220,7 @@
 		18AFA9FD187B18A500036ED8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				18A3843218C2E472000EA528 /* icon.png */,
 				18DF81EC187BBEF7000FDCFF /* Config.h */,
 				18AFA9FE187B18A500036ED8 /* TimelyCommunication-Info.plist */,
 				18AFA9FF187B18A500036ED8 /* InfoPlist.strings */,
@@ -267,10 +280,8 @@
 				18DF8242187BC053000FDCFF /* TextConversation.m */,
 				18DF8243187BC053000FDCFF /* TextMessage.h */,
 				18DF8244187BC053000FDCFF /* TextMessage.m */,
-				18DF8245187BC053000FDCFF /* User.h */,
-				18DF8246187BC053000FDCFF /* User.m */,
-				18E7FB4418BB63E300148255 /* Login.h */,
-				18E7FB4518BB63E300148255 /* Login.m */,
+				18E7FB4418BB63E300148255 /* User.h */,
+				18E7FB4518BB63E300148255 /* User.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,6 +300,7 @@
 		18DF8255187BC074000FDCFF /* images */ = {
 			isa = PBXGroup;
 			children = (
+				18A3842518C1CB83000EA528 /* button */,
 				18DF8256187BC074000FDCFF /* Input */,
 				18DF825A187BC074000FDCFF /* toolBar */,
 			);
@@ -422,8 +434,11 @@
 				18DF8268187BC074000FDCFF /* chat.png in Resources */,
 				18AFAA12187B18A500036ED8 /* Images.xcassets in Resources */,
 				18DF826A187BC074000FDCFF /* me.png in Resources */,
+				18A3842918C1CE14000EA528 /* register.png in Resources */,
 				18DF8267187BC074000FDCFF /* sound.png in Resources */,
 				18DF826B187BC074000FDCFF /* search.png in Resources */,
+				18A3842718C1CB91000EA528 /* back.png in Resources */,
+				18A3843318C2E472000EA528 /* icon.png in Resources */,
 				18DF8269187BC074000FDCFF /* contact.png in Resources */,
 				18AFAA0A187B18A500036ED8 /* Main_iPhone.storyboard in Resources */,
 				18AFAA01187B18A500036ED8 /* InfoPlist.strings in Resources */,
@@ -481,18 +496,17 @@
 				18DF8248187BC053000FDCFF /* CommonData.m in Sources */,
 				18DF8263187BC074000FDCFF /* ChatViewCompent.m in Sources */,
 				18DF8247187BC053000FDCFF /* BaseMesage.m in Sources */,
-				18E7FB4618BB63E300148255 /* Login.m in Sources */,
+				18E7FB4618BB63E300148255 /* User.m in Sources */,
 				18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */,
-				18DF822A187BBFFF000FDCFF /* AppDelegate.m in Sources */,
 				18DF8237187BC025000FDCFF /* RootViewController.m in Sources */,
 				18DF8249187BC053000FDCFF /* Conversation.m in Sources */,
 				18E7FB4A18BB771E00148255 /* MBProgressHUD.m in Sources */,
 				18AFAA03187B18A500036ED8 /* main.m in Sources */,
 				18E7FB4D18BB7C9C00148255 /* RegisterView.m in Sources */,
 				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
+				18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18DF824B187BC053000FDCFF /* TextConversation.m in Sources */,
-				18DF824D187BC053000FDCFF /* User.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
 				18E7FB4018BB621400148255 /* LoginView.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,

@@ -17,4 +17,6 @@
 @property (strong, nonatomic) UINavigationController *searchNavi;
 @property (strong, nonatomic) UINavigationController *meNavi;
 @property (strong, nonatomic) SMClient *client;
+
+- (void)turnToMainPage;
 @end

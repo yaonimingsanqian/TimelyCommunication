@@ -9,7 +9,7 @@
 #import "RegisterView.h"
 
 @implementation RegisterView
-
+@synthesize account,address,age,passConfirm,pass,gender,registerBtn;
 #pragma mark - private
 - (void)createLabel :(CGRect)frame :(NSString*)text
 {
@@ -29,17 +29,61 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)createAddressTextField:(CGRect)frame
 {
-    // Drawing code
+    address = [[UITextField alloc]initWithFrame:frame];
+    address.borderStyle = UITextBorderStyleBezel;
+    [self addSubview:address];
+    [self createLabel:CGRectMake(10, 170,60, 30) :@"地    址:"];
 }
-*/
-
+- (void)createPassTextField:(CGRect)frame
+{
+    pass = [[UITextField alloc]initWithFrame:frame];
+    pass.borderStyle = UITextBorderStyleBezel;
+    [self addSubview:pass];
+    [self createLabel:CGRectMake(10, 70,60, 30) :@"密    码:"];
+}
+- (void)createPassConfirmTextField:(CGRect)frame
+{
+    passConfirm = [[UITextField alloc]initWithFrame:frame];
+    passConfirm.borderStyle = UITextBorderStyleBezel;
+    [self addSubview:passConfirm];
+    [self createLabel:CGRectMake(10, 120,60, 30) :@"确    认:"];
+}
+- (void)createGenderTextField:(CGRect)frame
+{
+    gender = [[UITextField alloc]initWithFrame:frame];
+    gender.borderStyle = UITextBorderStyleBezel;
+    [self addSubview:gender];
+    [self createLabel:CGRectMake(10, 270,60, 30) :@"性    别:"];
+    
+}
+- (void)createAgeTextField:(CGRect)frame
+{
+    age = [[UITextField alloc]initWithFrame:frame];
+    age.borderStyle = UITextBorderStyleBezel;
+    [self addSubview:age];
+    [self createLabel:CGRectMake(10, 220,60, 30) :@"年    龄:"];
+}
+- (void)createAccountTextField:(CGRect)frame
+{
+    account = [[UITextField alloc]initWithFrame:frame];
+    account.borderStyle = UITextBorderStyleBezel;
+    [self addSubview:account];
+    [self createLabel:CGRectMake(10, 20, 60, 30) :@"用户名:"];
+}
+- (void)hideKeyboard
+{
+    [age resignFirstResponder];
+    [address resignFirstResponder];
+    [pass resignFirstResponder];
+    [passConfirm resignFirstResponder];
+    [gender resignFirstResponder];
+    [account resignFirstResponder];
+    
+}
 @end

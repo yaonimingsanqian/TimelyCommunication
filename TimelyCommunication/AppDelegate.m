@@ -42,20 +42,26 @@
     [navi.navigationBar addSubview:naviTitle];
     return navi;
 }
+- (void)turnToMainPage
+{
+    UITabBarController *tabBarController=[[UITabBarController alloc] init];
+    
+    self.conversationNavi = [self createTabBarItem:@"会话" :@"chat.png" :100];
+    self.contactNavi = [self createTabBarItem:@"通讯录" :@"contact.png" :101];
+    self.searchNavi = [self createTabBarItem:@"发现" :@"search.png" :102];
+    self.meNavi = [self createTabBarItem:@"我" :@"me.png" :103];
+    
+    NSMutableArray *controllers=[[NSMutableArray alloc]initWithObjects:self.conversationNavi,self.self.contactNavi,self.searchNavi,self.meNavi,nil];
+    [tabBarController setViewControllers:controllers];
+    tabBarController.delegate=self;
+    self.window.rootViewController = nil;
+    self.window.rootViewController = tabBarController;
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
- //   UITabBarController *tabBarController=[[UITabBarController alloc] init];
-    
-//    self.conversationNavi = [self createTabBarItem:@"会话" :@"chat.png" :100];
-//    self.contactNavi = [self createTabBarItem:@"通讯录" :@"contact.png" :101];
-//    self.searchNavi = [self createTabBarItem:@"发现" :@"search.png" :102];
-//    self.meNavi = [self createTabBarItem:@"我" :@"me.png" :103];
-//    
-//    NSMutableArray *controllers=[[NSMutableArray alloc]initWithObjects:self.conversationNavi,self.self.contactNavi,self.searchNavi,self.meNavi,nil];
-//    [tabBarController setViewControllers:controllers];
-//    tabBarController.delegate=self;
+
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[LoginViewController alloc]init];
+    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LoginViewController alloc]init]];
     [self.window makeKeyAndVisible];
     // Assuming your variable is declared SMClient *client;
     self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];

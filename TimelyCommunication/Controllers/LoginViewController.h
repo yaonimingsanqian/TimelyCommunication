@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Login.h"
+#import "User.h"
 #import "LoginView.h"
 @interface LoginViewController : UIViewController<UITextFieldDelegate>
 {
-    Login *login;
+    User *login;
     LoginView *loginView;
 }
+@property (nonatomic,strong) LoginView *loginView;
 @end

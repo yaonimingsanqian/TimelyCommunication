@@ -10,11 +10,14 @@
 #import "SMRequestOptions.h"
 #import "SMClient.h"
 #import "MBProgressHUD.h"
+#import "RegisterViewController.h"
+#import "AppDelegate.h"
 @interface LoginViewController ()
 
 @end
 
 @implementation LoginViewController
+@synthesize loginView;
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -24,12 +27,14 @@
 - (void)loginAction
 {
     [MBProgressHUD showHUDAddedTo:loginView animated:YES ];
-    login = [[Login alloc]init];
+    login = [[User alloc]init];
     login.password = [loginView password];
-    login.account = [loginView account];
+    login.username = [loginView account];
+    LoginViewController __weak *tmp = self;
     [login login:^(NSDictionary *success) {
-        [MBProgressHUD hideAllHUDsForView:loginView animated:YES];
-        NSLog(@"%@",success);
+        [MBProgressHUD hideAllHUDsForView:tmp.loginView animated:YES];
+        AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [delegate turnToMainPage];
     } :^(NSError *error) {
         
     }];
@@ -38,19 +43,20 @@
 }
 - (void)registerAction
 {
-    SMRequestOptions *option = [SMRequestOptions optionsWithHTTPS];
-    NSDictionary *user = [NSDictionary dictionaryWithObjectsAndKeys:[loginView account],@"username",[loginView password],@"password", nil];
-    [[[SMClient defaultClient]dataStore] createObject:user inSchema:@"user" options:option onSuccess:^(NSDictionary *object, NSString *schema_) {
-        NSLog(@"注册成功");
-    } onFailure:^(NSError *error, NSDictionary *object, NSString *schema_) {
-        NSLog(@"error");
-    }];
+    RegisterViewController *registerViewController = [[RegisterViewController alloc]init];
+    [self.navigationController pushViewController:registerViewController animated:YES];
+    
+
 }
 - (void)tapGestureAction
 {
     [loginView resignFirstResponder];
 }
 #pragma mark - 系统
+- (void)dealloc
+{
+    NSLog(@"LoginViewController dealloc");
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

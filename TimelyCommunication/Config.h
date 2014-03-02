@@ -25,4 +25,15 @@
 #define DATABASE_PATH(useraccount) [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]stringByAppendingFormat:@"/%@weChat.sqlite",useraccount]
 #define kMsgTableName @"msgTable"
 
+#pragma mark - 用户信息
+#define kXMPPmyJID @"kXMPPmyJID"
+#define kXMPPmyPassword @"kXMPPmyPassword"
+
+#pragma mark - 服务器信心
+#define kServerName @"127.0.0.1"
+
+#pragma mark - 通知名字
+#define kRegisterSuccess @"kRegisterSuccess"
+#define kRegisterFailed @"kRegisterFailed"
+
 #endif
