@@ -10,4 +10,12 @@
 
 @implementation BaseMesage
 
+- (void)doSelfThing
+{
+    
+}
+- (void)postLocalNotifaction
+{
+    
+}
 @end

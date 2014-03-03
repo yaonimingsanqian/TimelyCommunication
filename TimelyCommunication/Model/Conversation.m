@@ -8,9 +8,17 @@
 
 #import "Conversation.h"
 #import "Config.h"
+#import "iPhoneXMPPAppDelegate.h"
 
+static Conversation *sharedInstance = nil;
 @implementation Conversation
 
++ (Conversation*)sharedInstance
+{
+    if(!sharedInstance)
+        sharedInstance = [[Conversation alloc]init];
+    return sharedInstance;
+}
 - (id)init
 {
     self = [super init];
@@ -22,16 +30,16 @@
 }
 - (void)sendMessage:(TextMessage *)message
 {
-    
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate sendMsg:message];
 }
 - (void)saveMsg:(BaseMesage *)message
 {
-    [msgSaveHelper createDataBase:kMsgTableName];
     [msgSaveHelper saveMsg:message];
 }
-- (NSArray*)loadHistoryMsg
+- (NSArray*)loadHistoryMsg :(NSString*)username
 {
-    NSArray *msgs = [msgSaveHelper loadHistoryMsg:@"test"];
+    NSArray *msgs = [msgSaveHelper loadHistoryMsg:username];
     
     return msgs;
 }

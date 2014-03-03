@@ -16,7 +16,8 @@
 @interface ChatViewController : UIViewController<HPLChatTableViewDataSource,ChatDelegate>
 {
     ChatViewCompent *chatViewCompent;
-    Conversation *conversation;
     NSMutableArray *messageArray;
+    NSString *username;
 }
+- (id)initWithUserName :(NSString*)aUsername;
 @end

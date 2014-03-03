@@ -14,7 +14,6 @@ typedef void(^LoadMsgComplete)(NSArray* msgArray);
 {
     //LoadMsgComplete loadHistoryMsgComplete;
 }
-- (BOOL)createDataBase :(NSString*)msgTableName;
 - (BOOL)saveMsg :(BaseMesage*)msg;
 - (NSArray*)loadHistoryMsg :(NSString*)conversationId;
 @end

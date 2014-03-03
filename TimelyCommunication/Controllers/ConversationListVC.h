@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ConversationListVC : UITableViewController
-
+{
+    NSArray *contacts;
+}
 @end

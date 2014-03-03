@@ -7,13 +7,17 @@
 #import "XMPPRosterCoreDataStorage.h"
 #import "XMPPvCardAvatarModule.h"
 #import "XMPPvCardCoreDataStorage.h"
-
+#import "ContactsViewController.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "Config.h"
 #import "LoginViewController.h"
 #import "User.h"
 #import <CFNetwork/CFNetwork.h>
+#import "MessageFactory.h"
+#import "MainPageUIViewController.h"
+#import "TextMessage.h"
+#import "ConversationMgr.h"
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -53,8 +57,13 @@
     switch (tag)
     {
         case 100:
-            controller = [[UIViewController alloc]init];
+            controller = [[MainPageUIViewController alloc]init];
             break;
+        case 101:
+        {
+            controller = [[ContactsViewController alloc]init];
+            break;
+        }
             
         default:
             controller = [[UIViewController alloc]init];
@@ -71,6 +80,7 @@
     
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:conversationList];
     UILabel *naviTitle = [[UILabel alloc]initWithFrame:CGRectMake(140, 10, 100, 20)];
+    naviTitle.tag = 100;
     naviTitle.text = title;
     // navi.navigationBar.tintColor = [UIColor blackColor];
     [navi.navigationBar addSubview:naviTitle];
@@ -175,6 +185,7 @@
     }
 	
 	[[self xmppStream] sendElement:presence];
+    NSLog(@"上线了");
 }
 
 - (void)goOffline
@@ -195,6 +206,22 @@
     {
         isRegister = YES;
     }
+}
+- (void)sendMsg:(BaseMesage *)msg
+{
+    NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+    [body setStringValue:msg.msgContent];
+	
+    NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+    [message addAttributeWithName:@"type" stringValue:@"chat"];
+    NSString *jid = [[msg.to stringByAppendingString:@"@"] stringByAppendingString:kServerName];
+    [message addAttributeWithName:@"to" stringValue:jid];
+    [message addAttributeWithName:@"from" stringValue:msg.from];
+    [message addAttributeWithName:@"time" stringValue:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]];
+	
+    [message addChild:body];
+	
+    [xmppStream sendElement:message];
 }
 - (BOOL)connect
 {
@@ -371,9 +398,7 @@
 	return NO;
 }
 
-- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
-{
-}
+
 
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence
 {
@@ -402,5 +427,21 @@
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error
 {
      [[NSNotificationCenter defaultCenter] postNotificationName:kRegisterFailed object:nil];
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{
+    BaseMesage *msg = [MessageFactory createMsg:message];
+    if(([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground))
+    {
+        [msg postLocalNotifaction];
+    }
+   
+    NSString *user = [[msg.from componentsSeparatedByString:@"@"] objectAtIndex:0];
+    if([msg isKindOfClass:[TextMessage class]] && ![[ConversationMgr sharedInstance] isConversationExist:user])
+    {
+        [[ConversationMgr sharedInstance] saveConversation:user];
+    }
+    [msg doSelfThing];
 }
 @end

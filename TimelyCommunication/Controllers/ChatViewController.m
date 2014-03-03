@@ -8,6 +8,8 @@
 
 #import "ChatViewController.h"
 #import "TextMessage.h"
+#import "iPhoneXMPPAppDelegate.h"
+#import "ConversationMgr.h"
 
 @interface ChatViewController ()
 
@@ -18,15 +20,16 @@
 - (void)sendTextMessage:(NSString *)text
 {
     TextMessage *message = [[TextMessage alloc]init];
-    message.to = conversation.otherSideId;
     message.msgContent = text;
     message.type = MessageText;
     message.sendDate = [NSDate date];
-    message.conversationId = @"test";
+    message.conversationId = username;
+    message.to = username;
+    message.from = [CommonData sharedCommonData].curentUser.username;
     message.isIncoming = NO;
     [messageArray addObject:message];
-    [conversation sendMessage:message];
-    [conversation saveMsg:message];
+    [[Conversation sharedInstance] sendMessage:message];
+    [[Conversation sharedInstance] saveMsg:message];
     [chatViewCompent reloadData];
 }
 #pragma mark - HPLChatTableViewDataSource
@@ -37,37 +40,40 @@
 - (HPLChatData*)chatTableView:(HPLChatTableView *)tableView dataForRow:(NSInteger)row
 {
     HPLChatData *hplData;
-    BaseMesage *message = [messageArray objectAtIndex:row];
-    if(message.type == MessageText)
-    {
-       TextMessage *textMsg = (TextMessage*)message;
-        hplData = [[HPLChatData alloc]initWithText:textMsg.msgContent date:textMsg.sendDate type:textMsg.isIncoming];
-    }
+    BaseMesage *textMsg = [messageArray objectAtIndex:row];
+    hplData = [[HPLChatData alloc]initWithText:textMsg.msgContent date:textMsg.sendDate type:textMsg.isIncoming];
+    
     return hplData;
 }
 
-- (id)init
+- (id)initWithUserName:(NSString *)ausername
 {
     self = [super init];
     if(self)
     {
-        conversation = [[Conversation alloc]init];
         messageArray = [[NSMutableArray alloc]init];
+        username = ausername;
     }
     return self;
+}
+- (void)receiveNewMsg
+{
+    [[ConversationMgr sharedInstance] updateConversation:username :NO];
+    messageArray = [NSMutableArray arrayWithArray:[[Conversation sharedInstance] loadHistoryMsg:username]];
+    [chatViewCompent reloadData];
 }
 #pragma mark - 系统方法
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%@",DATABASE_PATH(@"zhaogwhebust"));
     self.view.backgroundColor = [UIColor whiteColor];
     chatViewCompent = [[ChatViewCompent alloc]initWithFrame:[[UIScreen mainScreen] bounds] delegate:self];
+    
     chatViewCompent.delegate = self;
     [self.view addSubview:chatViewCompent];
-    [CommonData sharedCommonData].curentUser.username = @"zhaogwhebust";
-    conversation = [[Conversation alloc]init];
-    messageArray = [NSMutableArray arrayWithArray:[conversation loadHistoryMsg]];
+    messageArray = [NSMutableArray arrayWithArray:[[Conversation sharedInstance] loadHistoryMsg:username] ];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg) name:kNewTextMsg object:nil];
+     [[ConversationMgr sharedInstance] updateConversation:username :NO];
     
 }
 

@@ -19,8 +19,11 @@ typedef enum
 @property (nonatomic,copy) NSString *conversationId;
 @property (nonatomic,copy) NSString *from;
 @property (nonatomic,copy) NSString *to;
-@property (nonatomic,assign) MessageType type;
+@property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSDate *sendDate;
 @property (nonatomic,copy) NSString *msgContent;
 @property (nonatomic,copy) NSString *messageId;
+
+- (void)doSelfThing;
+- (void)postLocalNotifaction;
 @end

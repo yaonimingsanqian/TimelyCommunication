@@ -11,7 +11,7 @@
 #import "SMClient.h"
 #import "MBProgressHUD.h"
 #import "RegisterViewController.h"
-#import "AppDelegate.h"
+#import "iPhoneXMPPAppDelegate.h"
 @interface LoginViewController ()
 
 @end
@@ -33,7 +33,8 @@
     LoginViewController __weak *tmp = self;
     [login login:^(NSDictionary *success) {
         [MBProgressHUD hideAllHUDsForView:tmp.loginView animated:YES];
-        AppDelegate *delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [delegate connect];
         [delegate turnToMainPage];
     } :^(NSError *error) {
         

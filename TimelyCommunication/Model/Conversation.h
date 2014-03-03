@@ -15,10 +15,9 @@
 {
     MsgSaveHelper *msgSaveHelper;
 }
-@property (nonatomic,copy) NSString *conversationId;
-@property (nonatomic,copy) NSString *otherSideId;
 
++ (Conversation*)sharedInstance;
 - (void)sendMessage :(TextMessage*)message;
 - (void)saveMsg :(BaseMesage*)message;
-- (NSArray*)loadHistoryMsg;
+- (NSArray*)loadHistoryMsg :(NSString*)username;
 @end

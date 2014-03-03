@@ -10,18 +10,35 @@
 
 
 @implementation ChatViewCompent
+{
+    BOOL isShowKeyboard;
+}
 
 #pragma mark - 私有
 - (void)createChatTableView :(id<HPLChatTableViewDataSource>)datsSource
 {
-    chatTableView = [[HPLChatTableView alloc]initWithFrame:kChatViewFrame];
+    if([[UIScreen mainScreen] bounds].size.height != 480)
+    {
+        chatTableView = [[HPLChatTableView alloc]initWithFrame:kChatViewFrame];
+    }else
+    {
+        chatTableView = [[HPLChatTableView alloc]initWithFrame:kChatViewFrameForIPHONE4];
+    }
+    
     chatTableView.chatDataSource = datsSource;
    // chatTableView.backgroundColor = [UIColor greenColor];
     [self addSubview:chatTableView];
 }
 - (void)createInputFrame
 {
-    inputCompent = [[InputCompent alloc]initWithFrame:kInputViewFrame :self];
+    if([[UIScreen mainScreen] bounds].size.height != 480)
+    {
+        inputCompent = [[InputCompent alloc]initWithFrame:kInputViewFrame :self];
+    }else
+    {
+        inputCompent = [[InputCompent alloc]initWithFrame:kInputViewFrameForIPHONE4 :self];
+    }
+    
     inputCompent.delegate = self;
     [self addSubview:inputCompent];
 }
@@ -33,12 +50,14 @@
 }
 - (void)adaptarKeyboardShow :(CGRect)keyboardFrame :(NSTimeInterval)duration
 {
+   // if(!isShowKeyboard) return;
     [UIView animateWithDuration:duration animations:^{
+      //  isShowKeyboard = YES;
         CGRect inputCompentFrame = inputCompent.frame;
-        inputCompentFrame.origin.y -= keyboardFrame.size.height;
+        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height - keyboardFrame.size.height-inputCompent.frame.size.height;
         inputCompent.frame = inputCompentFrame;
         CGRect chatTableViewFrame = chatTableView.frame;
-        chatTableViewFrame.size.height -= keyboardFrame.size.height;
+        chatTableViewFrame.size.height = inputCompent.frame.origin.y;
         chatTableView.frame = chatTableViewFrame;
         [chatTableView scrollToBottomAnimated:YES];
     } completion:^(BOOL finished) {
@@ -48,11 +67,12 @@
 - (void)adapterKeyboardHide :(CGRect)keyboardFrame :(NSTimeInterval)duration
 {
     [UIView animateWithDuration:duration animations:^{
+      //  isShowKeyboard = NO;
         CGRect inputCompentFrame = inputCompent.frame;
-        inputCompentFrame.origin.y += keyboardFrame.size.height;
+        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height-inputCompent.frame.size.height;
         inputCompent.frame = inputCompentFrame;
         CGRect chatTableViewFrame = chatTableView.frame;
-        chatTableViewFrame.size.height += keyboardFrame.size.height;
+        chatTableViewFrame.size.height = inputCompent.frame.origin.y;
         chatTableView.frame = chatTableViewFrame;
     } completion:^(BOOL finished) {
         
@@ -86,6 +106,7 @@
 - (void)reloadData
 {
     [chatTableView reloadData];
+    [chatTableView scrollToBottomAnimated:YES];
 }
 - (id)initWithFrame:(CGRect)frame delegate:(id<HPLChatTableViewDataSource>)dataSource
 {

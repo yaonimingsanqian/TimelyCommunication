@@ -1,19 +1,21 @@
 //
-//  ConversationListVC.m
-//  HLPChatVoewDemo
+//  ContactsViewController.m
+//  TimelyCommunication
 //
-//  Created by zhao on 14-1-7.
+//  Created by zhao on 14-3-2.
 //  Copyright (c) 2014年 zhao. All rights reserved.
 //
-
 #import "ContactsMgr.h"
-#import "ConversationListVC.h"
+#import "ContactsViewController.h"
+#import "ChatViewController.h"
+#import "NewFriendViewController.h"
+#import "FKRDefaultSearchBarTableViewController.h"
 
-@interface ConversationListVC ()
+@interface ContactsViewController ()
 
 @end
 
-@implementation ConversationListVC
+@implementation ContactsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -23,17 +25,26 @@
     }
     return self;
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    contacts = [NSArray arrayWithArray:[ContactsMgr sharedInstance].friends];
 
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -46,21 +57,53 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0)
-        return 1;
-    return contacts.count;
-
+        return 2;
+    return [ContactsMgr sharedInstance].friends.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if(!cell)
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    if(indexPath.section == 0)
+    {
+        if(indexPath.row == 0)
+            cell.textLabel.text = @"朋友申请";
+        else
+            cell.textLabel.text = @"添加好友";
+    }else
+    {
+        cell.textLabel.text = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
+    }
     
-    // Configure the cell...
+    
     
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section == 0)
+    {
+        if(indexPath.row == 0)
+        {
+            NewFriendViewController *newfriendVC = [[NewFriendViewController alloc]init];
+            [self.navigationController pushViewController:newfriendVC animated:YES];
+            return;
+        }else
+        {
+            FKRDefaultSearchBarTableViewController *fk = [[FKRDefaultSearchBarTableViewController alloc]initWithSectionIndexes:NO :nil];
+            fk.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:fk animated:YES];
+            return;
+        }
+        
+    }
+    ChatViewController *chatVC = [[ChatViewController alloc]initWithUserName:[[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row]];
+    chatVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatVC animated:YES];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

@@ -9,6 +9,7 @@
 #import "MsgSaveHelper.h"
 #import "Config.h"
 #import "CommonData.h"
+#import "FMDatabaseQueue.h"
 
 @implementation MsgSaveHelper
 
@@ -29,29 +30,33 @@
 }
 - (BOOL)saveMsg:(BaseMesage *)msg
 {
-    
-    FMDatabase *db = [FMDatabase databaseWithPath:DATABASE_PATH([CommonData sharedCommonData].curentUser.username)];
-    [db open];
-    NSString *insertStr = [NSString stringWithFormat:@"INSERT INTO '%@' ('type', 'from','to','msgContent','sendDate','conversationId','isIncoming') VALUES (?,?,?,?,?,?,?)",kMsgTableName];
-    ;
-    
-    BOOL isWorked = [db executeUpdate:insertStr,[NSString stringWithFormat:@"%d",msg.type],[msg.from stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],[msg.to stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],msg.msgContent,msg.sendDate,msg.conversationId,[NSString stringWithFormat:@"%d",msg.isIncoming]];
-    [db close];
-    return isWorked;
+    [self createDataBase:kMsgTableName];
+    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DATABASE_PATH([CommonData sharedCommonData].curentUser.username)];
+    [queue inDatabase:^(FMDatabase *db) {
+        NSString *insertStr = [NSString stringWithFormat:@"INSERT INTO '%@' ('type', 'from','to','msgContent','sendDate','conversationId','isIncoming') VALUES (?,?,?,?,?,?,?)",kMsgTableName];
+        ;
+        
+        [db executeUpdate:insertStr,msg.type,[msg.from stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],[msg.to stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],msg.msgContent,msg.sendDate,msg.conversationId,[NSString stringWithFormat:@"%d",msg.isIncoming]];
+        [db close];
+    }];
+   
+    return YES;
     
 }
 - (NSArray*)loadHistoryMsg:(NSString *)conversationId
 {
     NSMutableArray *msgSet = [[NSMutableArray alloc]init];
     NSString *sql = [NSString stringWithFormat:@"select * from %@ where conversationId=?",kMsgTableName];
-    FMDatabase *db = [FMDatabase databaseWithPath:DATABASE_PATH([CommonData sharedCommonData].curentUser.username)];
+    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
+    user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
+    FMDatabase *db = [FMDatabase databaseWithPath:DATABASE_PATH(user)];
     [db open];
     FMResultSet *rs = [db executeQuery:sql,conversationId];
     while (rs.next)
     {
         BaseMesage *msg = [[BaseMesage alloc]init];
         msg.messageId = [rs stringForColumn:@"messageId"];
-        msg.type = [rs intForColumn:@"type"];
+        msg.type = [rs stringForColumn:@"type"];
         msg.from = [rs stringForColumn:@"from"];
         msg.to = [rs stringForColumn:@"to"];
         msg.msgContent = [rs stringForColumn:@"msgContent"];

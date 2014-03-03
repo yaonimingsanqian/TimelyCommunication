@@ -9,6 +9,8 @@
 #import "User.h"
 #import "iPhoneXMPPAppDelegate.h"
 #import "Config.h"
+#import "ContactsMgr.h"
+#import "CommonData.h"
 
 
 @implementation User
@@ -17,18 +19,28 @@
 {
     NSLog(@"User dealloc");
 }
+- (void)createUser :(NSDictionary*)userInfo
+{
+    User *user = [[User alloc]init];
+    user.username = [userInfo objectForKey:@"username"];
+    user.password = [userInfo objectForKey:@"password"];
+    user.address = [userInfo objectForKey:@"address"];
+    user.gender = [userInfo objectForKey:@"gender"];
+    [CommonData sharedCommonData].curentUser = user;
+}
 - (void)login:(LoginSuccess)success :(LoginFailed)failed
 {
     loginSuccess = success;
     loginFailed = failed;
     User __weak *tmp = self;
     [[SMClient defaultClient]loginWithUsername:self.username password:self.password onSuccess:^(NSDictionary *result) {
-        
+        [self createUser:result];
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
         [[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate connect];
         loginSuccess(result);
+        [[ContactsMgr sharedInstance] parseFriends:result];
     } onFailure:^(NSError *error) {
         loginFailed(error);
     }];
@@ -54,6 +66,10 @@
     [user setValue:self.gender forKey:@"gender"];
     [user setValue:self.address forKey:@"address"];
     [user setValue:self.age forKey:@"age"];
+    [user setValue:[NSArray arrayWithObject:@"admin"] forKey:@"friends"];
+    [user setValue:nil forKey:@"addMe"];
+    [user setValue:nil forKey:@"addOthers"];
+    [user setValue:nil forKey:@"blacklis"];
     registerSuccess = success;
     User __weak *tmp = self;
     [[[SMClient defaultClient]dataStore] createObject:user inSchema:@"user" options:option onSuccess:^(NSDictionary *object, NSString *schema_) {

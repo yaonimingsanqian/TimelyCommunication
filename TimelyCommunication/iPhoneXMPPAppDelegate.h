@@ -8,6 +8,7 @@
 #import "XMPPCapabilities.h"
 #import "XMPPCapabilitiesCoreDataStorage.h"
 #import "SMClient.h"
+#import "BaseMesage.h"
 @class SettingsViewController;
 
 
@@ -35,6 +36,7 @@
 - (BOOL)connect;
 - (void)anonymousConnection;
 - (void)disconnect;
+- (void)sendMsg :(BaseMesage*)msg;
 
 
 @property (strong, nonatomic) UIWindow *window;

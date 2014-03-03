@@ -1,19 +1,19 @@
 //
-//  ConversationListVC.m
-//  HLPChatVoewDemo
+//  NewFriendViewController.m
+//  TimelyCommunication
 //
-//  Created by zhao on 14-1-7.
+//  Created by zhao on 14-3-3.
 //  Copyright (c) 2014年 zhao. All rights reserved.
 //
 
+#import "NewFriendViewController.h"
 #import "ContactsMgr.h"
-#import "ConversationListVC.h"
 
-@interface ConversationListVC ()
+@interface NewFriendViewController ()
 
 @end
 
-@implementation ConversationListVC
+@implementation NewFriendViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,37 +27,33 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    contacts = [NSArray arrayWithArray:[ContactsMgr sharedInstance].friends];
 
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section == 0)
-        return 1;
-    return contacts.count;
-
+    return [ContactsMgr sharedInstance].friends.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    cell.textLabel.text = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     return cell;
 }
 
