@@ -9,8 +9,7 @@
 #import "ContactsViewController.h"
 #import "ChatViewController.h"
 #import "NewFriendViewController.h"
-#import "FKRDefaultSearchBarTableViewController.h"
-
+#import "SearchFriendViewController.h"
 @interface ContactsViewController ()
 
 @end
@@ -93,9 +92,7 @@
             return;
         }else
         {
-            FKRDefaultSearchBarTableViewController *fk = [[FKRDefaultSearchBarTableViewController alloc]initWithSectionIndexes:NO :nil];
-            fk.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:fk animated:YES];
+            [self.navigationController pushViewController:[[SearchFriendViewController alloc]init] animated:YES];
             return;
         }
         

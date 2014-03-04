@@ -7,8 +7,9 @@
 //
 
 #import "FKRSearchBarTableViewController.h"
+#import "SMClient.h"
+#import "SMQuery.h"
 
-#define IS_CH_SYMBOL(chr) ((int)(chr)>127)
 static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier = @"kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier";
 
 @interface FKRSearchBarTableViewController () {
@@ -48,7 +49,9 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 {
     [super viewDidLoad];
    
-    self.tableView = [[UITableView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.tableView = [[UITableView alloc]initWithFrame:[[UIScreen mainScreen] bounds] style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
@@ -130,7 +133,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -138,6 +141,7 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kFKRSearchBarTableViewControllerDefaultTableViewCellIdentifier];
     }
+    cell.textLabel.text = self.user.username;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -147,10 +151,34 @@ static NSString * const kFKRSearchBarTableViewControllerDefaultTableViewCellIden
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
+- (User*)createUser :(NSDictionary*)userinfo
+{
+    User *user = [[User alloc]init];
+    user.address = [userinfo objectForKey:@"address"];
+    user.age = [userinfo objectForKey:@"age"];
+    user.gender = [userinfo objectForKey:@"gender"];
+    user.username = [userinfo objectForKey:@"username"];
+    return user;
+}
 #pragma mark - Search Delegate
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    NSLog(@"%@",searchBar.text);
+    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
+    [query where:@"username" isEqualTo:searchBar.text];
+    FKRSearchBarTableViewController __weak *tmp = self;
+    [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
+        if(results.count > 0)
+        {
+            tmp.user = [tmp createUser:[results objectAtIndex:0]];
+            [tmp.tableView reloadData];
+            [tmp.searchBar resignFirstResponder];
+            
+            
+        }
+       
+    } onFailure:^(NSError *error) {
+        
+    }];
 }
 @end

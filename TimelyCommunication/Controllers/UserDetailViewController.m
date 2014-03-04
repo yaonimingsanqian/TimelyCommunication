@@ -1,25 +1,25 @@
 //
-//  NewFriendViewController.m
+//  UserDetailViewController.m
 //  TimelyCommunication
 //
-//  Created by zhao on 14-3-3.
+//  Created by zhao on 14-3-4.
 //  Copyright (c) 2014年 zhao. All rights reserved.
 //
 
-#import "NewFriendViewController.h"
-#import "ContactsMgr.h"
+#import "UserDetailViewController.h"
 
-@interface NewFriendViewController ()
+@interface UserDetailViewController ()
 
 @end
 
-@implementation NewFriendViewController
+@implementation UserDetailViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithUser:(User *)auser
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if(self)
+    {
+        user = auser;
     }
     return self;
 }
@@ -28,7 +28,11 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor whiteColor];
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,19 +45,48 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [ContactsMgr sharedInstance].friends.count;
+    if(section == 0)
+      return 4;
+    return 1;
 }
-
+- (void)addFriend
+{
+    NSLog(@"add freind");
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.textLabel.text = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
+    if(!cell)
+        cell = [[UITableViewCell alloc]init];
+    if(indexPath.section == 0)
+    {
+        if(indexPath.row == 0)
+            cell.textLabel.text = user.username;
+        if(indexPath.row == 1)
+            cell.textLabel.text = user.gender;
+        if(indexPath.row == 2)
+            cell.textLabel.text = user.address;
+        if(indexPath.row == 3)
+            cell.textLabel.text = user.age;
+    }else
+    {
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+        btn.backgroundColor = [UIColor greenColor];
+        [btn setTitle:@"加为好友" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(addFriend) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
+    }
+    
     return cell;
 }
 

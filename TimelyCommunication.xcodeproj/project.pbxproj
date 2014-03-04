@@ -13,9 +13,9 @@
 		18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCB18C33C4A00A76D7B /* MessageFactory.m */; };
 		18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */; };
 		18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DD118C3417C00A76D7B /* ConversationMgr.m */; };
+		1879F34C18C6284D0054C812 /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34B18C6284D0054C812 /* UserDetailViewController.m */; };
+		1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */; };
 		18A169BA18C4CE4700E6896E /* NewFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A169B918C4CE4700E6896E /* NewFriendViewController.m */; };
-		18A169BF18C4D01500E6896E /* FKRDefaultSearchBarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A169BC18C4D01500E6896E /* FKRDefaultSearchBarTableViewController.m */; };
-		18A169C018C4D01500E6896E /* FKRSearchBarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A169BE18C4D01500E6896E /* FKRSearchBarTableViewController.m */; };
 		18A3842718C1CB91000EA528 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842618C1CB91000EA528 /* back.png */; };
 		18A3842918C1CE14000EA528 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842818C1CE14000EA528 /* register.png */; };
 		18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */; };
@@ -82,12 +82,12 @@
 		18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageUIViewController.m; sourceTree = "<group>"; };
 		18296DD018C3417C00A76D7B /* ConversationMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationMgr.h; sourceTree = "<group>"; };
 		18296DD118C3417C00A76D7B /* ConversationMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationMgr.m; sourceTree = "<group>"; };
+		1879F34A18C6284D0054C812 /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
+		1879F34B18C6284D0054C812 /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
+		1879F34D18C62D4B0054C812 /* SearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendViewController.h; sourceTree = "<group>"; };
+		1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendViewController.m; sourceTree = "<group>"; };
 		18A169B818C4CE4700E6896E /* NewFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendViewController.h; sourceTree = "<group>"; };
 		18A169B918C4CE4700E6896E /* NewFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendViewController.m; sourceTree = "<group>"; };
-		18A169BB18C4D01500E6896E /* FKRDefaultSearchBarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKRDefaultSearchBarTableViewController.h; sourceTree = "<group>"; };
-		18A169BC18C4D01500E6896E /* FKRDefaultSearchBarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKRDefaultSearchBarTableViewController.m; sourceTree = "<group>"; };
-		18A169BD18C4D01500E6896E /* FKRSearchBarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FKRSearchBarTableViewController.h; sourceTree = "<group>"; };
-		18A169BE18C4D01500E6896E /* FKRSearchBarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FKRSearchBarTableViewController.m; sourceTree = "<group>"; };
 		18A3842618C1CB91000EA528 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../../../../../../../Downloads/back.png; sourceTree = "<group>"; };
 		18A3842818C1CE14000EA528 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
 		18A3842A18C1F898000EA528 /* iPhoneXMPPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneXMPPAppDelegate.h; sourceTree = "<group>"; };
@@ -304,10 +304,6 @@
 		18DF822B187BC025000FDCFF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18A169BB18C4D01500E6896E /* FKRDefaultSearchBarTableViewController.h */,
-				18A169BC18C4D01500E6896E /* FKRDefaultSearchBarTableViewController.m */,
-				18A169BD18C4D01500E6896E /* FKRSearchBarTableViewController.h */,
-				18A169BE18C4D01500E6896E /* FKRSearchBarTableViewController.m */,
 				18DF822C187BC025000FDCFF /* ChatViewController.h */,
 				18DF822D187BC025000FDCFF /* ChatViewController.m */,
 				18DF822E187BC025000FDCFF /* ConversationListVC.h */,
@@ -324,6 +320,10 @@
 				18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */,
 				18A169B818C4CE4700E6896E /* NewFriendViewController.h */,
 				18A169B918C4CE4700E6896E /* NewFriendViewController.m */,
+				1879F34A18C6284D0054C812 /* UserDetailViewController.h */,
+				1879F34B18C6284D0054C812 /* UserDetailViewController.m */,
+				1879F34D18C62D4B0054C812 /* SearchFriendViewController.h */,
+				1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -556,9 +556,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1879F34C18C6284D0054C812 /* UserDetailViewController.m in Sources */,
 				18DF8248187BC053000FDCFF /* CommonData.m in Sources */,
 				18DF8263187BC074000FDCFF /* ChatViewCompent.m in Sources */,
 				18DF8247187BC053000FDCFF /* BaseMesage.m in Sources */,
+				1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */,
 				18E7FB4618BB63E300148255 /* User.m in Sources */,
 				18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */,
 				18DF8237187BC025000FDCFF /* RootViewController.m in Sources */,
@@ -571,7 +573,6 @@
 				18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */,
 				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
 				18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */,
-				18A169BF18C4D01500E6896E /* FKRDefaultSearchBarTableViewController.m in Sources */,
 				18B8F77718C4C23700718ADD /* RedBall.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
@@ -579,7 +580,6 @@
 				18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */,
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
-				18A169C018C4D01500E6896E /* FKRSearchBarTableViewController.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
 				18DF8264187BC074000FDCFF /* InputCompent.m in Sources */,
 				18DF824C187BC053000FDCFF /* TextMessage.m in Sources */,
