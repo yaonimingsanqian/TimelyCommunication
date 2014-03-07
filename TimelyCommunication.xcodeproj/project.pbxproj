@@ -9,12 +9,17 @@
 /* Begin PBXBuildFile section */
 		18296DB918C2F56500A76D7B /* ContactsMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DB818C2F56500A76D7B /* ContactsMgr.m */; };
 		18296DBC18C2F8C500A76D7B /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DBB18C2F8C500A76D7B /* ContactCell.m */; };
-		18296DC918C3389100A76D7B /* icpn.png in Resources */ = {isa = PBXBuildFile; fileRef = 18296DC818C3389100A76D7B /* icpn.png */; };
 		18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCB18C33C4A00A76D7B /* MessageFactory.m */; };
 		18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */; };
 		18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DD118C3417C00A76D7B /* ConversationMgr.m */; };
 		1879F34C18C6284D0054C812 /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34B18C6284D0054C812 /* UserDetailViewController.m */; };
 		1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */; };
+		1883924B18C9779100DC5257 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883924A18C9779100DC5257 /* icon.png */; };
+		1883925218C98AE000DC5257 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925118C98AE000DC5257 /* avatar.png */; };
+		1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883925518C98B4900DC5257 /* PersonInfoViewController.m */; };
+		1883925818C98B4900DC5257 /* PersonInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1883925618C98B4900DC5257 /* PersonInfoViewController.xib */; };
+		1883925A18C9933400DC5257 /* btnbg_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925918C9933400DC5257 /* btnbg_01.png */; };
+		1883925C18C9948000DC5257 /* navBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925B18C9948000DC5257 /* navBg@2x.png */; };
 		18A169BA18C4CE4700E6896E /* NewFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A169B918C4CE4700E6896E /* NewFriendViewController.m */; };
 		18A3842718C1CB91000EA528 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842618C1CB91000EA528 /* back.png */; };
 		18A3842918C1CE14000EA528 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842818C1CE14000EA528 /* register.png */; };
@@ -75,7 +80,6 @@
 		18296DB818C2F56500A76D7B /* ContactsMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsMgr.m; sourceTree = "<group>"; };
 		18296DBA18C2F8C500A76D7B /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		18296DBB18C2F8C500A76D7B /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
-		18296DC818C3389100A76D7B /* icpn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icpn.png; sourceTree = "<group>"; };
 		18296DCA18C33C4A00A76D7B /* MessageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFactory.h; sourceTree = "<group>"; };
 		18296DCB18C33C4A00A76D7B /* MessageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFactory.m; sourceTree = "<group>"; };
 		18296DCD18C33FC600A76D7B /* MainPageUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageUIViewController.h; sourceTree = "<group>"; };
@@ -86,6 +90,13 @@
 		1879F34B18C6284D0054C812 /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
 		1879F34D18C62D4B0054C812 /* SearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendViewController.h; sourceTree = "<group>"; };
 		1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendViewController.m; sourceTree = "<group>"; };
+		1883924A18C9779100DC5257 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		1883925118C98AE000DC5257 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
+		1883925418C98B4900DC5257 /* PersonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoViewController.h; sourceTree = "<group>"; };
+		1883925518C98B4900DC5257 /* PersonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoViewController.m; sourceTree = "<group>"; };
+		1883925618C98B4900DC5257 /* PersonInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PersonInfoViewController.xib; path = ../Controllers/PersonInfoViewController.xib; sourceTree = "<group>"; };
+		1883925918C9933400DC5257 /* btnbg_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnbg_01.png; sourceTree = "<group>"; };
+		1883925B18C9948000DC5257 /* navBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBg@2x.png"; sourceTree = "<group>"; };
 		18A169B818C4CE4700E6896E /* NewFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendViewController.h; sourceTree = "<group>"; };
 		18A169B918C4CE4700E6896E /* NewFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendViewController.m; sourceTree = "<group>"; };
 		18A3842618C1CB91000EA528 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../../../../../../../Downloads/back.png; sourceTree = "<group>"; };
@@ -212,6 +223,9 @@
 		18A3842518C1CB83000EA528 /* button */ = {
 			isa = PBXGroup;
 			children = (
+				1883925B18C9948000DC5257 /* navBg@2x.png */,
+				1883925918C9933400DC5257 /* btnbg_01.png */,
+				1883925118C98AE000DC5257 /* avatar.png */,
 				18A3842818C1CE14000EA528 /* register.png */,
 				18A3842618C1CB91000EA528 /* back.png */,
 			);
@@ -273,7 +287,7 @@
 		18AFA9FD187B18A500036ED8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				18296DC818C3389100A76D7B /* icpn.png */,
+				1883924A18C9779100DC5257 /* icon.png */,
 				18DF81EC187BBEF7000FDCFF /* Config.h */,
 				18AFA9FE187B18A500036ED8 /* TimelyCommunication-Info.plist */,
 				18AFA9FF187B18A500036ED8 /* InfoPlist.strings */,
@@ -324,6 +338,8 @@
 				1879F34B18C6284D0054C812 /* UserDetailViewController.m */,
 				1879F34D18C62D4B0054C812 /* SearchFriendViewController.h */,
 				1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */,
+				1883925418C98B4900DC5257 /* PersonInfoViewController.h */,
+				1883925518C98B4900DC5257 /* PersonInfoViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -394,6 +410,7 @@
 		18DF825F187BC074000FDCFF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1883925618C98B4900DC5257 /* PersonInfoViewController.xib */,
 				18DF8260187BC074000FDCFF /* MainPageCell.h */,
 				18DF8261187BC074000FDCFF /* MainPageCell.m */,
 				18E7FB3E18BB621400148255 /* LoginView.h */,
@@ -499,12 +516,16 @@
 				18DF826A187BC074000FDCFF /* me.png in Resources */,
 				18A3842918C1CE14000EA528 /* register.png in Resources */,
 				18DF8267187BC074000FDCFF /* sound.png in Resources */,
+				1883924B18C9779100DC5257 /* icon.png in Resources */,
 				18DF826B187BC074000FDCFF /* search.png in Resources */,
 				18A3842718C1CB91000EA528 /* back.png in Resources */,
+				1883925C18C9948000DC5257 /* navBg@2x.png in Resources */,
+				1883925218C98AE000DC5257 /* avatar.png in Resources */,
 				18DF8269187BC074000FDCFF /* contact.png in Resources */,
+				1883925A18C9933400DC5257 /* btnbg_01.png in Resources */,
 				18AFAA0A187B18A500036ED8 /* Main_iPhone.storyboard in Resources */,
 				18AFAA01187B18A500036ED8 /* InfoPlist.strings in Resources */,
-				18296DC918C3389100A76D7B /* icpn.png in Resources */,
+				1883925818C98B4900DC5257 /* PersonInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +602,7 @@
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
+				1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */,
 				18DF8264187BC074000FDCFF /* InputCompent.m in Sources */,
 				18DF824C187BC053000FDCFF /* TextMessage.m in Sources */,
 				18A169BA18C4CE4700E6896E /* NewFriendViewController.m in Sources */,

@@ -18,6 +18,7 @@
 #import "MainPageUIViewController.h"
 #import "TextMessage.h"
 #import "ConversationMgr.h"
+#import "PersonInfoViewController.h"
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -62,6 +63,11 @@
         case 101:
         {
             controller = [[ContactsViewController alloc]init];
+            break;
+        }
+        case 103:
+        {
+            controller = [[PersonInfoViewController alloc]init];
             break;
         }
             
@@ -174,7 +180,6 @@
     
     NSString *domain = [xmppStream.myJID domain];
     
-    //Google set their presence priority to 24, so we do the same to be compatible.
     
     if([domain isEqualToString:@"gmail.com"]
        || [domain isEqualToString:@"gtalk.com"]
@@ -195,9 +200,6 @@
 	[[self xmppStream] sendElement:presence];
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Connect/disconnect
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)anonymousConnection
 {
     NSString *tjid = [[NSString alloc] initWithFormat:@"anonymous@%@", kServerName];
