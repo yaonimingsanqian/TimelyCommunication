@@ -7,6 +7,7 @@
 //
 
 #import "PersonInfoViewController.h"
+#import "ContactsMgr.h"
 
 @interface PersonInfoViewController ()
 
@@ -14,19 +15,42 @@
 
 @implementation PersonInfoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithUser:(User *)auser
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    self = [super init];
+    if(self)
+    {
+        user = auser;
     }
     return self;
 }
-
+- (BOOL)isThePersonMyFriend :(NSString*)name
+{
+    for (NSString *person in [ContactsMgr sharedInstance].friends)
+    {
+        if([person isEqualToString:name])
+            return YES;
+    }
+    return NO;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.username.text = user.username;
+    self.address.text = user.address;
+    self.age.text = user.age;
+    if([user.gender isEqualToString:@"man"])
+    {
+        self.gender.image = [UIImage imageNamed:@"man"];
+    }else
+    {
+        self.gender.image = [UIImage imageNamed:@"woman"];
+    }
+    if([self isThePersonMyFriend:user.username])
+        [self.operation setTitle:@"发送消息" forState:UIControlStateNormal];
+    else
+        [self.operation setTitle:@"加为好友" forState:UIControlStateNormal];
+    
 }
 
 - (void)didReceiveMemoryWarning

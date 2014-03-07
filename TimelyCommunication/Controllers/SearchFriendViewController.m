@@ -11,7 +11,8 @@
 #import "SMClient.h"
 #import "MBProgressHUD.h"
 #import "User.h"
-#import "UserDetailViewController.h"
+
+#import "PersonInfoViewController.h"
 
 @interface SearchFriendViewController ()
 
@@ -73,9 +74,9 @@
         if(results.count > 0)
         {
             User *user = [tmp createUser:[results objectAtIndex:0]];
-            UserDetailViewController *userdetail = [[UserDetailViewController alloc]initWithUser:user];
-            userdetail.hidesBottomBarWhenPushed = YES;
-            [tmp.navigationController pushViewController:userdetail animated:YES];
+            PersonInfoViewController *personinfo = [[PersonInfoViewController alloc]initWithUser:user];
+            personinfo.hidesBottomBarWhenPushed = YES;
+            [tmp.navigationController pushViewController:personinfo animated:YES];
             
         }
         
