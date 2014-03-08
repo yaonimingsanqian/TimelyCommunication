@@ -67,8 +67,8 @@
     [user setValue:self.address forKey:@"address"];
     [user setValue:self.age forKey:@"age"];
     [user setValue:[NSArray arrayWithObject:@"admin"] forKey:@"friends"];
-    [user setValue:nil forKey:@"addMe"];
-    [user setValue:nil forKey:@"addOthers"];
+    [user setValue:nil forKey:@"addme"];
+    [user setValue:nil forKey:@"addothers"];
     [user setValue:nil forKey:@"blacklis"];
     registerSuccess = success;
     User __weak *tmp = self;
@@ -78,8 +78,8 @@
         
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate anonymousConnection];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerSuccess) name:kRegisterSuccess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerSuccess) name:kRegisterFailed object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:tmp selector:@selector(registerSuccess) name:kRegisterSuccess object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:tmp selector:@selector(registerSuccess) name:kRegisterFailed object:nil];
         
     } onFailure:^(NSError *error, NSDictionary *object, NSString *schema_) {
         pFailed(error);

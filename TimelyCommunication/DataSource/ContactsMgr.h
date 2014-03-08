@@ -10,6 +10,6 @@
 
 @interface ContactsMgr : NSObject
 + (ContactsMgr*)sharedInstance;
-@property (nonatomic,strong) NSArray *friends;
+@property (nonatomic,strong) NSMutableArray *friends;
 - (void)parseFriends :(NSDictionary*)friends;
 @end

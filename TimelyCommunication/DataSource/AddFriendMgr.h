@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+typedef void(^AddSuccess)();
+typedef void(^AddFailed)();
 
 @interface AddFriendMgr : NSObject
 + (AddFriendMgr*)sharedInstance;
-- (void)addFriend :(NSString*)userName;
+- (void)addFriend :(NSString*)userName :(AddSuccess)success :(AddFailed)failed;
 @end

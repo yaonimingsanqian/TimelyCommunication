@@ -10,6 +10,7 @@
 #import "ChatViewController.h"
 #import "NewFriendViewController.h"
 #import "SearchFriendViewController.h"
+#import "Config.h"
 @interface ContactsViewController ()
 
 @end
@@ -38,8 +39,28 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:kRefeshcontact object:nil];
 }
-
+- (BOOL)isFriendExist :(NSString*)uname
+{
+    for (NSString *friend in [ContactsMgr sharedInstance].friends)
+    {
+        if([friend isEqualToString:uname])
+            return YES;
+    }
+    return NO;
+}
+- (void)refresh :(NSNotification*)noti
+{
+    NSString *newfriend = [noti object];
+    if(![self isFriendExist:newfriend])
+    {
+        [[ContactsMgr sharedInstance].friends addObject:newfriend];
+       
+    }
+    [self.tableView reloadData];
+    
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

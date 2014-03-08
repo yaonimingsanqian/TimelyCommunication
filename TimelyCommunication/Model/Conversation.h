@@ -20,4 +20,5 @@
 - (void)sendMessage :(TextMessage*)message;
 - (void)saveMsg :(BaseMesage*)message;
 - (NSArray*)loadHistoryMsg :(NSString*)username;
+- (void)pushAgreen :(NSString*)uname;
 @end

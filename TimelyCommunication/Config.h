@@ -39,5 +39,5 @@
 #define kRegisterSuccess @"kRegisterSuccess"
 #define kRegisterFailed @"kRegisterFailed"
 #define kNewTextMsg @"kNewTextMsg"
-
+#define kRefeshcontact @"kRefeshcontact"
 #endif

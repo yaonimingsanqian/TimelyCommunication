@@ -24,6 +24,6 @@ static ContactsMgr *sharedInstance = nil;
     {
         [friendsTmp addObject:username];
     }
-    self.friends = [NSArray arrayWithArray:friendsTmp];
+    self.friends = [NSMutableArray arrayWithArray:friendsTmp];
 }
 @end

@@ -19,6 +19,7 @@
 #import "TextMessage.h"
 #import "ConversationMgr.h"
 #import "PersonInfoViewController.h"
+#import "AgreenApplyMessage.h"
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -209,20 +210,31 @@
         isRegister = YES;
     }
 }
-- (void)sendMsg:(BaseMesage *)msg
+- (NSXMLElement*)createMsg :(BaseMesage*)msg
 {
     NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
     [body setStringValue:msg.msgContent];
 	
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
-    [message addAttributeWithName:@"type" stringValue:@"chat"];
+
     NSString *jid = [[msg.to stringByAppendingString:@"@"] stringByAppendingString:kServerName];
     [message addAttributeWithName:@"to" stringValue:jid];
     [message addAttributeWithName:@"from" stringValue:msg.from];
     [message addAttributeWithName:@"time" stringValue:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]];
 	
     [message addChild:body];
-	
+    return message;
+}
+- (void)pushAgreenMsg:(AgreenApplyMessage *)msg
+{
+    NSXMLElement *message = [self createMsg:msg];
+    [message addAttributeWithName:@"type" stringValue:@"agreen"];
+    [xmppStream sendElement:message];
+}
+- (void)sendMsg:(BaseMesage *)msg
+{
+    NSXMLElement *message = [self createMsg:msg];
+    [message addAttributeWithName:@"type" stringValue:@"chat"];
     [xmppStream sendElement:message];
 }
 - (BOOL)connect
@@ -440,7 +452,7 @@
     }
    
     NSString *user = [[msg.from componentsSeparatedByString:@"@"] objectAtIndex:0];
-    if([msg isKindOfClass:[TextMessage class]] && ![[ConversationMgr sharedInstance] isConversationExist:user])
+    if(([msg isKindOfClass:[TextMessage class]] || [msg isKindOfClass:[AgreenApplyMessage class]]) && ![[ConversationMgr sharedInstance] isConversationExist:user])
     {
         [[ConversationMgr sharedInstance] saveConversation:user];
     }

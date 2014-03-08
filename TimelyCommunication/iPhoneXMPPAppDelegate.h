@@ -8,6 +8,7 @@
 #import "XMPPCapabilities.h"
 #import "XMPPCapabilitiesCoreDataStorage.h"
 #import "SMClient.h"
+#import "AgreenApplyMessage.h"
 #import "BaseMesage.h"
 @class SettingsViewController;
 
@@ -37,7 +38,7 @@
 - (void)anonymousConnection;
 - (void)disconnect;
 - (void)sendMsg :(BaseMesage*)msg;
-
+- (void)pushAgreenMsg :(BaseMesage*)msg;
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *conversationNavi;

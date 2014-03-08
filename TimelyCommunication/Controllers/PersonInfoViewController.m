@@ -8,6 +8,10 @@
 
 #import "PersonInfoViewController.h"
 #import "ContactsMgr.h"
+#import "AddFriendMgr.h"
+#import "MBProgressHUD.h"
+#import "CommonData.h"
+#import "ChatViewController.h"
 
 @interface PersonInfoViewController ()
 
@@ -32,6 +36,26 @@
             return YES;
     }
     return NO;
+}
+- (IBAction)addFriend:(id)sender
+{
+    if([self isThePersonMyFriend:user.username])
+    {
+        ChatViewController *controller = [[ChatViewController alloc]initWithUserName:user.username];
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }else
+    {
+        PersonInfoViewController __weak *tmp = self;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[AddFriendMgr sharedInstance] addFriend:user.username :^{
+            [MBProgressHUD hideAllHUDsForView:tmp.view animated:YES];
+            [tmp.navigationController popViewControllerAnimated:YES];
+        } :^{
+            [MBProgressHUD hideAllHUDsForView:tmp.view animated:YES];
+        }];
+    }
+   
 }
 - (void)viewDidLoad
 {

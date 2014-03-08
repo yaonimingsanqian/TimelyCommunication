@@ -20,4 +20,5 @@
 @property (nonatomic,strong) IBOutlet UILabel *address;
 @property (nonatomic,strong) IBOutlet UILabel *age;
 @property (nonatomic,strong) IBOutlet UIButton *operation;
+- (IBAction)addFriend:(id)sender;
 @end

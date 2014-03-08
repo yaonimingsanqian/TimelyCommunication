@@ -81,6 +81,9 @@
                             <state key="normal" backgroundImage="btnbg_01.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="addFriend:" destination="-1" eventType="touchUpInside" id="yyD-xL-xmO"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.95669157608695654" green="0.95669157608695654" blue="0.95669157608695654" alpha="1" colorSpace="calibratedRGB"/>
