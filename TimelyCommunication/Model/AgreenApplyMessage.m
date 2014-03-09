@@ -7,7 +7,13 @@
 //
 
 #import "AgreenApplyMessage.h"
+#import "Config.h"
 
 @implementation AgreenApplyMessage
 
+- (void)doSelfThing
+{
+    [super doSelfThing];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:[[self.from componentsSeparatedByString:@"@"] objectAtIndex:0]];
+}
 @end

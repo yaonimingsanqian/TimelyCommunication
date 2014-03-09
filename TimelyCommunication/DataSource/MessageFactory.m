@@ -9,6 +9,7 @@
 #import "MessageFactory.h"
 #import "CommonData.h"
 #import "TextMessage.h"
+#import "AgreenApplyMessage.h"
 @implementation MessageFactory
 
 + (BaseMesage*)createMsg:(XMPPMessage *)msg
@@ -16,6 +17,8 @@
     BaseMesage *baseMsg = nil;
     if([[msg type] isEqualToString:@"chat"])
         baseMsg = [[TextMessage alloc]init];
+    if([[msg type]isEqualToString:@"agreen"])
+        baseMsg = [[AgreenApplyMessage alloc]init];
         
     baseMsg.isIncoming = YES;
     baseMsg.from = [msg fromStr];

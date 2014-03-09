@@ -45,6 +45,12 @@
         loginFailed(error);
     }];
 }
+- (void)registerUnSuccess
+{
+    registerFailed(nil);
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kRegisterSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kRegisterFailed object:nil];
+}
 - (void)registerSuccess
 {
     registerSuccess(nil);
@@ -71,6 +77,7 @@
     [user setValue:nil forKey:@"addothers"];
     [user setValue:nil forKey:@"blacklis"];
     registerSuccess = success;
+    registerFailed = pFailed;
     User __weak *tmp = self;
     [[[SMClient defaultClient]dataStore] createObject:user inSchema:@"user" options:option onSuccess:^(NSDictionary *object, NSString *schema_) {
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
@@ -79,7 +86,7 @@
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate anonymousConnection];
         [[NSNotificationCenter defaultCenter] addObserver:tmp selector:@selector(registerSuccess) name:kRegisterSuccess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:tmp selector:@selector(registerSuccess) name:kRegisterFailed object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:tmp selector:@selector(registerUnSuccess) name:kRegisterFailed object:nil];
         
     } onFailure:^(NSError *error, NSDictionary *object, NSString *schema_) {
         pFailed(error);

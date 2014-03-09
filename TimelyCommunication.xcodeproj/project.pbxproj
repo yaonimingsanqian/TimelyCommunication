@@ -32,6 +32,7 @@
 		18AD349418CAEA0800A5DFC6 /* SimpleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD349318CAEA0800A5DFC6 /* SimpleCell.m */; };
 		18AD349818CAEF0500A5DFC6 /* tes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18AD349718CAEF0500A5DFC6 /* tes.xib */; };
 		18AD349D18CB04AB00A5DFC6 /* AgreenApplyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD349C18CB04AB00A5DFC6 /* AgreenApplyMessage.m */; };
+		18AD349F18CB0F4F00A5DFC6 /* mainPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 18AD349E18CB0F4F00A5DFC6 /* mainPage.png */; };
 		18AFA9F7187B18A500036ED8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9F6187B18A500036ED8 /* Foundation.framework */; };
 		18AFA9F9187B18A500036ED8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9F8187B18A500036ED8 /* CoreGraphics.framework */; };
 		18AFA9FB187B18A500036ED8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9FA187B18A500036ED8 /* UIKit.framework */; };
@@ -46,6 +47,9 @@
 		18AFAA23187B18A600036ED8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18AFAA21187B18A600036ED8 /* InfoPlist.strings */; };
 		18AFAA25187B18A600036ED8 /* TimelyCommunicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA24187B18A600036ED8 /* TimelyCommunicationTests.m */; };
 		18B8F77718C4C23700718ADD /* RedBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8F77618C4C23700718ADD /* RedBall.m */; };
+		18D287FC18CC092400638879 /* DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FB18CC092400638879 /* DataStorage.m */; };
+		18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FE18CC09E600638879 /* ConversationHelper.m */; };
+		18D2880218CC178500638879 /* BaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2880118CC178500638879 /* BaseHelper.m */; };
 		18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF822D187BC025000FDCFF /* ChatViewController.m */; };
 		18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF822F187BC025000FDCFF /* ConversationListVC.m */; };
 		18DF8237187BC025000FDCFF /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF8233187BC025000FDCFF /* RootViewController.m */; };
@@ -121,6 +125,7 @@
 		18AD349718CAEF0500A5DFC6 /* tes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = tes.xib; sourceTree = "<group>"; };
 		18AD349B18CB04AB00A5DFC6 /* AgreenApplyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreenApplyMessage.h; sourceTree = "<group>"; };
 		18AD349C18CB04AB00A5DFC6 /* AgreenApplyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreenApplyMessage.m; sourceTree = "<group>"; };
+		18AD349E18CB0F4F00A5DFC6 /* mainPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainPage.png; sourceTree = "<group>"; };
 		18AFA9F3187B18A500036ED8 /* TimelyCommunication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimelyCommunication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFA9F6187B18A500036ED8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18AFA9F8187B18A500036ED8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,6 +144,12 @@
 		18AFAA24187B18A600036ED8 /* TimelyCommunicationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimelyCommunicationTests.m; sourceTree = "<group>"; };
 		18B8F77518C4C23700718ADD /* RedBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedBall.h; sourceTree = "<group>"; };
 		18B8F77618C4C23700718ADD /* RedBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedBall.m; sourceTree = "<group>"; };
+		18D287FA18CC092400638879 /* DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStorage.h; sourceTree = "<group>"; };
+		18D287FB18CC092400638879 /* DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStorage.m; sourceTree = "<group>"; };
+		18D287FD18CC09E600638879 /* ConversationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationHelper.h; sourceTree = "<group>"; };
+		18D287FE18CC09E600638879 /* ConversationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationHelper.m; sourceTree = "<group>"; };
+		18D2880018CC178500638879 /* BaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseHelper.h; sourceTree = "<group>"; };
+		18D2880118CC178500638879 /* BaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseHelper.m; sourceTree = "<group>"; };
 		18DF81EC187BBEF7000FDCFF /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		18DF822C187BC025000FDCFF /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		18DF822D187BC025000FDCFF /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
@@ -152,8 +163,8 @@
 		18DF823C187BC053000FDCFF /* CommonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonData.m; sourceTree = "<group>"; };
 		18DF823D187BC053000FDCFF /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Conversation.h; path = ../Model/Conversation.h; sourceTree = "<group>"; };
 		18DF823E187BC053000FDCFF /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Conversation.m; path = ../Model/Conversation.m; sourceTree = "<group>"; };
-		18DF823F187BC053000FDCFF /* MsgSaveHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSaveHelper.h; sourceTree = "<group>"; };
-		18DF8240187BC053000FDCFF /* MsgSaveHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSaveHelper.m; sourceTree = "<group>"; };
+		18DF823F187BC053000FDCFF /* MsgSaveHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MsgSaveHelper.h; path = ../Model/MsgSaveHelper.h; sourceTree = "<group>"; };
+		18DF8240187BC053000FDCFF /* MsgSaveHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MsgSaveHelper.m; path = ../Model/MsgSaveHelper.m; sourceTree = "<group>"; };
 		18DF8243187BC053000FDCFF /* TextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessage.h; sourceTree = "<group>"; };
 		18DF8244187BC053000FDCFF /* TextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessage.m; sourceTree = "<group>"; };
 		18DF8251187BC074000FDCFF /* ChatViewCompent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewCompent.h; sourceTree = "<group>"; };
@@ -221,6 +232,14 @@
 				18296DD118C3417C00A76D7B /* ConversationMgr.m */,
 				18AD348A18CA228300A5DFC6 /* AddFriendMgr.h */,
 				18AD348B18CA228300A5DFC6 /* AddFriendMgr.m */,
+				18D287FA18CC092400638879 /* DataStorage.h */,
+				18D287FB18CC092400638879 /* DataStorage.m */,
+				18D287FD18CC09E600638879 /* ConversationHelper.h */,
+				18D287FE18CC09E600638879 /* ConversationHelper.m */,
+				18D2880018CC178500638879 /* BaseHelper.h */,
+				18D2880118CC178500638879 /* BaseHelper.m */,
+				18DF823F187BC053000FDCFF /* MsgSaveHelper.h */,
+				18DF8240187BC053000FDCFF /* MsgSaveHelper.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -243,6 +262,7 @@
 		1883925D18CA17DC00DC5257 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				18AD349E18CB0F4F00A5DFC6 /* mainPage.png */,
 				18AD348818CA1A2C00A5DFC6 /* line.png */,
 				18AD348418CA196F00A5DFC6 /* man.png */,
 				18AD348518CA196F00A5DFC6 /* woman.png */,
@@ -380,8 +400,6 @@
 				18DF823A187BC053000FDCFF /* BaseMesage.m */,
 				18DF823B187BC053000FDCFF /* CommonData.h */,
 				18DF823C187BC053000FDCFF /* CommonData.m */,
-				18DF823F187BC053000FDCFF /* MsgSaveHelper.h */,
-				18DF8240187BC053000FDCFF /* MsgSaveHelper.m */,
 				18DF8243187BC053000FDCFF /* TextMessage.h */,
 				18DF8244187BC053000FDCFF /* TextMessage.m */,
 				18E7FB4418BB63E300148255 /* User.h */,
@@ -542,6 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18AFAA0D187B18A500036ED8 /* Main_iPad.storyboard in Resources */,
+				18AD349F18CB0F4F00A5DFC6 /* mainPage.png in Resources */,
 				18DF8265187BC074000FDCFF /* face.png in Resources */,
 				18DF8266187BC074000FDCFF /* more.png in Resources */,
 				18DF8268187BC074000FDCFF /* chat.png in Resources */,
@@ -635,9 +654,12 @@
 				18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */,
 				18B8F77718C4C23700718ADD /* RedBall.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
+				18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
+				18D2880218CC178500638879 /* BaseHelper.m in Sources */,
 				18E7FB4018BB621400148255 /* LoginView.m in Sources */,
 				18AD349018CAE4EF00A5DFC6 /* NewFriendViewController.m in Sources */,
+				18D287FC18CC092400638879 /* DataStorage.m in Sources */,
 				18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */,
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
 				18AD349D18CB04AB00A5DFC6 /* AgreenApplyMessage.m in Sources */,

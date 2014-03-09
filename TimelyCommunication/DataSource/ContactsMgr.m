@@ -16,8 +16,18 @@ static ContactsMgr *sharedInstance = nil;
         sharedInstance = [[ContactsMgr alloc]init];
     return sharedInstance;
 }
+- (BOOL)isConversationExist:(NSString *)conName
+{
+    for (NSString *name in self.friends)
+    {
+        if([name isEqualToString:conName])
+            return YES;
+    }
+    return NO;
+}
 - (void)parseFriends:(NSDictionary *)userInfo
 {
+    
     NSMutableArray *friendsTmp = [[NSMutableArray alloc]init];
     NSArray *friendsInfo = [userInfo objectForKey:@"friends"];
     for (NSString *username in friendsInfo)

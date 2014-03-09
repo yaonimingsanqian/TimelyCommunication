@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 zhao. All rights reserved.
 //
 
-#import "BaseMesage.h"
+#import "TextMessage.h"
 
-@interface AgreenApplyMessage : BaseMesage
+@interface AgreenApplyMessage :TextMessage
 
 @end

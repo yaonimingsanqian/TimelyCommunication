@@ -29,15 +29,19 @@
     [MBProgressHUD showHUDAddedTo:loginView animated:YES ];
     login = [[User alloc]init];
     login.password = [loginView password];
-    login.username = [loginView account];
-    LoginViewController __weak *tmp = self;
+    login.username = [[loginView account] lowercaseString];
     [login login:^(NSDictionary *success) {
-        [MBProgressHUD hideAllHUDsForView:tmp.loginView animated:YES];
+        [MBProgressHUD hideHUDForView:loginView animated:YES];
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate connect];
         [delegate turnToMainPage];
     } :^(NSError *error) {
-        
+         [MBProgressHUD hideHUDForView:loginView animated:YES];
+        NSDictionary *userinfo = [error userInfo];
+        NSString *msg = [userinfo objectForKey:@"error_description"];
+       
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alert show];
     }];
     
     

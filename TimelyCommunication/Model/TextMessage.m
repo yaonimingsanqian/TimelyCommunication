@@ -10,6 +10,7 @@
 #import "ConversationMgr.h"
 #import "Config.h"
 #import "Conversation.h"
+#import "DataStorage.h"
 @implementation TextMessage
 
 - (void)doSelfThing
@@ -25,7 +26,7 @@
     }
     if(!isExcute)
         [[ConversationMgr sharedInstance].conversations addObject:self.conversationId];
-    [[Conversation sharedInstance] saveMsg:self];
+    [[DataStorage sharedInstance] saveMsg:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:[[self.from componentsSeparatedByString:@"@"] objectAtIndex:0]];
 }
 - (void)postLocalNotifaction

@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "FMDatabase.h"
 #import "BaseMesage.h"
+#import "TextMessage.h"
+#import "BaseHelper.h"
 typedef void(^LoadMsgComplete)(NSArray* msgArray);
-@interface MsgSaveHelper : NSObject
-{
-    //LoadMsgComplete loadHistoryMsgComplete;
-}
+@interface MsgSaveHelper : BaseHelper
 - (BOOL)saveMsg :(BaseMesage*)msg;
 - (NSArray*)loadHistoryMsg :(NSString*)conversationId;
+- (void)loadHistoryMsg :(NSString*)conversationId :(LoadMsgComplete)complete;
+- (TextMessage*)queryLastMsg :(NSString*)username :(NSString*)conId;
 @end

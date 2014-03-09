@@ -10,7 +10,7 @@
 #import "Config.h"
 #import "iPhoneXMPPAppDelegate.h"
 #import "CommonData.h"
-
+#import "AgreenApplyMessage.h"
 static Conversation *sharedInstance = nil;
 @implementation Conversation
 
@@ -20,33 +20,14 @@ static Conversation *sharedInstance = nil;
         sharedInstance = [[Conversation alloc]init];
     return sharedInstance;
 }
-- (id)init
-{
-    self = [super init];
-    if(self)
-    {
-        msgSaveHelper = [[MsgSaveHelper alloc]init];
-    }
-    return self;
-}
 - (void)sendMessage:(TextMessage *)message
 {
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [delegate sendMsg:message];
 }
-- (void)saveMsg:(BaseMesage *)message
-{
-    [msgSaveHelper saveMsg:message];
-}
-- (NSArray*)loadHistoryMsg :(NSString*)username
-{
-    NSArray *msgs = [msgSaveHelper loadHistoryMsg:username];
-    
-    return msgs;
-}
 - (void)pushAgreen:(NSString *)uname
 {
-    TextMessage *message = [[TextMessage alloc]init];
+    AgreenApplyMessage *message = [[AgreenApplyMessage alloc]init];
     message.msgContent = @"我已经添加你为好友了";
     message.type = MessageText;
     message.sendDate = [NSDate date];
@@ -55,7 +36,7 @@ static Conversation *sharedInstance = nil;
     message.from = [CommonData sharedCommonData].curentUser.username;
     message.isIncoming = NO;
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [delegate sendMsg:message];
+    [delegate pushAgreenMsg:message];
     
     
 }

@@ -20,6 +20,7 @@
 #import "ConversationMgr.h"
 #import "PersonInfoViewController.h"
 #import "AgreenApplyMessage.h"
+#import "DataStorage.h"
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -99,8 +100,14 @@
     
     self.conversationNavi = [self createTabBarItem:@"会话" :@"chat.png" :100];
     self.contactNavi = [self createTabBarItem:@"通讯录" :@"contact.png" :101];
+   // [self.conversationNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
+  //  [self.contactNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
+  
+
     self.searchNavi = [self createTabBarItem:@"发现" :@"search.png" :102];
+   //   [self.searchNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
     self.meNavi = [self createTabBarItem:@"我" :@"me.png" :103];
+   // [self.meNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
     
     NSMutableArray *controllers=[[NSMutableArray alloc]initWithObjects:self.conversationNavi,self.self.contactNavi,self.searchNavi,self.meNavi,nil];
     [tabBarController setViewControllers:controllers];
@@ -110,6 +117,7 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
     self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];
 	[self setupStream];
 	self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -160,7 +168,7 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.1.104"];
+	[xmppStream setHostName:@"192.168.1.101"];
 	[xmppStream setHostPort:5222];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;
@@ -454,7 +462,7 @@
     NSString *user = [[msg.from componentsSeparatedByString:@"@"] objectAtIndex:0];
     if(([msg isKindOfClass:[TextMessage class]] || [msg isKindOfClass:[AgreenApplyMessage class]]) && ![[ConversationMgr sharedInstance] isConversationExist:user])
     {
-        [[ConversationMgr sharedInstance] saveConversation:user];
+        [[DataStorage sharedInstance] saveConversation:user];
     }
     [msg doSelfThing];
 }

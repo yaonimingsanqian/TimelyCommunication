@@ -10,6 +10,7 @@
 #import "TextMessage.h"
 #import "iPhoneXMPPAppDelegate.h"
 #import "ConversationMgr.h"
+#import "DataStorage.h"
 
 @interface ChatViewController ()
 
@@ -29,8 +30,13 @@
     message.isIncoming = NO;
     [messageArray addObject:message];
     [[Conversation sharedInstance] sendMessage:message];
-    [[Conversation sharedInstance] saveMsg:message];
+    [[DataStorage sharedInstance] saveMsg:message];
     [chatViewCompent reloadData];
+    if(![[ConversationMgr sharedInstance] isConversationExist:username])
+    {
+        [[ConversationMgr sharedInstance].conversations addObject:username];
+        [[DataStorage sharedInstance] saveConversation:username];
+    }
 }
 #pragma mark - HPLChatTableViewDataSource
 - (NSInteger)numberOfRowsForChatTable:(HPLChatTableView *)tableView
@@ -58,22 +64,23 @@
 }
 - (void)receiveNewMsg
 {
-    [[ConversationMgr sharedInstance] updateConversation:username :NO];
-    messageArray = [NSMutableArray arrayWithArray:[[Conversation sharedInstance] loadHistoryMsg:username]];
+    [[DataStorage sharedInstance] updateConversation:username :NO];
+    messageArray = [NSMutableArray arrayWithArray:[[DataStorage sharedInstance] loadHistoryMsg:username]];
     [chatViewCompent reloadData];
 }
 #pragma mark - 系统方法
 - (void)viewDidLoad
 {
+   
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     chatViewCompent = [[ChatViewCompent alloc]initWithFrame:[[UIScreen mainScreen] bounds] delegate:self];
     
     chatViewCompent.delegate = self;
     [self.view addSubview:chatViewCompent];
-    messageArray = [NSMutableArray arrayWithArray:[[Conversation sharedInstance] loadHistoryMsg:username] ];
+    messageArray = [NSMutableArray arrayWithArray:[[DataStorage sharedInstance] loadHistoryMsg:username] ];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg) name:kNewTextMsg object:nil];
-     [[ConversationMgr sharedInstance] updateConversation:username :NO];
+     [[DataStorage sharedInstance] updateConversation:username :NO];
     
 }
 

@@ -12,13 +12,8 @@
 #import "MsgSaveHelper.h"
 
 @interface Conversation : NSObject
-{
-    MsgSaveHelper *msgSaveHelper;
-}
 
 + (Conversation*)sharedInstance;
 - (void)sendMessage :(TextMessage*)message;
-- (void)saveMsg :(BaseMesage*)message;
-- (NSArray*)loadHistoryMsg :(NSString*)username;
 - (void)pushAgreen :(NSString*)uname;
 @end

@@ -43,8 +43,63 @@
     return YES;
     
 }
+
+- (TextMessage*)queryLastMsg:(NSString *)username :(NSString*)conId
+{
+    NSString *queryStr = [NSString stringWithFormat:@"SELECT * FROM %@ where conversationId=? ORDER BY messageId DESC limit 0,1",kMsgTableName];
+    FMDatabase *db = [FMDatabase databaseWithPath:DATABASE_PATH(username)];
+    [db open];
+    
+    FMResultSet *rs = [db executeQuery:queryStr,conId];
+    while (rs.next)
+    {
+        TextMessage *msg = [[TextMessage alloc]init];
+        msg.messageId = [rs stringForColumn:@"messageId"];
+        msg.type = [rs stringForColumn:@"type"];
+        msg.from = [rs stringForColumn:@"from"];
+        msg.to = [rs stringForColumn:@"to"];
+        msg.msgContent = [rs stringForColumn:@"msgContent"];
+        msg.sendDate = [rs dateForColumn:@"sendDate"];
+        msg.conversationId = [rs stringForColumn:@"conversationId"];
+        msg.isIncoming = [rs intForColumn:@"isIncoming"];
+        [db close];
+        return msg;
+    }
+    [db close];
+    return nil;
+    
+}
+- (void)loadHistoryMsg:(NSString *)conversationId :(LoadMsgComplete)complete
+{
+    if(![self isTableOK:kMsgTableName]) return;
+    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
+    user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
+    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DATABASE_PATH(user)];
+    [queue inDatabase:^(FMDatabase *db) {
+        NSMutableArray *msgSet = [[NSMutableArray alloc]init];
+        NSString *sql = [NSString stringWithFormat:@"select * from %@ where conversationId=?",kMsgTableName];
+        
+        FMResultSet *rs = [db executeQuery:sql,conversationId];
+        while (rs.next)
+        {
+            BaseMesage *msg = [[BaseMesage alloc]init];
+            msg.messageId = [rs stringForColumn:@"messageId"];
+            msg.type = [rs stringForColumn:@"type"];
+            msg.from = [rs stringForColumn:@"from"];
+            msg.to = [rs stringForColumn:@"to"];
+            msg.msgContent = [rs stringForColumn:@"msgContent"];
+            msg.sendDate = [rs dateForColumn:@"sendDate"];
+            msg.conversationId = [rs stringForColumn:@"conversationId"];
+            msg.isIncoming = [rs intForColumn:@"isIncoming"];
+            [msgSet addObject:msg];
+        }
+        [db close];
+        complete(msgSet);
+    }];
+}
 - (NSArray*)loadHistoryMsg:(NSString *)conversationId
 {
+    if(![self isTableOK:kMsgTableName]) return nil;
     NSMutableArray *msgSet = [[NSMutableArray alloc]init];
     NSString *sql = [NSString stringWithFormat:@"select * from %@ where conversationId=?",kMsgTableName];
     NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];

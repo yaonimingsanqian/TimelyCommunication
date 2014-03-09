@@ -12,6 +12,7 @@ typedef enum
     MessageText,
     MessageImage,
     MEssageAudion
+    
 }MessageType;
 @interface BaseMesage : NSObject
 

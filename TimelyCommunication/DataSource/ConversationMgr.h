@@ -12,9 +12,5 @@
 
 + (ConversationMgr*)sharedInstance;
 @property (nonatomic,strong) NSMutableArray *conversations;
-- (void)saveConversation :(NSString*)con;
 - (BOOL)isConversationExist :(NSString*)con;
-- (void)queryConversation;
-- (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;
-- (int)queryNotReadCount :(NSString*)conversationName;
 @end

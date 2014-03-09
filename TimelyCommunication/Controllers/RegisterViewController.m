@@ -37,7 +37,7 @@
 {
     user = nil;
     user = [[User alloc]init];
-    user.username = [registerView.account text];
+    user.username = [[registerView.account text] lowercaseString];
     user.password = [registerView.pass text];
     user.age = [registerView.age text];
     user.gender = [registerView.gender text];
