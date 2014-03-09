@@ -13,11 +13,16 @@
 #import "ChatViewController.h"
 #import "RedBall.h"
 #import "MainPageCell.h"
+#import "NavigationControllerTitle.h"
 @interface MainPageUIViewController ()
 
 @end
 @implementation MainPageUIViewController
 
+- (void)dealloc
+{
+    NSLog(@"MainPageUIViewController dealloc");
+}
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -29,7 +34,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"会话"];
     [self.tableView reloadData];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
 }
 - (void)receiveNewMsg :(NSNotification*)noti
 {
@@ -127,6 +138,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChatViewController *chatVC = [[ChatViewController alloc]initWithUserName:[[ConversationMgr sharedInstance].conversations objectAtIndex:indexPath.row]];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    self.navigationItem.backBarButtonItem = backItem;
+    backItem.title = @"返回";
     chatVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatVC animated:YES];
 }

@@ -9,7 +9,10 @@
 #import "CommonData.h"
 static CommonData *sharedInstance = nil;
 @implementation CommonData
-
++ (void)destory
+{
+    sharedInstance = nil;
+}
 +(CommonData*)sharedCommonData
 {
     if(!sharedInstance)

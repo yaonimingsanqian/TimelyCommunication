@@ -21,6 +21,10 @@ static ConversationMgr *sharedInstance = nil;
         sharedInstance = [[ConversationMgr alloc]init];
     return sharedInstance;
 }
++ (void)destory
+{
+    sharedInstance = nil;
+}
 - (id)init
 {
     self = [super init];

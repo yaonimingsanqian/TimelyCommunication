@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 #import "CommonData.h"
 #import "ChatViewController.h"
+#import "NavigationControllerTitle.h"
 
 @interface PersonInfoViewController ()
 
@@ -36,6 +37,16 @@
             return YES;
     }
     return NO;
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"详细资料"];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
 }
 - (IBAction)addFriend:(id)sender
 {

@@ -16,6 +16,7 @@
     ConversationHelper *conversationHelper;
 }
 + (DataStorage*)sharedInstance;
++ (void)destory;
 - (void)saveConversation :(NSString*)con;
 - (void)queryConversation;
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;

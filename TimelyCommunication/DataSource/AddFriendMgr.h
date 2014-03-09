@@ -12,5 +12,6 @@ typedef void(^AddFailed)();
 
 @interface AddFriendMgr : NSObject
 + (AddFriendMgr*)sharedInstance;
++ (void)destory;
 - (void)addFriend :(NSString*)userName :(AddSuccess)success :(AddFailed)failed;
 @end

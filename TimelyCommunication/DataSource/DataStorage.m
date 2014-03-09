@@ -18,6 +18,10 @@ static DataStorage *sharedInyance = nil;
         sharedInyance = [[DataStorage alloc]init];
     return sharedInyance;
 }
++ (void)destory
+{
+    sharedInyance = nil;
+}
 - (id)init
 {
     self = [super init];

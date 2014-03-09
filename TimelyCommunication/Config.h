@@ -10,10 +10,10 @@
 #define HLPChatVoewDemo_Config_h
 
 #pragma - mark -会话页面的宏定义
-#define kChatViewFrame CGRectMake(0, 0, 320, 520)//520
-#define kChatViewFrameForIPHONE4 CGRectMake(0, 0, 320, 420)
-#define kInputViewFrame CGRectMake(0, 520, 320, 48)
-#define kInputViewFrameForIPHONE4 CGRectMake(0, 432, 320, 48)
+#define kChatViewFrame CGRectMake(0, 0, 320, 568-48)//520
+#define kChatViewFrameForIPHONE4 CGRectMake(0, 0, 320, 480-48-64)
+#define kInputViewFrame CGRectMake(0, 568-48, 320, 48)
+#define kInputViewFrameForIPHONE4 CGRectMake(0, 480-48-64, 320, 48)//432
 #define kInputViewColor [UIColor colorWithRed:211/255.f green:211/255.f blue:211/255.f alpha:1.f];
 #define kSoundAndTextBtnFrame CGRectMake(5, 14, 20, 20)
 #define kInputTextFrame CGRectMake(35, 10, 220, 28)

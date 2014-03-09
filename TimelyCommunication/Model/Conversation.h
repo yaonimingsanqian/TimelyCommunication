@@ -14,6 +14,7 @@
 @interface Conversation : NSObject
 
 + (Conversation*)sharedInstance;
++ (void)destory;
 - (void)sendMessage :(TextMessage*)message;
 - (void)pushAgreen :(NSString*)uname;
 @end

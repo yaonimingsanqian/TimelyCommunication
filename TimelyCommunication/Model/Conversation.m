@@ -14,6 +14,10 @@
 static Conversation *sharedInstance = nil;
 @implementation Conversation
 
++ (void)destory
+{
+    sharedInstance = nil;
+}
 + (Conversation*)sharedInstance
 {
     if(!sharedInstance)

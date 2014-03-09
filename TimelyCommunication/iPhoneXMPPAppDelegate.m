@@ -22,7 +22,7 @@
 #import "AgreenApplyMessage.h"
 #import "DataStorage.h"
 #import "RedBall.h"
-
+#import "SelfInfoViewController.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -70,7 +70,7 @@
         }
         case 103:
         {
-            controller = [[PersonInfoViewController alloc]init];
+            controller = [[SelfInfoViewController alloc]init];
             break;
         }
             
@@ -88,11 +88,6 @@
     conversationList.tabBarItem=[[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:imageName] tag:tag];
     
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:conversationList];
-    UILabel *naviTitle = [[UILabel alloc]initWithFrame:CGRectMake(140, 10, 100, 20)];
-    naviTitle.tag = 100;
-    naviTitle.text = title;
-    // navi.navigationBar.tintColor = [UIColor blackColor];
-    [navi.navigationBar addSubview:naviTitle];
     return navi;
 }
 - (void)turnToMainPage
@@ -101,20 +96,23 @@
     
     self.conversationNavi = [self createTabBarItem:@"会话" :@"chat.png" :100];
     self.contactNavi = [self createTabBarItem:@"通讯录" :@"contact.png" :101];
-   // [self.conversationNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
-  //  [self.contactNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.conversationNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbottom.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.contactNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbottom.png"] forBarMetrics:UIBarMetricsDefault];
   
 
     self.searchNavi = [self createTabBarItem:@"发现" :@"search.png" :102];
    //   [self.searchNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
     self.meNavi = [self createTabBarItem:@"我" :@"me.png" :103];
-   // [self.meNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.meNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbottom.png"] forBarMetrics:UIBarMetricsDefault];
     
     NSMutableArray *controllers=[[NSMutableArray alloc]initWithObjects:self.conversationNavi,self.self.contactNavi,self.searchNavi,self.meNavi,nil];
     [tabBarController setViewControllers:controllers];
     tabBarController.delegate=self;
+    [tabBarController.tabBar setTintColor:[UIColor colorWithRed:69/255.f green:151/255.f blue:36/255.f alpha:1.f]];
+    [tabBarController.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbarbottom.png"]];
     self.window.rootViewController = nil;
     self.window.rootViewController = tabBarController;
+    
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -283,6 +281,7 @@
 {
 	[self goOffline];
 	[xmppStream disconnect];
+    //[self teardownStream];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

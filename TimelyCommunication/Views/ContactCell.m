@@ -2,7 +2,7 @@
 //  ContactCell.m
 //  TimelyCommunication
 //
-//  Created by zhao on 14-3-2.
+//  Created by zhao on 14-3-9.
 //  Copyright (c) 2014年 zhao. All rights reserved.
 //
 

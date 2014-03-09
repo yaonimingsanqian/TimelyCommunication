@@ -38,6 +38,7 @@
     [super viewDidLoad];
     SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
     [query where:@"username" isEqualTo:[CommonData sharedCommonData].curentUser.username];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
         if(results.count > 0)
         {
@@ -45,10 +46,12 @@
             NSArray *addme = [info objectForKey:@"addme"];
             addmes = [NSMutableArray arrayWithArray:addme];
             [self.tableView reloadData];
-            
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     } onFailure:^(NSError *error) {
-
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"数据请求发生错误" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alert show];
     }];
     self.tableView.separatorColor = [UIColor whiteColor];
 }

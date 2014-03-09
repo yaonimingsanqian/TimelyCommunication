@@ -11,6 +11,7 @@
 @interface ConversationMgr : NSObject
 
 + (ConversationMgr*)sharedInstance;
++ (void)destory;
 @property (nonatomic,strong) NSMutableArray *conversations;
 - (BOOL)isConversationExist :(NSString*)con;
 @end

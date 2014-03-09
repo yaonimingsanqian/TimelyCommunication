@@ -18,6 +18,10 @@ static AddFriendMgr *shared = nil;
         shared = [[AddFriendMgr alloc]init];
     return shared;
 }
++ (void)destory
+{
+    shared = nil;
+}
 - (BOOL)isMeHasSendRqquest :(NSArray*)members
 {
     NSString *myName = [CommonData sharedCommonData].curentUser.username;

@@ -59,7 +59,7 @@
 }
 + (UIView*)createRedBallWithoutNumber
 {
-    UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(40, 540, 10, 10)];
+    UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(40, [UIScreen mainScreen].bounds.size.height-28, 10, 10)];
     portrait.backgroundColor = [UIColor redColor];
     portrait.layer.masksToBounds = YES;
     portrait.layer.cornerRadius = portrait.frame.size.width/2.f;

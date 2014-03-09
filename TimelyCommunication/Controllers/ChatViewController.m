@@ -11,6 +11,7 @@
 #import "iPhoneXMPPAppDelegate.h"
 #import "ConversationMgr.h"
 #import "DataStorage.h"
+#import "NavigationControllerTitle.h"
 
 @interface ChatViewController ()
 
@@ -70,18 +71,30 @@
     [chatViewCompent reloadData];
 }
 #pragma mark - 系统方法
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
+    
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :username];
+}
 - (void)viewDidLoad
 {
    
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    chatViewCompent = [[ChatViewCompent alloc]initWithFrame:[[UIScreen mainScreen] bounds] delegate:self];
+    chatViewCompent = [[ChatViewCompent alloc]initWithFrame:CGRectMake(0, 0, 320, [[UIScreen mainScreen] bounds].size.height) delegate:self];
     
     chatViewCompent.delegate = self;
     [self.view addSubview:chatViewCompent];
     messageArray = [NSMutableArray arrayWithArray:[[DataStorage sharedInstance] loadHistoryMsg:username] ];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg) name:kNewTextMsg object:nil];
      [[DataStorage sharedInstance] updateConversation:username :NO];
+
     
 }
 

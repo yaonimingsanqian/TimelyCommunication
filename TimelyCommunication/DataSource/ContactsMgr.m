@@ -16,6 +16,10 @@ static ContactsMgr *sharedInstance = nil;
         sharedInstance = [[ContactsMgr alloc]init];
     return sharedInstance;
 }
++ (void)destory
+{
+    sharedInstance = nil;
+}
 - (BOOL)isConversationExist:(NSString *)conName
 {
     for (NSString *name in self.friends)
