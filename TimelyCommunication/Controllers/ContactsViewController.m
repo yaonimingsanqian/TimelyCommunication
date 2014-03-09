@@ -109,6 +109,7 @@
         if(indexPath.row == 0)
         {
             NewFriendViewController *newfriendVC = [[NewFriendViewController alloc]init];
+            newfriendVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:newfriendVC animated:YES];
             return;
         }else

@@ -136,7 +136,7 @@
             NSMutableArray *newFriends = [NSMutableArray arrayWithArray:friends];
             if(![self isFriendExist:username :newFriends])
                [newFriends addObject:username];
-            NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:newFriends,@"friends",apply.count>0?apply:nil,@"addme", nil];
+            NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:newFriends,@"friends",apply,@"addme", nil];
             
             //更新当前用户的 friend列表和申请列表
             [[[SMClient defaultClient] dataStore] updateObjectWithId:[CommonData sharedCommonData].curentUser.username inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
