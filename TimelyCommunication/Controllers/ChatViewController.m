@@ -20,6 +20,7 @@
 #pragma mark - ChatDelegate
 - (void)sendTextMessage:(NSString *)text
 {
+    if(text.length <= 0) return;
     TextMessage *message = [[TextMessage alloc]init];
     message.msgContent = text;
     message.type = MessageText;
@@ -89,5 +90,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)dealloc
+{
+    NSLog(@"ChatViewController dealloc");
+}
 @end

@@ -21,6 +21,7 @@
 #import "PersonInfoViewController.h"
 #import "AgreenApplyMessage.h"
 #import "DataStorage.h"
+#import "RedBall.h"
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -451,6 +452,14 @@
      [[NSNotificationCenter defaultCenter] postNotificationName:kRegisterFailed object:nil];
 }
 
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    if(viewController == self.conversationNavi)
+    {
+        UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+        [[tabBarController.view viewWithTag:111] removeFromSuperview];
+    }
+}
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
     BaseMesage *msg = [MessageFactory createMsg:message];
@@ -464,6 +473,15 @@
     {
         [[DataStorage sharedInstance] saveConversation:user];
     }
+    UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+    if(tabBarController.selectedIndex != 0 && ![tabBarController.view viewWithTag:111])
+    {
+        UIView *red = [RedBall createRedBallWithoutNumber];
+        red.tag = 111;
+        //red.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+        [tabBarController.view addSubview:red];
+    }
+    
     [msg doSelfThing];
 }
 @end

@@ -11,4 +11,5 @@
 
 + (UIView*)createRedBall :(int)count;
 + (UIView*)createTimeCompent :(NSDate*)date;
++ (UIView*)createRedBallWithoutNumber;
 @end

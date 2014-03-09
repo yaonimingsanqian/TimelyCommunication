@@ -57,6 +57,15 @@
     msgDateLabel.text = [formatter stringFromDate:date];
     return msgDateLabel;
 }
++ (UIView*)createRedBallWithoutNumber
+{
+    UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(40, 540, 10, 10)];
+    portrait.backgroundColor = [UIColor redColor];
+    portrait.layer.masksToBounds = YES;
+    portrait.layer.cornerRadius = portrait.frame.size.width/2.f;
+    portrait.tag = 13;
+    return portrait;
+}
 
 + (UIView*)createRedBall:(int)count
 {

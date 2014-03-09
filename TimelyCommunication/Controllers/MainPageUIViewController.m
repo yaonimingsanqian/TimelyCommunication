@@ -16,7 +16,6 @@
 @interface MainPageUIViewController ()
 
 @end
-
 @implementation MainPageUIViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -115,8 +114,8 @@
     [self clearRedBall:cell];
    
     cell.uname.text = con;
-    
-    UIView *notRead = [RedBall createRedBall:[[DataStorage sharedInstance] queryNotReadCount:con]];
+    int count = [[DataStorage sharedInstance] queryNotReadCount:con];
+    UIView *notRead = [RedBall createRedBall:count];
     CGRect frame = notRead.frame;
     frame.origin.y = (cell.frame.size.height - frame.size.height)/2.f;
     notRead.frame = frame;
