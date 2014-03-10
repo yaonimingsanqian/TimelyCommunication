@@ -19,7 +19,6 @@
 		1883925A18C9933400DC5257 /* btnbg_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925918C9933400DC5257 /* btnbg_01.png */; };
 		1883925C18C9948000DC5257 /* navBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925B18C9948000DC5257 /* navBg@2x.png */; };
 		1883925F18CA17FC00DC5257 /* personavatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925E18CA17FC00DC5257 /* personavatar.png */; };
-		18A3842718C1CB91000EA528 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842618C1CB91000EA528 /* back.png */; };
 		18A3842918C1CE14000EA528 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842818C1CE14000EA528 /* register.png */; };
 		18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */; };
 		18A3843618C2E69C000EA528 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3843518C2E69C000EA528 /* ContactsViewController.m */; };
@@ -116,7 +115,6 @@
 		1883925918C9933400DC5257 /* btnbg_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnbg_01.png; sourceTree = "<group>"; };
 		1883925B18C9948000DC5257 /* navBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBg@2x.png"; sourceTree = "<group>"; };
 		1883925E18CA17FC00DC5257 /* personavatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personavatar.png; sourceTree = "<group>"; };
-		18A3842618C1CB91000EA528 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../../../../../../../Downloads/back.png; sourceTree = "<group>"; };
 		18A3842818C1CE14000EA528 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
 		18A3842A18C1F898000EA528 /* iPhoneXMPPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneXMPPAppDelegate.h; sourceTree = "<group>"; };
 		18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneXMPPAppDelegate.m; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 				1883925918C9933400DC5257 /* btnbg_01.png */,
 				1883925118C98AE000DC5257 /* avatar.png */,
 				18A3842818C1CE14000EA528 /* register.png */,
-				18A3842618C1CB91000EA528 /* back.png */,
 			);
 			path = button;
 			sourceTree = "<group>";
@@ -623,7 +620,6 @@
 				18DF8267187BC074000FDCFF /* sound.png in Resources */,
 				1883924B18C9779100DC5257 /* icon.png in Resources */,
 				18DF826B187BC074000FDCFF /* search.png in Resources */,
-				18A3842718C1CB91000EA528 /* back.png in Resources */,
 				18D2882418CCABBF00638879 /* searchfriend.png in Resources */,
 				1883925C18C9948000DC5257 /* navBg@2x.png in Resources */,
 				18D2880A18CC3F5400638879 /* contact.png in Resources */,
