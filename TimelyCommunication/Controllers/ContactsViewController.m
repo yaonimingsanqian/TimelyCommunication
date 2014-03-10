@@ -13,6 +13,9 @@
 #import "Config.h"
 #import "NavigationControllerTitle.h"
 #import "ContactCell.h"
+#import "SMQuery.h"
+#import "SMClient.h"
+#import "CommonData.h"
 @interface ContactsViewController ()
 
 @end
@@ -182,7 +185,57 @@
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView setEditing:NO animated:YES];
+    //更新自己的朋友列表
+    [[ContactsMgr sharedInstance].friends removeObjectAtIndex:indexPath.row];
+    [tableView reloadData];
+    NSString *friendId = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
+    NSString *meId = [CommonData sharedCommonData].curentUser.username;
+    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
+    [query where:@"username" isEqualTo:meId];
+    [[[SMClient defaultClient] dataStore] performQuery:query  onSuccess:^(NSArray *results) {
+        NSDictionary *meinfo = [results objectAtIndex:0];
+        NSMutableArray *friends = [NSMutableArray arrayWithArray:[meinfo objectForKey:@"friends"]];
+        for (NSString *friend in friends)
+        {
+            if([friend isEqualToString:friendId])
+            {
+                [friends removeObject:friend];
+                break;
+            }
+        }
+        NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:friends,@"friends", nil];
+        [[[SMClient defaultClient] dataStore] updateObjectWithId:meId inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
+            //更新对方的朋友列表
+            SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
+            [query where:@"username" isEqualTo:friendId];
+            [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
+                NSDictionary *userinfo = [results objectAtIndex:0];
+                NSMutableArray *friends = [NSMutableArray arrayWithArray:[userinfo objectForKey:@"friends"]];
+                for (NSString *friend in friends)
+                {
+                    if([friend isEqualToString:meId])
+                    {
+                        [friends removeObject:friend];
+                        break;
+                    }
+                }
+                NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:friends,@"friends", nil];
+                [[[SMClient defaultClient] dataStore] updateObjectWithId:friendId inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
+                    //发送推送给对方
+                } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
+                    
+                }];
+            } onFailure:^(NSError *error) {
+                
+            }];
+            
+        } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
+            
+        }];
+    } onFailure:^(NSError *error) {
+
+    }];
+     
 }
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
