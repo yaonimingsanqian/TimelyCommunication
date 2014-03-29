@@ -11,6 +11,7 @@
 #import "iPhoneXMPPAppDelegate.h"
 #import "CommonData.h"
 #import "AgreenApplyMessage.h"
+#import "DeleteContactMsg.h"
 static Conversation *sharedInstance = nil;
 @implementation Conversation
 
@@ -28,6 +29,19 @@ static Conversation *sharedInstance = nil;
 {
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [delegate sendMsg:message];
+}
+- (void)pushDeleteContact:(NSString *)uname
+{
+    DeleteContactMsg *message = [[DeleteContactMsg alloc]init];
+    message.msgContent = @"我已经添删除你了";
+    message.type = MessageText;
+    message.sendDate = [NSDate date];
+    message.conversationId = uname;
+    message.to = uname;
+    message.from = [CommonData sharedCommonData].curentUser.username;
+    message.isIncoming = NO;
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate pushDeleteContactMsg:message];
 }
 - (void)pushAgreen:(NSString *)uname
 {

@@ -44,6 +44,7 @@
 		18AFAA1B187B18A600036ED8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFA9FA187B18A500036ED8 /* UIKit.framework */; };
 		18AFAA23187B18A600036ED8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18AFAA21187B18A600036ED8 /* InfoPlist.strings */; };
 		18AFAA25187B18A600036ED8 /* TimelyCommunicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA24187B18A600036ED8 /* TimelyCommunicationTests.m */; };
+		18B2F28A18E6EC5900D753B0 /* DeleteContactMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B2F28918E6EC5900D753B0 /* DeleteContactMsg.m */; };
 		18B8F77718C4C23700718ADD /* RedBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8F77618C4C23700718ADD /* RedBall.m */; };
 		18D287FC18CC092400638879 /* DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FB18CC092400638879 /* DataStorage.m */; };
 		18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FE18CC09E600638879 /* ConversationHelper.m */; };
@@ -149,6 +150,8 @@
 		18AFAA20187B18A600036ED8 /* TimelyCommunicationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimelyCommunicationTests-Info.plist"; sourceTree = "<group>"; };
 		18AFAA22187B18A600036ED8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		18AFAA24187B18A600036ED8 /* TimelyCommunicationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimelyCommunicationTests.m; sourceTree = "<group>"; };
+		18B2F28818E6EC5900D753B0 /* DeleteContactMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteContactMsg.h; sourceTree = "<group>"; };
+		18B2F28918E6EC5900D753B0 /* DeleteContactMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteContactMsg.m; sourceTree = "<group>"; };
 		18B8F77518C4C23700718ADD /* RedBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedBall.h; sourceTree = "<group>"; };
 		18B8F77618C4C23700718ADD /* RedBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedBall.m; sourceTree = "<group>"; };
 		18D287FA18CC092400638879 /* DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStorage.h; sourceTree = "<group>"; };
@@ -447,6 +450,8 @@
 				18E7FB4518BB63E300148255 /* User.m */,
 				18AD349B18CB04AB00A5DFC6 /* AgreenApplyMessage.h */,
 				18AD349C18CB04AB00A5DFC6 /* AgreenApplyMessage.m */,
+				18B2F28818E6EC5900D753B0 /* DeleteContactMsg.h */,
+				18B2F28918E6EC5900D753B0 /* DeleteContactMsg.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -715,6 +720,7 @@
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
 				18AD349D18CB04AB00A5DFC6 /* AgreenApplyMessage.m in Sources */,
 				18D2881218CC745600638879 /* NavigationControllerTitle.m in Sources */,
+				18B2F28A18E6EC5900D753B0 /* DeleteContactMsg.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
 				1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */,

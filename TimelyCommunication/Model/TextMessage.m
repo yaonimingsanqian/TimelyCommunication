@@ -27,7 +27,10 @@
     if(!isExcute)
         [[ConversationMgr sharedInstance].conversations addObject:self.conversationId];
     [[DataStorage sharedInstance] saveMsg:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:[[self.from componentsSeparatedByString:@"@"] objectAtIndex:0]];
+    
+    NSString *fromwhere = [[self.from componentsSeparatedByString:@"@"] objectAtIndex:0];
+    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewTextMsg,kRefreshtype,fromwhere,kMsgFrom, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:info];
 }
 - (void)postLocalNotifaction
 {

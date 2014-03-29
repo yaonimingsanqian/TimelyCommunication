@@ -17,4 +17,5 @@
 + (void)destory;
 - (void)sendMessage :(TextMessage*)message;
 - (void)pushAgreen :(NSString*)uname;
+- (void)pushDeleteContact :(NSString*)uname;
 @end

@@ -39,6 +39,7 @@
 - (void)disconnect;
 - (void)sendMsg :(BaseMesage*)msg;
 - (void)pushAgreenMsg :(BaseMesage*)msg;
+- (void)pushDeleteContactMsg :(BaseMesage*)msg;
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *conversationNavi;

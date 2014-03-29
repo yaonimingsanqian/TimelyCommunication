@@ -52,6 +52,11 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.separatorColor = [UIColor whiteColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:kRefeshcontact object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:kContactLoadFinish object:nil];
+}
+- (void)reloadTableView :(NSNotification*)noti
+{
+    [self.tableView reloadData];
 }
 - (BOOL)isFriendExist :(NSString*)uname
 {
@@ -64,12 +69,27 @@
 }
 - (void)refresh :(NSNotification*)noti
 {
-    NSString *newfriend = [noti object];
-    if(![self isFriendExist:newfriend])
+    NSDictionary *info = [noti object];
+    if([[info objectForKey:kRefreshtype] isEqualToString:kNewFriend] || [[info objectForKey:kRefreshtype] isEqualToString:kNewTextMsg])
     {
-        [[ContactsMgr sharedInstance].friends addObject:newfriend];
-       
+        if(![self isFriendExist:[info objectForKey:kMsgFrom]])
+        {
+            [[ContactsMgr sharedInstance].friends addObject:[info objectForKey:kMsgFrom]];
+            
+        }
+    }else if([[info objectForKey:kRefreshtype] isEqualToString:kDeleteFriend])
+    {
+        for (NSString *contact in [ContactsMgr sharedInstance].friends)
+        {
+            if([contact isEqualToString:[info objectForKey:kMsgFrom]])
+            {
+                [[ContactsMgr sharedInstance].friends removeObject:contact];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kContactDeleteOne object:contact userInfo:nil];
+                break;
+            }
+        }
     }
+    
     [self.tableView reloadData];
     
 }
@@ -186,9 +206,9 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //更新自己的朋友列表
+    NSString *friendId = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     [[ContactsMgr sharedInstance].friends removeObjectAtIndex:indexPath.row];
     [tableView reloadData];
-    NSString *friendId = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     NSString *meId = [CommonData sharedCommonData].curentUser.username;
     SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
     [query where:@"username" isEqualTo:meId];
@@ -222,6 +242,8 @@
                 NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:friends,@"friends", nil];
                 [[[SMClient defaultClient] dataStore] updateObjectWithId:friendId inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
                     //发送推送给对方
+                    [[Conversation sharedInstance] pushDeleteContact:friendId];
+                    
                 } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
                     
                 }];
@@ -239,12 +261,13 @@
 }
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%d",indexPath.row);
       return @"删除";
 }
 - (void)dealloc
 {
     NSLog(@"ContactsViewController dealloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kContactLoadFinish object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kRefeshcontact object:nil];
 }
 
 @end

@@ -146,7 +146,8 @@
                 
                 [addmes removeObject:username];
                 [self.tableView reloadData];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:username];
+                NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewFriend,kRefreshtype,username,kMsgFrom, nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
             //更新申请者的friend列表
                 SMQuery *queryN = [[SMQuery alloc]initWithSchema:@"user"];
                 [query where:@"username" isEqualTo:username];

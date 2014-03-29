@@ -7,6 +7,7 @@
 //
 
 #import "ContactsMgr.h"
+#import "Config.h"
 
 static ContactsMgr *sharedInstance = nil;
 @implementation ContactsMgr
@@ -39,5 +40,6 @@ static ContactsMgr *sharedInstance = nil;
         [friendsTmp addObject:username];
     }
     self.friends = [NSMutableArray arrayWithArray:friendsTmp];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kContactLoadFinish object:nil userInfo:nil];
 }
 @end

@@ -167,7 +167,7 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.1.101"];
+	[xmppStream setHostName:@"192.168.1.103"];
 	[xmppStream setHostPort:5222];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;
@@ -231,6 +231,12 @@
 	
     [message addChild:body];
     return message;
+}
+- (void)pushDeleteContactMsg:(BaseMesage *)msg
+{
+    NSXMLElement *message = [self createMsg:msg];
+    [message addAttributeWithName:@"type" stringValue:@"deleteContact"];
+    [xmppStream sendElement:message];
 }
 - (void)pushAgreenMsg:(AgreenApplyMessage *)msg
 {

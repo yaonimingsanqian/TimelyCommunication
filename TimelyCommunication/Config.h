@@ -23,6 +23,13 @@
 #define kFaceBtnBgImage @"face.png"
 #define kMoreBtnBgImage @"more.png"
 
+//通讯录刷新通知所需
+#define kNewTextMsg @"kNewTextMsg"
+#define kNewFriend @"kNewFriend"
+#define kDeleteFriend @"kDeleteFriend"
+#define kMsgFrom @"kMsgFrom"
+#define kRefreshtype @"kRefreshtype"
+
 #pragma mark - 数据库操作
 #define DATABASE_PATH(useraccount) [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]stringByAppendingFormat:@"/%@weChat.sqlite",useraccount]
 #define kMsgTableName @"msgTable"
@@ -38,6 +45,7 @@
 #pragma mark - 通知名字
 #define kRegisterSuccess @"kRegisterSuccess"
 #define kRegisterFailed @"kRegisterFailed"
-#define kNewTextMsg @"kNewTextMsg"
 #define kRefeshcontact @"kRefeshcontact"
+#define kContactDeleteOne @"kContactDeleteOne"
+#define kContactLoadFinish @"kContactLoadFinish"
 #endif
