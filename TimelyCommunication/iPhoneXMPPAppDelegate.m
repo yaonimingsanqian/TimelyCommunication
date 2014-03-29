@@ -23,6 +23,7 @@
 #import "DataStorage.h"
 #import "RedBall.h"
 #import "SelfInfoViewController.h"
+#import "DataStorage.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -117,6 +118,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
+   
     self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];
 	[self setupStream];
 	self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -124,6 +126,7 @@
     NSString *pass = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyPassword];
     if(username&&pass)
     {
+         [[DataStorage sharedInstance] createDatabaseAndTables:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :nil];
         [self turnToMainPage];
         stockUser = [[User alloc]init];
         stockUser.password = pass;

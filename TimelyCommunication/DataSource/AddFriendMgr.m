@@ -45,7 +45,7 @@ static AddFriendMgr *shared = nil;
             NSDictionary *updatedTodo = [NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:[CommonData sharedCommonData].curentUser.username, nil], @"addme", nil];
             
             [[[SMClient defaultClient] dataStore] updateObjectWithId:userName inSchema:@"user" update:updatedTodo onSuccess:^(NSDictionary *object, NSString *schema) {
-                NSLog(@"%@",object);
+                //推送
             } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
                 NSLog(@"error");
             }];
@@ -61,7 +61,8 @@ static AddFriendMgr *shared = nil;
             [addMes addObject:[CommonData sharedCommonData].curentUser.username];
              NSDictionary *updatedTodo = [NSDictionary dictionaryWithObjectsAndKeys:addMes, @"addme", nil];
             [[[SMClient defaultClient] dataStore] updateObjectWithId:userName inSchema:@"user" update:updatedTodo onSuccess:^(NSDictionary *object, NSString *schema) {
-                NSLog(@"%@",object);
+                
+                //推送
             } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
                 NSLog(@"error");
             }];

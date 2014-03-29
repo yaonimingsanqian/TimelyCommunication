@@ -11,6 +11,7 @@
 #import "Config.h"
 #import "ContactsMgr.h"
 #import "CommonData.h"
+#import "DataStorage.h"
 
 
 @implementation User
@@ -41,7 +42,10 @@
         [delegate disconnect];
         [delegate connect];
         loginSuccess(result);
-        [[ContactsMgr sharedInstance] parseFriends:result];
+        [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
+            [[ContactsMgr sharedInstance] parseFriends:result];
+        }];
+        
     } onFailure:^(NSError *error) {
         loginFailed(error);
     }];

@@ -31,7 +31,7 @@
 #define kRefreshtype @"kRefreshtype"
 
 #pragma mark - 数据库操作
-#define DATABASE_PATH(useraccount) [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]stringByAppendingFormat:@"/%@weChat.sqlite",useraccount]
+#define DATABASE_PATH(useraccount) [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]stringByAppendingFormat:@"/%@.sqlite",useraccount]
 #define kMsgTableName @"msgTable"
 #define kConversationName @"conversations"
 
@@ -48,4 +48,9 @@
 #define kRefeshcontact @"kRefeshcontact"
 #define kContactDeleteOne @"kContactDeleteOne"
 #define kContactLoadFinish @"kContactLoadFinish"
+#define kDatabaseCreateFinished @"kDatabaseCreateFinished"
+
+//表字段以及类型
+#define kConversationColumns @[@"conversationName",@"type",@"notReadCount"]
+#define kConversationColumnsType @[@"VARCHAR",@"VARCHAR",@"int"]
 #endif

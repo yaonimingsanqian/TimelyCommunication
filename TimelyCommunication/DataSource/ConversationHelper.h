@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseHelper.h"
+#import "FMDatabaseQueue.h"
 
 
 typedef void(^queryFinished)(NSArray *result);
 @interface ConversationHelper : BaseHelper
 
 
-- (void)saveConversation :(NSString*)con;
+- (void)saveConversation :(NSString*)con :(FMDatabaseQueue*)queue;
 - (void)queryConversation;
 - (void)queryConversationWithFinished:(queryFinished)result;
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;

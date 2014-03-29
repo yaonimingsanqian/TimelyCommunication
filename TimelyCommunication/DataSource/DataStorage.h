@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "MsgSaveHelper.h"
 #import "ConversationHelper.h"
-
+#import "FMDataBaseQueue.h"
+typedef void(^CreateComplete)(void);
 @interface DataStorage : NSObject
 {
     MsgSaveHelper *msgHelper;
     ConversationHelper *conversationHelper;
+    FMDatabaseQueue *queue;
+    CreateComplete createDatabaseAndTableComplete;
 }
 + (DataStorage*)sharedInstance;
 + (void)destory;
@@ -27,5 +30,6 @@
 - (NSArray*)loadHistoryMsg :(NSString*)conversationId;
 - (void)loadHistoryMsg :(NSString*)conversationId :(LoadMsgComplete)complete;
 - (TextMessage*)queryLastMsg :(NSString*)username :(NSString*)conId;
+- (void)createDatabaseAndTables :(NSString*)databaseName :(void(^)(void))complete;
 
 @end
