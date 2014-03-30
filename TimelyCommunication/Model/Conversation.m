@@ -49,7 +49,7 @@ typedef enum{
             break;
         case AgreenMsgType:
         {
-            AgreenApplyMessage *message = [[AgreenApplyMessage alloc]init];
+            message = [[AgreenApplyMessage alloc]init];
             message.msgContent = @"我已经添加你为好友了";
         }
             break;

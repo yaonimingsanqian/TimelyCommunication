@@ -67,7 +67,7 @@
     frame.origin.x = 280;
     frame.origin.y = (cell.frame.size.height - frame.size.height)/2.f;
     redball.frame = frame;
-    [cell addSubview:redball];
+    [cell.contentView addSubview:redball];
 }
 - (void)reloadTableView :(NSNotification*)noti
 {
@@ -186,7 +186,7 @@
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             for (UIView *view in cell.contentView.subviews)
             {
-                if(view.tag == 111)
+                if(view.tag == kRedPointTag)
                 {
                     [view removeFromSuperview];
                     break;

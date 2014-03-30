@@ -134,6 +134,7 @@
         [stockUser login:^(NSDictionary *success) {
             NSLog(@"stockmob登录成功");
         } :^(NSError *error) {
+            NSLog(@"登录失败");
         }];
         
         

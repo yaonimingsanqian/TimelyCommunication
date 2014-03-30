@@ -51,6 +51,8 @@
 #define kContactLoadFinish @"kContactLoadFinish"
 #define kDatabaseCreateFinished @"kDatabaseCreateFinished"
 #define kNewFriendApply @"kNewFriendApply"
+#define kFriendAddFinished @"kFriendAddFinished"
+#define kFriendAddFailed @"kFriendAddFailed"
 
 //表字段以及类型
 //会话表
@@ -67,7 +69,7 @@
 
 
 //红点view的tag
-#define kRedPoingTag 5
+#define kRedPointTag 13
 
 //红点提示类型
 #define kNewFriend @"kNewFriend"

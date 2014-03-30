@@ -7,6 +7,7 @@
 //
 
 #import "RedBall.h"
+#import "Config.h"
 
 //CGRectMake(60, 10, 18, 18)
 @implementation RedBall
@@ -63,7 +64,7 @@
     portrait.backgroundColor = [UIColor redColor];
     portrait.layer.masksToBounds = YES;
     portrait.layer.cornerRadius = portrait.frame.size.width/2.f;
-    portrait.tag = 13;
+    portrait.tag = kRedPointTag;
     return portrait;
 }
 

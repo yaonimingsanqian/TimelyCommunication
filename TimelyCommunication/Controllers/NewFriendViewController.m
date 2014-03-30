@@ -16,6 +16,8 @@
 #import "iPhoneXMPPAppDelegate.h"
 #import "Conversation.h"
 #define kColor 200/255.f
+
+static int addTime = 0;
 @interface NewFriendViewController ()
 {
     NSMutableArray *addmes;
@@ -53,9 +55,31 @@
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"数据请求发生错误" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
         [alert show];
     }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addFrieFailed:) name:kFriendAddFailed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addFriendSuccess:) name:kFriendAddFinished object:nil];
     self.tableView.separatorColor = [UIColor whiteColor];
 }
-
+- (void)addFriendSuccess :(NSNotification*)noti
+{
+    NSString *username = [noti object];
+    
+     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewFriend,kRefreshtype,username,kMsgFrom, nil];
+     [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
+    addTime = 0;
+    [[Conversation sharedInstance] pushAgreen:username];
+    [addmes removeObject:username];
+    [self.tableView reloadData];
+}
+- (void)addFrieFailed :(NSNotification*)noti
+{
+    if(addTime <= 10)
+    {
+        NSString *name = [noti object];
+        [self updateApplierFriendList:name];
+        addTime++;
+    }
+   
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -122,6 +146,36 @@
     }
     return NO;
 }
+- (void)updateApplierFriendList :(NSString*)username
+{
+    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
+    [query where:@"username" isEqualTo:username];
+    [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
+        if(results.count > 0)
+        {
+            NSDictionary *uinfo = [results objectAtIndex:0];
+            NSMutableArray *unewfriends = [NSMutableArray arrayWithArray:[uinfo objectForKey:@"friends"]];
+            [unewfriends addObject:[CommonData sharedCommonData].curentUser.username];
+            
+            
+            NSDictionary *nupdate = [NSDictionary dictionaryWithObjectsAndKeys:unewfriends,@"friends", nil];
+            [[[SMClient defaultClient] dataStore] updateObjectWithId:username inSchema:@"user" update:nupdate onSuccess:^(NSDictionary *object, NSString *schema) {
+                
+                
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+              //  NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewFriend,kRefreshtype,username,kMsgFrom, nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFriendAddFinished object:username];
+                
+            } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:kFriendAddFailed object:username];
+            }];
+            
+        }
+    } onFailure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    }];
+}
 - (void)agreenAction :(UIButton*)sender;
 {
     int tag = sender.tag;
@@ -144,38 +198,11 @@
             //更新当前用户的 friend列表和申请列表
             [[[SMClient defaultClient] dataStore] updateObjectWithId:[CommonData sharedCommonData].curentUser.username inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
                 
-                [addmes removeObject:username];
-                [self.tableView reloadData];
-                NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewFriend,kRefreshtype,username,kMsgFrom, nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
+                
+               // NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewFriend,kRefreshtype,username,kMsgFrom, nil];
+               // [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
             //更新申请者的friend列表
-                SMQuery *queryN = [[SMQuery alloc]initWithSchema:@"user"];
-                [query where:@"username" isEqualTo:username];
-                [[[SMClient defaultClient] dataStore] performQuery:queryN onSuccess:^(NSArray *results) {
-                    if(results.count > 0)
-                    {
-                        NSDictionary *uinfo = [results objectAtIndex:0];
-                        NSMutableArray *unewfriends = [NSMutableArray arrayWithArray:[uinfo objectForKey:@"friends"]];
-                        [unewfriends addObject:[CommonData sharedCommonData].curentUser.username];
-                        
-                        
-                        NSDictionary *nupdate = [NSDictionary dictionaryWithObjectsAndKeys:unewfriends,@"friends", nil];
-                        [[[SMClient defaultClient] dataStore] updateObjectWithId:username inSchema:@"user" update:nupdate onSuccess:^(NSDictionary *object, NSString *schema) {
-                            [[Conversation sharedInstance] pushAgreen:username];
-                            
-                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                            
-                        } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                        }];
-                        
-                    }
-                } onFailure:^(NSError *error) {
-                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                }];
-                
-                
-                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                [self updateApplierFriendList:username];
 
             } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
                  [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -184,8 +211,9 @@
 
         }
     } onFailure:^(NSError *error) {
+       // NSDictionary *info = [error userInfo];
+        
          [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-
     }];
     
     
@@ -250,6 +278,8 @@
  */
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFriendAddFinished object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kFriendAddFailed object:nil];
     NSLog(@"NewFriendViewController dealloc");
 }
 @end
