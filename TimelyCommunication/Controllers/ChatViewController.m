@@ -32,12 +32,12 @@
     message.isIncoming = NO;
     [messageArray addObject:message];
     [[Conversation sharedInstance] sendMessage:message];
-    [[DataStorage sharedInstance] saveMsg:message];
+    [[DataStorage sharedInstance] saveMsg:message :nil];
     [chatViewCompent reloadData];
     if(![[ConversationMgr sharedInstance] isConversationExist:username])
     {
         [[ConversationMgr sharedInstance].conversations addObject:username];
-        [[DataStorage sharedInstance] saveConversation:username];
+        [[DataStorage sharedInstance] saveConversation:username :nil];
     }
 }
 #pragma mark - HPLChatTableViewDataSource
@@ -67,8 +67,11 @@
 - (void)receiveNewMsg
 {
     [[DataStorage sharedInstance] updateConversation:username :NO];
-    messageArray = [NSMutableArray arrayWithArray:[[DataStorage sharedInstance] loadHistoryMsg:username]];
-    [chatViewCompent reloadData];
+    [[DataStorage sharedInstance] loadHistoryMsg:username :^(NSArray *result) {
+        messageArray = [NSMutableArray arrayWithArray:result];
+        [chatViewCompent reloadData];
+    }];
+    
 }
 #pragma mark - 系统方法
 - (void)viewWillDisappear:(BOOL)animated
@@ -91,7 +94,12 @@
     
     chatViewCompent.delegate = self;
     [self.view addSubview:chatViewCompent];
-    messageArray = [NSMutableArray arrayWithArray:[[DataStorage sharedInstance] loadHistoryMsg:username] ];
+    
+    [[DataStorage sharedInstance] loadHistoryMsg:username :^(NSArray *result) {
+        messageArray = [NSMutableArray arrayWithArray:result];
+        [chatViewCompent reloadData];
+    }];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg) name:kNewTextMsg object:nil];
      [[DataStorage sharedInstance] updateConversation:username :NO];
 

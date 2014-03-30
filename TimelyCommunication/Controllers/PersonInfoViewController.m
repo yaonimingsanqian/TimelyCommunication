@@ -60,9 +60,11 @@
         PersonInfoViewController __weak *tmp = self;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[AddFriendMgr sharedInstance] addFriend:user.username :^{
-            [MBProgressHUD hideAllHUDsForView:tmp.view animated:YES];
+            
+            [MBProgressHUD hideHUDForView :tmp.view animated:YES];
             [tmp.navigationController popViewControllerAnimated:YES];
         } :^{
+            
             [MBProgressHUD hideAllHUDsForView:tmp.view animated:YES];
         }];
     }

@@ -15,25 +15,8 @@
 
 @implementation ConversationHelper
 
-- (BOOL)createDataBase:(NSString *)tableName :(FMDatabaseQueue*)queue :(void(^)(BOOL isSuccess))complete
+- (void)queryConversationWithFinished :(FMDatabaseQueue*)queue :(queryFinished)result
 {
-    [queue inDatabase:^(FMDatabase *db) {
-        NSString *sql =  [NSString stringWithFormat:@"CREATE  TABLE  IF NOT EXISTS '%@' ('messageId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL  UNIQUE , 'conversationName' VARCHAR,'type' VARCHAR,'notReadCount' int)",tableName];
-        BOOL isWorked = [db executeUpdate:sql];
-        if(complete)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                complete(isWorked);
-            });
-        }
-    }];
-    return  YES;
-}
-- (void)queryConversationWithFinished:(queryFinished)result
-{
-    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-    user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
-    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DATABASE_PATH(user)];
     [queue inDatabase:^(FMDatabase *db) {
         NSString *querySql = [NSString stringWithFormat:@"select * from %@",kConversationName];
         FMResultSet *rs = [db executeQuery:querySql];
@@ -42,55 +25,53 @@
         {
             [results addObject:[rs stringForColumn:@"conversationName"]];
         }
-        [db close];
-        result(results);
+        [db closeOpenResultSets];
+        if(result)
+        {
+            MAIN(^{
+                result(results);
+            });
+        }
+        
     }];
 }
-- (void)queryConversation
+- (void)queryConversation :(FMDatabaseQueue*)queue
 {
-    if(![self isTableOK:kConversationName]) return;
-    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-    user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
-    FMDatabase *db = [FMDatabase databaseWithPath:DATABASE_PATH(user)];
-    if(![db open])
-    {
-        NSLog(@"数据库打开失败");
-        return;
-    }
-    NSString *querySql = [NSString stringWithFormat:@"select * from %@",kConversationName];
-    FMResultSet *rs = [db executeQuery:querySql];
-    while (rs.next)
-    {
-        [[ConversationMgr sharedInstance].conversations addObject:[rs stringForColumn:@"conversationName"]];
-    }
-    [db close];
+    [queue inDatabase:^(FMDatabase *db) {
+        
+        NSString *querySql = [NSString stringWithFormat:@"select * from %@",kConversationName];
+        FMResultSet *rs = [db executeQuery:querySql];
+        while (rs.next)
+        {
+            [[ConversationMgr sharedInstance].conversations addObject:[rs stringForColumn:@"conversationName"]];
+        }
+        [db closeOpenResultSets];
+    }];
+    
 }
-- (int)queryNotReadCount:(NSString *)conversationName
+- (void)queryNotReadCount :(NSString *)conversationName :(FMDatabaseQueue*)queue :(void(^)(int count))result
 {
-    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-    user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
-    FMDatabase *db = [FMDatabase databaseWithPath:DATABASE_PATH(user)];
-    if(![db open])
-    {
-        NSLog(@"数据库打开失败");
-        return 0;
-    }
-    NSString *querySql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE conversationName=?",kConversationName];
-    FMResultSet *rs = [db executeQuery:querySql,conversationName];
-    int notReadCount = 0;
-    while (rs.next)
-    {
-        notReadCount = [rs intForColumn:@"notReadCount"];
-        break;
-    }
-    return notReadCount;
+    [queue inDatabase:^(FMDatabase *db) {
+        NSString *querySql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE conversationName=?",kConversationName];
+        FMResultSet *rs = [db executeQuery:querySql,conversationName];
+        int notReadCount = 0;
+        while (rs.next)
+        {
+            notReadCount = [rs intForColumn:@"notReadCount"];
+            break;
+        }
+        if(result)
+        {
+            MAIN(^{
+                result(notReadCount);
+            });
+        }
+        [db closeOpenResultSets];
+    }];
+    
 }
-- (void)updateConversation:(NSString *)conversationName :(BOOL)isAdd
+- (void)updateConversation:(NSString *)conversationName :(BOOL)isAdd :(FMDatabaseQueue*)queue :(void(^)(int count))complete
 {
-    if(![self isTableOK:kConversationName]) return;
-    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-    user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
-    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:DATABASE_PATH(user)];
     [queue inDatabase:^(FMDatabase *db) {
         int notReadCount = 0;
         if(isAdd)
@@ -105,24 +86,35 @@
             }
             notReadCount++;
             
-            
         }
         NSString *updateSql = [NSString stringWithFormat:@"update %@ set notReadCount=? where conversationName=?",kConversationName];
         [db executeUpdate:updateSql,[NSString stringWithFormat:@"%d",notReadCount],conversationName];
-        [db close];
+        [db closeOpenResultSets];
+        if(complete)
+        {
+            MAIN(^{
+                complete(notReadCount);
+            });
+        }
     }];
 }
-- (void)saveConversation:(NSString *)con :(FMDatabaseQueue*)queue
+- (void)saveConversation:(NSString *)con :(FMDatabaseQueue*)queue :(void(^)(void))complete
 {
-    [self createDataBase:kConversationName :queue :^(BOOL isSuccess) {
-        NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-        user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
-        [queue inDatabase:^(FMDatabase *db) {
-            
-            NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO '%@' ('conversationName', 'type','notReadCount') VALUES (?,?,?)",kConversationName];
-            [db executeUpdate:insertSql,con,@"chat",0];
-            [db close];
-        }];
+    [queue inDatabase:^(FMDatabase *db) {
+        
+        NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO '%@' ('conversationName', 'type','notReadCount') VALUES (?,?,?)",kConversationName];
+        [db executeUpdate:insertSql,con,@"chat",0];
+        if(complete)
+        {
+            MAIN(^{
+                complete();
+            });
+        }
     }];
+//    [self createDataBase:kConversationName :queue :^(BOOL isSuccess) {
+//        NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
+//        user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
+//        
+//    }];
 }
 @end

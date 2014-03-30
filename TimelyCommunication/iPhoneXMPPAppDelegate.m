@@ -132,10 +132,14 @@
         stockUser.password = pass;
         stockUser.username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
         [stockUser login:^(NSDictionary *success) {
-            
+            NSLog(@"stockmob登录成功");
         } :^(NSError *error) {
-            
         }];
+        
+        
+        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [delegate disconnect];
+        [delegate connect];
         return YES;
         
     }
@@ -235,17 +239,23 @@
     [message addChild:body];
     return message;
 }
-- (void)pushDeleteContactMsg:(BaseMesage *)msg
+- (void)sendCmdMsg :(BaseMesage*)msg :(NSString*)type
 {
     NSXMLElement *message = [self createMsg:msg];
-    [message addAttributeWithName:@"type" stringValue:@"deleteContact"];
+    [message addAttributeWithName:@"type" stringValue:type];
     [xmppStream sendElement:message];
+}
+- (void)pushApplay:(BaseMesage *)msg
+{
+    [self sendCmdMsg:msg :@"apply"];
+}
+- (void)pushDeleteContactMsg:(BaseMesage *)msg
+{
+    [self sendCmdMsg:msg :@"deleteContact"];
 }
 - (void)pushAgreenMsg:(AgreenApplyMessage *)msg
 {
-    NSXMLElement *message = [self createMsg:msg];
-    [message addAttributeWithName:@"type" stringValue:@"agreen"];
-    [xmppStream sendElement:message];
+    [self sendCmdMsg:msg :@"agreen"];
 }
 - (void)sendMsg:(BaseMesage *)msg
 {
@@ -479,10 +489,10 @@
     NSString *user = [[msg.from componentsSeparatedByString:@"@"] objectAtIndex:0];
     if(([msg isKindOfClass:[TextMessage class]] || [msg isKindOfClass:[AgreenApplyMessage class]]) && ![[ConversationMgr sharedInstance] isConversationExist:user])
     {
-        [[DataStorage sharedInstance] saveConversation:user];
+        [[DataStorage sharedInstance] saveConversation:user :nil];
     }
     UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
-    if(tabBarController.selectedIndex != 0 && ![tabBarController.view viewWithTag:111])
+    if(tabBarController.selectedIndex != 0 && ![tabBarController.view viewWithTag:111] && tabBarController.hidesBottomBarWhenPushed == YES && [msg isKindOfClass:[TextMessage class]])
     {
         UIView *red = [RedBall createRedBallWithoutNumber];
         red.tag = 111;

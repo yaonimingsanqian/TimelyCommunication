@@ -77,7 +77,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
      UITextField *search = (UITextField*)[self.view viewWithTag:101];
-    [query where:@"username" isEqualTo:search.text];
+    [query where:@"username" isEqualTo:[search.text lowercaseString]];
     SearchFriendViewController __weak *tmp = self;
     [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

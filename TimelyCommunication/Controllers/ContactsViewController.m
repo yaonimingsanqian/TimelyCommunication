@@ -16,6 +16,9 @@
 #import "SMQuery.h"
 #import "SMClient.h"
 #import "CommonData.h"
+#import "MBProgressHUD.h"
+#import "RedBall.h"
+
 @interface ContactsViewController ()
 
 @end
@@ -53,6 +56,18 @@
     self.tableView.separatorColor = [UIColor whiteColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:kRefeshcontact object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:kContactLoadFinish object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFriendApply:) name:kNewFriendApply object:nil];
+}
+- (void)newFriendApply :(NSNotification*)noti
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIView *redball = [RedBall createRedBallWithoutNumber];
+    CGRect frame = redball.frame;
+    frame.origin.x = 280;
+    frame.origin.y = (cell.frame.size.height - frame.size.height)/2.f;
+    redball.frame = frame;
+    [cell addSubview:redball];
 }
 - (void)reloadTableView :(NSNotification*)noti
 {
@@ -142,6 +157,7 @@
         {
             cell.name.text = @"朋友申请";
             cell.avatar.image = [UIImage imageNamed:@"friend.png"];
+            
         }else
         {
             
@@ -167,6 +183,15 @@
     {
         if(indexPath.row == 0)
         {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            for (UIView *view in cell.contentView.subviews)
+            {
+                if(view.tag == 111)
+                {
+                    [view removeFromSuperview];
+                    break;
+                }
+            }
             NewFriendViewController *newfriendVC = [[NewFriendViewController alloc]init];
             UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
             self.navigationItem.backBarButtonItem = backItem;
@@ -203,12 +228,17 @@
 {
     return UITableViewCellEditingStyleDelete;
 }
+- (void)handleError
+{
+    [MBProgressHUD hideAllHUDsForView:self.tableView animated:YES];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"网络请求发生错误" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    [alert show];
+}
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //更新自己的朋友列表
+    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     NSString *friendId = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
-    [[ContactsMgr sharedInstance].friends removeObjectAtIndex:indexPath.row];
-    [tableView reloadData];
     NSString *meId = [CommonData sharedCommonData].curentUser.username;
     SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
     [query where:@"username" isEqualTo:meId];
@@ -241,21 +271,25 @@
                 }
                 NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:friends,@"friends", nil];
                 [[[SMClient defaultClient] dataStore] updateObjectWithId:friendId inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
+                    [MBProgressHUD hideAllHUDsForView:self.tableView animated:YES];
                     //发送推送给对方
                     [[Conversation sharedInstance] pushDeleteContact:friendId];
+                    //更新自己的好友列表
+                     [[ContactsMgr sharedInstance].friends removeObjectAtIndex:indexPath.row];
+                     [tableView reloadData];
                     
                 } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-                    
+                    [self handleError];
                 }];
             } onFailure:^(NSError *error) {
-                
+                [self handleError];
             }];
             
         } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-            
+            [self handleError];
         }];
     } onFailure:^(NSError *error) {
-
+        [self handleError];
     }];
      
 }

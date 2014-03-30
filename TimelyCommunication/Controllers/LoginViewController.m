@@ -38,7 +38,7 @@
     } :^(NSError *error) {
          [MBProgressHUD hideHUDForView:loginView animated:YES];
         NSDictionary *userinfo = [error userInfo];
-        NSString *msg = [userinfo objectForKey:@"error_description"];
+        NSString *msg = [userinfo objectForKey:@"NSLocalizedDescription"];
        
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
         [alert show];

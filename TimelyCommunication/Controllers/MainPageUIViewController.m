@@ -44,8 +44,8 @@
 }
 - (void)receiveNewMsg :(NSNotification*)noti
 {
-    NSString *user = [noti object];
-    [[DataStorage sharedInstance] updateConversation:user :YES];
+    NSDictionary *info = [noti object];
+    [[DataStorage sharedInstance] updateConversation:[info objectForKey:kMsgFrom] :YES];
     [self.tableView reloadData];
 }
 - (void)viewDidLoad
@@ -115,24 +115,33 @@
     cell.msg.text = nil;
      NSString *con = [[ConversationMgr sharedInstance].conversations objectAtIndex:indexPath.row];
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-    TextMessage *msg = [[DataStorage sharedInstance] queryLastMsg:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :con];
-    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];//实例化一个NSDateFormatter对象
-    [dateFormat setDateFormat:@"MM-dd HH:mm:ss"];//设定时间格式,这里可以设置成自己需要的格式
-    NSString *currentDateStr = [dateFormat stringFromDate:msg.sendDate];
-    cell.time.text = currentDateStr;
-    cell.msg.text = msg.msgContent;
+    
+    [[DataStorage sharedInstance] queryLastMsg:[[username componentsSeparatedByString:@"@"] objectAtIndex:0]  :con :^(TextMessage *msg) {
+        
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];//实例化一个NSDateFormatter对象
+        [dateFormat setDateFormat:@"MM-dd HH:mm:ss"];//设定时间格式,这里可以设置成自己需要的格式
+        NSString *currentDateStr = [dateFormat stringFromDate:msg.sendDate];
+        cell.time.text = currentDateStr;
+        cell.msg.text = msg.msgContent;
+    }];
+//    TextMessage *msg = [[DataStorage sharedInstance] queryLastMsg:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :con];
+   
     
     [self clearRedBall:cell];
    
     cell.uname.text = con;
-    int count = [[DataStorage sharedInstance] queryNotReadCount:con];
-    UIView *notRead = [RedBall createRedBall:count];
-    CGRect frame = notRead.frame;
-    frame.origin.y = (cell.frame.size.height - frame.size.height)/2.f;
-    notRead.frame = frame;
-    [cell.contentView addSubview:notRead];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self setCellFontStyle:cell];
+    
+    [[DataStorage sharedInstance] queryNotReadCount:con :^(int count) {
+        
+        UIView *notRead = [RedBall createRedBall:count];
+        CGRect frame = notRead.frame;
+        frame.origin.y = (cell.frame.size.height - frame.size.height)/2.f;
+        notRead.frame = frame;
+        [cell.contentView addSubview:notRead];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self setCellFontStyle:cell];
+    }];
+    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

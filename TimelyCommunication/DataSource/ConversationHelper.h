@@ -15,11 +15,11 @@ typedef void(^queryFinished)(NSArray *result);
 @interface ConversationHelper : BaseHelper
 
 
-- (void)saveConversation :(NSString*)con :(FMDatabaseQueue*)queue;
-- (void)queryConversation;
-- (void)queryConversationWithFinished:(queryFinished)result;
-- (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;
-- (int)queryNotReadCount :(NSString*)conversationName;
+- (void)saveConversation :(NSString*)con :(FMDatabaseQueue*)queue :(void(^)(void))complete;
+- (void)queryConversation :(FMDatabaseQueue*)queue;
+- (void)queryConversationWithFinished :(FMDatabaseQueue*)queue :(queryFinished)result;
+- (void)updateConversation :(NSString*)conversationName :(BOOL)isAddv :(FMDatabaseQueue*)queue :(void(^)(int count))complete;
+- (void)queryNotReadCount :(NSString*)conversationName :(FMDatabaseQueue*)queue :(void(^)(int count))result;
 
 
 @end

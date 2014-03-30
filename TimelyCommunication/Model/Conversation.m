@@ -12,7 +12,14 @@
 #import "CommonData.h"
 #import "AgreenApplyMessage.h"
 #import "DeleteContactMsg.h"
+#import "ApplyMsg.h"
 static Conversation *sharedInstance = nil;
+
+typedef enum{
+    DeleteContactMsgType = 0,
+    AgreenMsgType,
+    ApplyMsgType
+}PushMsgType;
 @implementation Conversation
 
 + (void)destory
@@ -30,29 +37,54 @@ static Conversation *sharedInstance = nil;
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [delegate sendMsg:message];
 }
-- (void)pushDeleteContact:(NSString *)uname
+- (BaseMesage*)createMsg :(PushMsgType)type :(NSString*)to
 {
-    DeleteContactMsg *message = [[DeleteContactMsg alloc]init];
-    message.msgContent = @"我已经添删除你了";
+    BaseMesage *message = nil;
+    switch (type) {
+        case DeleteContactMsgType:
+        {
+            message = [[DeleteContactMsg alloc]init];
+             message.msgContent = @"我已经添删除你了";
+        }
+            break;
+        case AgreenMsgType:
+        {
+            AgreenApplyMessage *message = [[AgreenApplyMessage alloc]init];
+            message.msgContent = @"我已经添加你为好友了";
+        }
+            break;
+        case ApplyMsgType:
+        {
+            message = [[ApplyMsg alloc]init];
+            message.msgContent = @"我想加你为好友";
+        }
+            break;
+        default:
+            break;
+    }
     message.type = MessageText;
     message.sendDate = [NSDate date];
-    message.conversationId = uname;
-    message.to = uname;
+    message.conversationId = to;
+    message.to = to;
     message.from = [CommonData sharedCommonData].curentUser.username;
     message.isIncoming = NO;
+    return message;
+}
+- (void)pushDeleteContact:(NSString *)uname
+{
+    BaseMesage *message = [self createMsg:DeleteContactMsgType :uname];
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [delegate pushDeleteContactMsg:message];
 }
+- (void)pushApply:(NSString *)uname
+{
+    BaseMesage *message = [self createMsg:ApplyMsgType :uname];
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate pushApplay:message];
+}
 - (void)pushAgreen:(NSString *)uname
 {
-    AgreenApplyMessage *message = [[AgreenApplyMessage alloc]init];
-    message.msgContent = @"我已经添加你为好友了";
-    message.type = MessageText;
-    message.sendDate = [NSDate date];
-    message.conversationId = uname;
-    message.to = uname;
-    message.from = [CommonData sharedCommonData].curentUser.username;
-    message.isIncoming = NO;
+    BaseMesage *message = [self createMsg:AgreenMsgType :uname];
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [delegate pushAgreenMsg:message];
     

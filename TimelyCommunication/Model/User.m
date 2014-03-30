@@ -12,7 +12,7 @@
 #import "ContactsMgr.h"
 #import "CommonData.h"
 #import "DataStorage.h"
-
+#import "MBProgressHUD.h"
 
 @implementation User
 
@@ -29,6 +29,17 @@
     user.gender = [userInfo objectForKey:@"gender"];
     [CommonData sharedCommonData].curentUser = user;
 }
+- (void)handleError :(NSError*)error
+{
+    NSDictionary *info = [error userInfo];
+    if([info isKindOfClass:[NSDictionary class]])
+    {
+       
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message: [info objectForKey:@"NSLocalizedDescription"]delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+   
+}
 - (void)login:(LoginSuccess)success :(LoginFailed)failed
 {
     loginSuccess = success;
@@ -38,15 +49,14 @@
         [self createUser:result];
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
         [[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
-        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [delegate disconnect];
-        [delegate connect];
+       
         loginSuccess(result);
         [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
             [[ContactsMgr sharedInstance] parseFriends:result];
         }];
         
     } onFailure:^(NSError *error) {
+        
         loginFailed(error);
     }];
 }

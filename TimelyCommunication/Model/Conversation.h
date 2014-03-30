@@ -18,4 +18,5 @@
 - (void)sendMessage :(TextMessage*)message;
 - (void)pushAgreen :(NSString*)uname;
 - (void)pushDeleteContact :(NSString*)uname;
+- (void)pushApply :(NSString*)uname;
 @end

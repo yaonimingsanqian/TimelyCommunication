@@ -10,6 +10,7 @@
 #import "SMClient.h"
 #import "SMQuery.h"
 #import "CommonData.h"
+#import "Conversation.h"
 static AddFriendMgr *shared = nil;
 @implementation AddFriendMgr
 + (AddFriendMgr*)sharedInstance
@@ -46,6 +47,7 @@ static AddFriendMgr *shared = nil;
             
             [[[SMClient defaultClient] dataStore] updateObjectWithId:userName inSchema:@"user" update:updatedTodo onSuccess:^(NSDictionary *object, NSString *schema) {
                 //推送
+                [[Conversation sharedInstance] pushApply:userName];
             } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
                 NSLog(@"error");
             }];
@@ -63,6 +65,7 @@ static AddFriendMgr *shared = nil;
             [[[SMClient defaultClient] dataStore] updateObjectWithId:userName inSchema:@"user" update:updatedTodo onSuccess:^(NSDictionary *object, NSString *schema) {
                 
                 //推送
+                [[Conversation sharedInstance] pushApply:userName];
             } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
                 NSLog(@"error");
             }];

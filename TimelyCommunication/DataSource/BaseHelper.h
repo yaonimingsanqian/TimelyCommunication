@@ -9,5 +9,4 @@
 #import <Foundation/Foundation.h>
 
 @interface BaseHelper : NSObject
-- (BOOL) isTableOK:(NSString *)tableName;
 @end

@@ -20,16 +20,15 @@ typedef void(^CreateComplete)(void);
 }
 + (DataStorage*)sharedInstance;
 + (void)destory;
-- (void)saveConversation :(NSString*)con;
+- (void)saveConversation :(NSString*)con :(void(^)(void))complete;
 - (void)queryConversation;
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;
-- (int)queryNotReadCount :(NSString*)conversationName;
+- (void)queryNotReadCount :(NSString*)conversationName :(void(^)(int count))result;
 - (void)queryConversationWithFinished:(queryFinished)result;
 
-- (BOOL)saveMsg :(BaseMesage*)msg;
-- (NSArray*)loadHistoryMsg :(NSString*)conversationId;
-- (void)loadHistoryMsg :(NSString*)conversationId :(LoadMsgComplete)complete;
-- (TextMessage*)queryLastMsg :(NSString*)username :(NSString*)conId;
+- (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete;
+- (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result;
+- (void)queryLastMsg :(NSString*)username :(NSString*)conId :(void(^)(TextMessage *msg))result;
 - (void)createDatabaseAndTables :(NSString*)databaseName :(void(^)(void))complete;
 
 @end

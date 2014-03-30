@@ -26,7 +26,7 @@
     }
     if(!isExcute)
         [[ConversationMgr sharedInstance].conversations addObject:self.conversationId];
-    [[DataStorage sharedInstance] saveMsg:self];
+    [[DataStorage sharedInstance] saveMsg:self :nil];
     
     NSString *fromwhere = [[self.from componentsSeparatedByString:@"@"] objectAtIndex:0];
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewTextMsg,kRefreshtype,fromwhere,kMsgFrom, nil];

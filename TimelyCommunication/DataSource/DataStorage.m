@@ -9,6 +9,7 @@
 #import "DataStorage.h"
 #import "Config.h"
 #import "DDLog.h"
+#import "TextMessage.h"
 static DataStorage *sharedInyance = nil;
 @implementation DataStorage
 
@@ -38,7 +39,7 @@ static DataStorage *sharedInyance = nil;
 -(void)addColumn:(NSString*)columnName :(NSString*)type intoTable:(NSString*)tableName :(void(^)(BOOL isSuccess))complete
 {
     [queue inDatabase:^(FMDatabase *db) {
-        NSString *updateStr = [NSString stringWithFormat:@"ALTER TABLE %@ ADD %@  %@",tableName,columnName,type];
+        NSString *updateStr = [NSString stringWithFormat:@"ALTER TABLE %@ ADD '%@' %@",tableName,columnName,type];
         if(NO == [db executeUpdate:updateStr])
         {
             NSAssert(NO==YES, @"插入行失败了");
@@ -92,6 +93,7 @@ static DataStorage *sharedInyance = nil;
                 
             }
         }
+        [db closeOpenResultSets];
         
     }];
     
@@ -101,8 +103,9 @@ static DataStorage *sharedInyance = nil;
     NSLog(@"%@",tableName);
     static int finsihCount = 0;
     finsihCount++;
-    if(finsihCount == 1)
+    if(finsihCount == 2)
     {
+        finsihCount = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:kDatabaseCreateFinished object:nil];
         if(createDatabaseAndTableComplete)
         {
@@ -111,35 +114,46 @@ static DataStorage *sharedInyance = nil;
         
     }
 }
-- (void)createConversationTable
+- (void)addField :(NSArray*)field :(NSArray*)type :(NSString*)table
 {
-    //NSString *sql =  [NSString stringWithFormat:@"CREATE  TABLE  IF NOT EXISTS '%@' ('messageId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL  UNIQUE , 'conversationName' VARCHAR,'type' VARCHAR,'notReadCount' int)",tableName];
     DataStorage __weak *tmp = self;
-    [self createTableWithTableName:kConversationName :^(BOOL isTableOk) {
+    [self createTableWithTableName:table :^(BOOL isTableOk) {
         if(isTableOk)
         {
-            [tmp tableOk:kConversationName];
+            [tmp tableOk:table];
             return ;
         }else
         {
             int  i = 0;
-            NSString *last = kConversationColumns.lastObject;
-            for (NSString *column in kConversationColumns)
+            NSString *last = field.lastObject;
+            for (NSString *column in field)
             {
                 if([column isEqualToString:last])
                 {
-                    [self addColumn :column :[kConversationColumnsType objectAtIndex:i] intoTable:kConversationName :^(BOOL isSuccess) {
-                        [tmp tableOk:kConversationName];
+                    [self addColumn :column :[type objectAtIndex:i] intoTable:table :^(BOOL isSuccess) {
+                        [tmp tableOk:table];
                     }];
                 }else
                 {
-                    [tmp addColumn:column :[kConversationColumnsType objectAtIndex:i] intoTable:kConversationName :nil];
+                    [tmp addColumn:column :[type objectAtIndex:i] intoTable:table :nil];
                 }
                 i++;
                 
             }
         }
     }];
+}
+- (void)createConversationTable
+{
+    [self addField:kConversationColumns :kConversationColumnsType :kConversationName];
+}
+- (void)createMsgTable
+{
+    [self addField:kMsgColumns :kMsgFieldType :kMsgTableName];
+}
+- (void)createRedPoingTable
+{
+    [self addField:kRedPointColumns :kRedPointColumnsType :kRedPointName];
 }
 - (void)createDatabaseAndTables:(NSString *)databaseName :(void (^)(void))complete
 {
@@ -150,54 +164,58 @@ static DataStorage *sharedInyance = nil;
     if(!queue)
     {
         NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:databaseName];
-        NSLog(@"%@",path);
         BOOL isDir = YES;
         if(![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
         {
             [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
-            path = [path stringByAppendingPathComponent:[databaseName stringByAppendingString:@".sqlite"]];
-            queue = [[FMDatabaseQueue alloc]initWithPath:path];
+           
         }
+        path = [path stringByAppendingPathComponent:[databaseName stringByAppendingString:@".sqlite"]];
+        queue = [[FMDatabaseQueue alloc]initWithPath:path];
     }
     [self createConversationTable];
+    [self createMsgTable];
+    [self createRedPoingTable];
 }
-- (void)saveConversation:(NSString *)con
+- (void)saveConversation:(NSString *)con :(void(^)(void))complete
 {
-    [conversationHelper saveConversation:con :queue];
+    [conversationHelper saveConversation:con :queue :complete];
 }
 - (void)queryConversation
 {
-    [conversationHelper queryConversation];
+    [conversationHelper queryConversation:queue];
 }
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd
 {
-    [conversationHelper updateConversation:conversationName :isAdd];
+    [conversationHelper updateConversation:conversationName :isAdd :queue :^(int count) {
+        NSLog(@"%d",count);
+    }];
 }
-- (int)queryNotReadCount :(NSString*)conversationName
+- (void)queryNotReadCount :(NSString*)conversationName :(void(^)(int count))result;
 {
-    return [conversationHelper queryNotReadCount:conversationName];
+    [conversationHelper queryNotReadCount:conversationName :queue :result];
 }
 - (void)queryConversationWithFinished:(queryFinished)result
 {
-    [conversationHelper queryConversationWithFinished:result];
+    [conversationHelper queryConversationWithFinished :queue :result];
 }
 
 
-- (BOOL)saveMsg :(BaseMesage*)msg
+- (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete
 {
-    return [msgHelper saveMsg:msg];
+    return [msgHelper saveMsg :msg :queue :complete];
 }
-- (NSArray*)loadHistoryMsg :(NSString*)conversationId
+- (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result
 {
-    return [msgHelper loadHistoryMsg:conversationId];
+    [msgHelper loadHistoryMsg:conversationId :queue :result];
 }
-- (void)loadHistoryMsg :(NSString*)conversationId :(LoadMsgComplete)complete
+//- (void)loadHistoryMsg :(NSString*)conversationId :(LoadMsgComplete)complete
+//{
+//    [msgHelper loadHistoryMsg:conversationId :complete];
+//}
+- (void)queryLastMsg :(NSString*)username :(NSString*)conId :(void(^)(TextMessage *msg))result;
 {
-    [msgHelper loadHistoryMsg:conversationId :complete];
-}
-- (TextMessage*)queryLastMsg :(NSString*)username :(NSString*)conId
-{
-    return [msgHelper queryLastMsg:username :conId];
+    [msgHelper queryLastMsg:username :conId :queue :result];
 }
 
 
