@@ -34,6 +34,7 @@
 #define DATABASE_PATH(useraccount) [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]stringByAppendingFormat:@"/%@.sqlite",useraccount]
 #define kMsgTableName @"msgTable"
 #define kConversationName @"conversations"
+#define kRedPointName @"redpoint"
 
 #pragma mark - 用户信息
 #define kXMPPmyJID @"kXMPPmyJID"
@@ -49,8 +50,28 @@
 #define kContactDeleteOne @"kContactDeleteOne"
 #define kContactLoadFinish @"kContactLoadFinish"
 #define kDatabaseCreateFinished @"kDatabaseCreateFinished"
+#define kNewFriendApply @"kNewFriendApply"
 
 //表字段以及类型
+//会话表
 #define kConversationColumns @[@"conversationName",@"type",@"notReadCount"]
 #define kConversationColumnsType @[@"VARCHAR",@"VARCHAR",@"int"]
+
+//消息表
+#define kMsgColumns @[@"type",@"from",@"to",@"msgContent",@"sendDate",@"conversationId",@"isIncoming"]
+#define kMsgFieldType @[@"int",@"VARCHAR",@"VARCHAR",@"VARCHAR",@"DATETIME",@"VARCHAR",@"int"]
+
+//红点表
+#define kRedPointColumns @[@"type",@"count"]
+#define kRedPointColumnsType @[@"VARCHAR",@"int"]
+
+
+//红点view的tag
+#define kRedPoingTag 5
+
+//红点提示类型
+#define kNewFriend @"kNewFriend"
+
+
+
 #endif
