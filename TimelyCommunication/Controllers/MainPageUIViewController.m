@@ -23,14 +23,6 @@
 {
     NSLog(@"MainPageUIViewController dealloc");
 }
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -124,7 +116,6 @@
         cell.time.text = currentDateStr;
         cell.msg.text = msg.msgContent;
     }];
-//    TextMessage *msg = [[DataStorage sharedInstance] queryLastMsg:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :con];
    
     
     [self clearRedBall:cell];
