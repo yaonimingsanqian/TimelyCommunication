@@ -20,6 +20,7 @@ typedef void(^queryFinished)(NSArray *result);
 - (void)queryConversationWithFinished :(FMDatabaseQueue*)queue :(queryFinished)result;
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAddv :(FMDatabaseQueue*)queue :(void(^)(int count))complete;
 - (void)queryNotReadCount :(NSString*)conversationName :(FMDatabaseQueue*)queue :(void(^)(int count))result;
+- (void)deleteConversation :(NSString*)name :(FMDatabaseQueue*)queue :(void(^)(BOOL isSuccess))finished;
 
 
 @end

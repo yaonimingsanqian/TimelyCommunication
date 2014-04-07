@@ -15,6 +15,20 @@
 
 #pragma mark - 私有
 #pragma mark - 接口
+
+- (void)deleteMSg:(NSString *)conId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
+{
+    [queue inDatabase:^(FMDatabase *db) {
+        NSString *deleteStr = [NSString stringWithFormat:@"delete from %@ where conversationId=?",kMsgTableName];
+        BOOL isSuccess = [db executeUpdate:deleteStr,conId];
+        if(finished)
+        {
+            MAIN(^{
+                finished(isSuccess);
+            });
+        }
+    }];
+}
 - (BOOL)saveMsg:(BaseMesage *)msg :(FMDatabaseQueue*)queue :(void(^)(void))complete
 {
     [queue inDatabase:^(FMDatabase *db) {

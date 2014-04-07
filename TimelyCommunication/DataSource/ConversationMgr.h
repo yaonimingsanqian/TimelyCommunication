@@ -14,4 +14,5 @@
 + (void)destory;
 @property (nonatomic,strong) NSMutableArray *conversations;
 - (BOOL)isConversationExist :(NSString*)con;
+- (BOOL)removeConversations :(NSString*)con;
 @end

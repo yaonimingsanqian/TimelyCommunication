@@ -25,9 +25,11 @@ typedef void(^CreateComplete)(void);
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;
 - (void)queryNotReadCount :(NSString*)conversationName :(void(^)(int count))result;
 - (void)queryConversationWithFinished:(queryFinished)result;
+- (void)deleteConversation:(NSString *)name :(void (^)(BOOL))finished;
 
 - (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete;
 - (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result;
+- (void)deleteMsg :(NSString*)conId :(void(^)(BOOL isSuccess))finished;
 - (void)queryLastMsg :(NSString*)username :(NSString*)conId :(void(^)(TextMessage *msg))result;
 - (void)createDatabaseAndTables :(NSString*)databaseName :(void(^)(void))complete;
 

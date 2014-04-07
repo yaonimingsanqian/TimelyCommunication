@@ -12,6 +12,7 @@
 #import "AgreenApplyMessage.h"
 #import "DeleteContactMsg.h"
 #import "ApplyMsg.h"
+#import "RejectMsg.h"
 @implementation MessageFactory
 
 + (BaseMesage*)createMsg:(XMPPMessage *)msg
@@ -25,6 +26,8 @@
         baseMsg = [[DeleteContactMsg alloc]init];
     if([[msg type] isEqualToString:@"apply"])
         baseMsg = [[ApplyMsg alloc]init];
+    if([[msg type] isEqualToString:@"reject"])
+        baseMsg = [[RejectMsg alloc]init];
         
     baseMsg.isIncoming = YES;
     baseMsg.from = [msg fromStr];

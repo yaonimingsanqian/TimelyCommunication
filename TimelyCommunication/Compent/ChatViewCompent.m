@@ -53,10 +53,10 @@
    // if(!isShowKeyboard) return;
     [UIView animateWithDuration:duration animations:^{
       //  isShowKeyboard = YES;
-        int h = [[UIScreen mainScreen] bounds].size.height;
-        int offset = h > 480?0:-64;
+        //int h = [[UIScreen mainScreen] bounds].size.height;
+       // int offset = h > 480?0:-64;
         CGRect inputCompentFrame = inputCompent.frame;
-        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height - keyboardFrame.size.height-inputCompent.frame.size.height+offset;
+        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height - keyboardFrame.size.height-inputCompent.frame.size.height-64;
         inputCompent.frame = inputCompentFrame;
         CGRect chatTableViewFrame = chatTableView.frame;
         chatTableViewFrame.size.height = inputCompent.frame.origin.y;
@@ -70,10 +70,10 @@
 {
     [UIView animateWithDuration:duration animations:^{
       //  isShowKeyboard = NO;
-        int h = [[UIScreen mainScreen] bounds].size.height;
-        int offset = h > 480?0:-64;
+      //  int h = [[UIScreen mainScreen] bounds].size.height;
+       // int offset = h > 480?0:-64;
         CGRect inputCompentFrame = inputCompent.frame;
-        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height-inputCompent.frame.size.height+offset;
+        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height-inputCompent.frame.size.height-64;
         inputCompent.frame = inputCompentFrame;
         CGRect chatTableViewFrame = chatTableView.frame;
         chatTableViewFrame.size.height = inputCompent.frame.origin.y;

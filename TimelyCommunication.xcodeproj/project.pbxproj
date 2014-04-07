@@ -11,6 +11,7 @@
 		18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCB18C33C4A00A76D7B /* MessageFactory.m */; };
 		18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */; };
 		18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DD118C3417C00A76D7B /* ConversationMgr.m */; };
+		184C835A18F25311008D48DB /* RejectMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C835918F25311008D48DB /* RejectMsg.m */; };
 		1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */; };
 		1883924B18C9779100DC5257 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883924A18C9779100DC5257 /* icon.png */; };
 		1883925218C98AE000DC5257 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925118C98AE000DC5257 /* avatar.png */; };
@@ -107,6 +108,8 @@
 		18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageUIViewController.m; sourceTree = "<group>"; };
 		18296DD018C3417C00A76D7B /* ConversationMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationMgr.h; sourceTree = "<group>"; };
 		18296DD118C3417C00A76D7B /* ConversationMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationMgr.m; sourceTree = "<group>"; };
+		184C835818F25311008D48DB /* RejectMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectMsg.h; sourceTree = "<group>"; };
+		184C835918F25311008D48DB /* RejectMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RejectMsg.m; sourceTree = "<group>"; };
 		1879F34D18C62D4B0054C812 /* SearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendViewController.h; sourceTree = "<group>"; };
 		1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendViewController.m; sourceTree = "<group>"; };
 		1883924A18C9779100DC5257 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -443,6 +446,8 @@
 		18DF8238187BC053000FDCFF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				184C835818F25311008D48DB /* RejectMsg.h */,
+				184C835918F25311008D48DB /* RejectMsg.m */,
 				18DF8239187BC053000FDCFF /* BaseMesage.h */,
 				18DF823A187BC053000FDCFF /* BaseMesage.m */,
 				18DF823B187BC053000FDCFF /* CommonData.h */,
@@ -730,6 +735,7 @@
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
 				1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */,
+				184C835A18F25311008D48DB /* RejectMsg.m in Sources */,
 				18DF8264187BC074000FDCFF /* InputCompent.m in Sources */,
 				18DF824C187BC053000FDCFF /* TextMessage.m in Sources */,
 			);

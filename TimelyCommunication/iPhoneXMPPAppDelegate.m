@@ -24,6 +24,7 @@
 #import "RedBall.h"
 #import "SelfInfoViewController.h"
 #import "DataStorage.h"
+#import "ContactsMgr.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -245,6 +246,10 @@
     NSXMLElement *message = [self createMsg:msg];
     [message addAttributeWithName:@"type" stringValue:type];
     [xmppStream sendElement:message];
+}
+- (void)pushReject:(BaseMesage *)msg
+{
+    [self sendCmdMsg:msg :@"reject"];
 }
 - (void)pushApplay:(BaseMesage *)msg
 {
@@ -479,6 +484,8 @@
         [[tabBarController.view viewWithTag:111] removeFromSuperview];
     }
 }
+
+
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
     BaseMesage *msg = [MessageFactory createMsg:message];
@@ -488,6 +495,7 @@
     }
    
     NSString *user = [[msg.from componentsSeparatedByString:@"@"] objectAtIndex:0];
+    
     if(([msg isKindOfClass:[TextMessage class]] || [msg isKindOfClass:[AgreenApplyMessage class]]) && ![[ConversationMgr sharedInstance] isConversationExist:user])
     {
         [[DataStorage sharedInstance] saveConversation:user :nil];
@@ -497,7 +505,6 @@
     {
         UIView *red = [RedBall createRedBallWithoutNumber];
         red.tag = 111;
-        //red.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
         [tabBarController.view addSubview:red];
     }
     

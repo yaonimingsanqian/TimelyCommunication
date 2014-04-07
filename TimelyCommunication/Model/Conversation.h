@@ -19,4 +19,5 @@
 - (void)pushAgreen :(NSString*)uname;
 - (void)pushDeleteContact :(NSString*)uname;
 - (void)pushApply :(NSString*)uname;
+- (void)pushReject :(NSString*)uname;
 @end

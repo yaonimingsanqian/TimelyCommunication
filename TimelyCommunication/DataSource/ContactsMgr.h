@@ -13,5 +13,5 @@
 + (void)destory;
 @property (nonatomic,strong) NSMutableArray *friends;
 - (void)parseFriends :(NSDictionary*)friends;
-- (BOOL)isConversationExist :(NSString*)conName;
+- (BOOL)isContactExist :(NSString*)conName;
 @end

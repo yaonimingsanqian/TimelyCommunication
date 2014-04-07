@@ -31,14 +31,17 @@
     message.from = [CommonData sharedCommonData].curentUser.username;
     message.isIncoming = NO;
     [messageArray addObject:message];
-    [[Conversation sharedInstance] sendMessage:message];
-    [[DataStorage sharedInstance] saveMsg:message :nil];
+   
+    [[DataStorage sharedInstance] saveMsg:message :^{
+         [[Conversation sharedInstance] sendMessage:message];
+        if(![[ConversationMgr sharedInstance] isConversationExist:username])
+        {
+            [[ConversationMgr sharedInstance].conversations addObject:username];
+            [[DataStorage sharedInstance] saveConversation:username :nil];
+        }
+    }];
     [chatViewCompent reloadData];
-    if(![[ConversationMgr sharedInstance] isConversationExist:username])
-    {
-        [[ConversationMgr sharedInstance].conversations addObject:username];
-        [[DataStorage sharedInstance] saveConversation:username :nil];
-    }
+    
 }
 #pragma mark - HPLChatTableViewDataSource
 - (NSInteger)numberOfRowsForChatTable:(HPLChatTableView *)tableView

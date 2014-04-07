@@ -8,14 +8,22 @@
 
 #import "AgreenApplyMessage.h"
 #import "Config.h"
+#import "ConversationMgr.h"
+#import "DataStorage.h"
 
 @implementation AgreenApplyMessage
 
 - (void)doSelfThing
 {
-    [super doSelfThing];
     NSString *fromwhere = [[self.from componentsSeparatedByString:@"@"] objectAtIndex:0];
-    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewFriend,kRefreshtype,fromwhere,kMsgFrom, nil];
+    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewTextMsg,kRefreshtype,fromwhere,kMsgFrom, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:info];
+    BOOL isExcute = [[ConversationMgr sharedInstance] isConversationExist:fromwhere];
+    if(!isExcute)
+    {
+        [[ConversationMgr sharedInstance].conversations addObject:self.conversationId];
+    }
+    [[DataStorage sharedInstance] saveMsg:self :nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
 }
 @end

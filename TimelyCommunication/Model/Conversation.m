@@ -13,12 +13,14 @@
 #import "AgreenApplyMessage.h"
 #import "DeleteContactMsg.h"
 #import "ApplyMsg.h"
+#import "RejectMsg.h"
 static Conversation *sharedInstance = nil;
 
 typedef enum{
     DeleteContactMsgType = 0,
     AgreenMsgType,
-    ApplyMsgType
+    ApplyMsgType,
+    Reject
 }PushMsgType;
 @implementation Conversation
 
@@ -59,6 +61,12 @@ typedef enum{
             message.msgContent = @"我想加你为好友";
         }
             break;
+        case Reject:
+        {
+            message = [[RejectMsg alloc]init];
+            message.msgContent = @"你还不是我的好友,请先加好友";
+        }
+            break;
         default:
             break;
     }
@@ -75,6 +83,12 @@ typedef enum{
     BaseMesage *message = [self createMsg:DeleteContactMsgType :uname];
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [delegate pushDeleteContactMsg:message];
+}
+- (void)pushReject:(NSString *)uname
+{
+    BaseMesage *message = [self createMsg:Reject :uname];
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate pushReject:message];
 }
 - (void)pushApply:(NSString *)uname
 {

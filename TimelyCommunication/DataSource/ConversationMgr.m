@@ -34,6 +34,18 @@ static ConversationMgr *sharedInstance = nil;
     }
     return self;
 }
+- (BOOL)removeConversations:(NSString *)con
+{
+    for (NSString *converstion in self.conversations)
+    {
+        if([con isEqualToString:converstion])
+        {
+            [self.conversations removeObject:converstion];
+            return YES;
+        }
+    }
+    return NO;
+}
 - (BOOL)isConversationExist:(NSString *)con
 {
     for (NSString *acon in self.conversations)

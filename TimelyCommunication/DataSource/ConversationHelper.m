@@ -98,6 +98,20 @@
         }
     }];
 }
+- (void)deleteConversation:(NSString *)name :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
+{
+    [queue inDatabase:^(FMDatabase *db) {
+        NSString *deleteStr = [NSString stringWithFormat:@"delete from %@ where conversationName=?",kConversationName];
+        BOOL isSucess = [db executeUpdate:deleteStr,name];
+        if(finished)
+        {
+            MAIN(^{
+                finished(isSucess);
+            });
+        }
+        
+    }];
+}
 - (void)saveConversation:(NSString *)con :(FMDatabaseQueue*)queue :(void(^)(void))complete
 {
     [queue inDatabase:^(FMDatabase *db) {
@@ -111,10 +125,5 @@
             });
         }
     }];
-//    [self createDataBase:kConversationName :queue :^(BOOL isSuccess) {
-//        NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-//        user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
-//        
-//    }];
 }
 @end

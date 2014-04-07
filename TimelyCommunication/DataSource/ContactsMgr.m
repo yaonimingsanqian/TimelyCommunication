@@ -21,7 +21,7 @@ static ContactsMgr *sharedInstance = nil;
 {
     sharedInstance = nil;
 }
-- (BOOL)isConversationExist:(NSString *)conName
+- (BOOL)isContactExist:(NSString *)conName
 {
     for (NSString *name in self.friends)
     {

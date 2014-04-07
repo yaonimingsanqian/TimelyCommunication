@@ -195,6 +195,10 @@ static DataStorage *sharedInyance = nil;
 {
     [conversationHelper queryNotReadCount:conversationName :queue :result];
 }
+- (void)deleteConversation:(NSString *)name :(void (^)(BOOL))finished
+{
+    [conversationHelper deleteConversation:name :queue :finished];
+}
 - (void)queryConversationWithFinished:(queryFinished)result
 {
     [conversationHelper queryConversationWithFinished :queue :result];
@@ -204,6 +208,10 @@ static DataStorage *sharedInyance = nil;
 - (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete
 {
     return [msgHelper saveMsg :msg :queue :complete];
+}
+- (void)deleteMsg:(NSString *)conId :(void (^)(BOOL))finished
+{
+    [msgHelper deleteMSg:conId :queue :finished];
 }
 - (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result
 {

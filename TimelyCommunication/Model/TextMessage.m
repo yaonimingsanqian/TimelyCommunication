@@ -11,26 +11,40 @@
 #import "Config.h"
 #import "Conversation.h"
 #import "DataStorage.h"
+#import "ContactsMgr.h"
+
 @implementation TextMessage
 
+- (BOOL)isFromUserMyFriend :(NSString*)from
+{
+    return [[ContactsMgr sharedInstance] isContactExist:from];
+}
 - (void)doSelfThing
 {
-    BOOL isExcute = NO;
-    for (NSString *con in [ConversationMgr sharedInstance].conversations)
-    {
-        if([con isEqualToString:self.conversationId])
-        {
-            isExcute = YES;
-            break;
-        }
-    }
-    if(!isExcute)
-        [[ConversationMgr sharedInstance].conversations addObject:self.conversationId];
-    [[DataStorage sharedInstance] saveMsg:self :nil];
+    
+   
     
     NSString *fromwhere = [[self.from componentsSeparatedByString:@"@"] objectAtIndex:0];
+    BOOL isFriendExist = [self isFromUserMyFriend:fromwhere];
+    if(!isFriendExist)
+    {
+        [[DataStorage sharedInstance] deleteConversation:fromwhere :^(BOOL isSuccess) {
+            [[DataStorage sharedInstance] deleteMsg:fromwhere :nil];
+        }];
+        [[Conversation sharedInstance] pushReject:fromwhere];
+        return;
+    }
+    
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewTextMsg,kRefreshtype,fromwhere,kMsgFrom, nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:info];
+ 
+    BOOL isExcute = [[ConversationMgr sharedInstance] isConversationExist:fromwhere];
+    if(!isExcute)
+    {
+        [[ConversationMgr sharedInstance].conversations addObject:self.conversationId];
+    }
+    [[DataStorage sharedInstance] saveMsg:self :^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:info];
+    }];
 }
 - (void)postLocalNotifaction
 {
