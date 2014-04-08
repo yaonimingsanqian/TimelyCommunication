@@ -14,10 +14,13 @@
 #import "NavigationControllerTitle.h"
 
 @interface ChatViewController ()
-
+{
+   
+}
 @end
-
+static int origin;
 @implementation ChatViewController
+@synthesize username=_username,messageArray=_messageArray;
 #pragma mark - ChatDelegate
 - (void)sendTextMessage:(NSString *)text
 {
@@ -26,18 +29,18 @@
     message.msgContent = text;
     message.type = MessageText;
     message.sendDate = [NSDate date];
-    message.conversationId = username;
-    message.to = username;
+    message.conversationId = _username;
+    message.to = _username;
     message.from = [CommonData sharedCommonData].curentUser.username;
     message.isIncoming = NO;
-    [messageArray addObject:message];
+    [_messageArray addObject:message];
    
     [[DataStorage sharedInstance] saveMsg:message :^{
          [[Conversation sharedInstance] sendMessage:message];
-        if(![[ConversationMgr sharedInstance] isConversationExist:username])
+        if(![[ConversationMgr sharedInstance] isConversationExist:_username])
         {
-            [[ConversationMgr sharedInstance].conversations addObject:username];
-            [[DataStorage sharedInstance] saveConversation:username :nil];
+            [[ConversationMgr sharedInstance].conversations addObject:_username];
+            [[DataStorage sharedInstance] saveConversation:_username :nil];
         }
     }];
     [chatViewCompent reloadData];
@@ -46,12 +49,12 @@
 #pragma mark - HPLChatTableViewDataSource
 - (NSInteger)numberOfRowsForChatTable:(HPLChatTableView *)tableView
 {
-    return messageArray.count;
+    return _messageArray.count;
 }
 - (HPLChatData*)chatTableView:(HPLChatTableView *)tableView dataForRow:(NSInteger)row
 {
     HPLChatData *hplData;
-    BaseMesage *textMsg = [messageArray objectAtIndex:row];
+    BaseMesage *textMsg = [_messageArray objectAtIndex:row];
     hplData = [[HPLChatData alloc]initWithText:textMsg.msgContent date:textMsg.sendDate type:textMsg.isIncoming];
     
     return hplData;
@@ -62,16 +65,16 @@
     self = [super init];
     if(self)
     {
-        messageArray = [[NSMutableArray alloc]init];
-        username = ausername;
+        _messageArray = [[NSMutableArray alloc]init];
+        _username = ausername;
     }
     return self;
 }
 - (void)receiveNewMsg
 {
-    [[DataStorage sharedInstance] updateConversation:username :NO];
-    [[DataStorage sharedInstance] loadHistoryMsg:username :^(NSArray *result) {
-        messageArray = [NSMutableArray arrayWithArray:result];
+    [[DataStorage sharedInstance] updateConversation:_username :NO];
+    [[DataStorage sharedInstance] loadHistoryMsg:_username :^(NSArray *result) {
+        _messageArray = [NSMutableArray arrayWithArray:result];
         [chatViewCompent reloadData];
     }];
     
@@ -86,7 +89,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [NavigationControllerTitle showInView:self.navigationController.navigationBar :username];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :_username];
+}
+
+- (void)loadMore
+{
+    [[DataStorage sharedInstance] loadMoreMsg:_username :origin :4 :^(NSArray *result) {
+        origin += result.count;
+        NSMutableArray *dest = [NSMutableArray arrayWithArray:result];
+        [dest addObjectsFromArray:_messageArray];
+        _messageArray = dest;
+        [_messageArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            BaseMesage *msg1 = (BaseMesage*)obj1;
+            BaseMesage *msg2 = (BaseMesage*)obj2;
+            if(msg1.messageId < msg2.messageId)
+                return  NSOrderedDescending;
+            return NSOrderedAscending;
+        }];
+        [chatViewCompent reloadDataWithoutScrollToBottom];
+        [chatViewCompent endRefresh];
+    }];
 }
 - (void)viewDidLoad
 {
@@ -98,13 +120,20 @@
     chatViewCompent.delegate = self;
     [self.view addSubview:chatViewCompent];
     
-    [[DataStorage sharedInstance] loadHistoryMsg:username :^(NSArray *result) {
-        messageArray = [NSMutableArray arrayWithArray:result];
+//    [[DataStorage sharedInstance] loadHistoryMsg:username :^(NSArray *result) {
+//        messageArray = [NSMutableArray arrayWithArray:result];
+//        [chatViewCompent reloadData];
+//    }];
+    origin = 0;
+    [[DataStorage sharedInstance] loadMoreMsg:_username :origin :4 :^(NSArray *result) {
+        origin += result.count;
+        _messageArray = [NSMutableArray arrayWithArray:result];
         [chatViewCompent reloadData];
     }];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg) name:kNewTextMsg object:nil];
-     [[DataStorage sharedInstance] updateConversation:username :NO];
+    //refreshbegin
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMore) name:@"refreshbegin" object:nil];
+     [[DataStorage sharedInstance] updateConversation:_username :NO];
 
     
 }

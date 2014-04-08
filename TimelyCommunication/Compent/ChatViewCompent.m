@@ -24,10 +24,20 @@
     {
         chatTableView = [[HPLChatTableView alloc]initWithFrame:kChatViewFrameForIPHONE4];
     }
-    
+    refreshView = [[MJRefreshHeaderView alloc]init];
+    refreshView.delegate = self;
+    refreshView.scrollView = chatTableView;
     chatTableView.chatDataSource = datsSource;
-   // chatTableView.backgroundColor = [UIColor greenColor];
+    
     [self addSubview:chatTableView];
+}
+- (void)endRefresh
+{
+    [refreshView endRefreshing];
+}
+- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshbegin" object:nil];
 }
 - (void)createInputFrame
 {
@@ -56,7 +66,7 @@
         //int h = [[UIScreen mainScreen] bounds].size.height;
        // int offset = h > 480?0:-64;
         CGRect inputCompentFrame = inputCompent.frame;
-        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height - keyboardFrame.size.height-inputCompent.frame.size.height-64;
+        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height - keyboardFrame.size.height-inputCompent.frame.size.height;
         inputCompent.frame = inputCompentFrame;
         CGRect chatTableViewFrame = chatTableView.frame;
         chatTableViewFrame.size.height = inputCompent.frame.origin.y;
@@ -73,7 +83,7 @@
       //  int h = [[UIScreen mainScreen] bounds].size.height;
        // int offset = h > 480?0:-64;
         CGRect inputCompentFrame = inputCompent.frame;
-        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height-inputCompent.frame.size.height-64;
+        inputCompentFrame.origin.y = [[UIScreen mainScreen] bounds].size.height-inputCompent.frame.size.height;
         inputCompent.frame = inputCompentFrame;
         CGRect chatTableViewFrame = chatTableView.frame;
         chatTableViewFrame.size.height = inputCompent.frame.origin.y;
@@ -107,6 +117,10 @@
     [inputCompent hideKeyboard];
 }
 #pragma mark - 接口
+- (void)reloadDataWithoutScrollToBottom
+{
+    [chatTableView reloadWithOutScroll];
+}
 - (void)reloadData
 {
     [chatTableView reloadData];
@@ -121,12 +135,14 @@
         [chatTableView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chatTableViewTapAction:)]];
         [self createInputFrame];
         [self listenKeyboardShowAndHide];
+        
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [refreshView free];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }

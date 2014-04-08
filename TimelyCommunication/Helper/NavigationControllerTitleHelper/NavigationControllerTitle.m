@@ -22,7 +22,7 @@
     labelTitle.backgroundColor = [UIColor clearColor];
     labelTitle.font = [UIFont boldSystemFontOfSize:17];
     labelTitle.textAlignment = NSTextAlignmentCenter;
-    labelTitle.textColor = [UIColor whiteColor];
+    labelTitle.textColor = [UIColor blackColor];
     labelTitle.text = title;
     labelTitle.tag = 110;
     [view addSubview:labelTitle];

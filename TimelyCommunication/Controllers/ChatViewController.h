@@ -20,4 +20,6 @@
     NSString *username;
 }
 - (id)initWithUserName :(NSString*)aUsername;
+@property (nonatomic,strong) NSString *username;
+@property (nonatomic,strong) NSMutableArray *messageArray;
 @end

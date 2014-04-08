@@ -29,6 +29,7 @@ typedef void(^CreateComplete)(void);
 
 - (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete;
 - (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result;
+- (void)loadMoreMsg :(NSString*)conversationId :(int)origin :(int)lenght :(void(^)(NSArray*))result;
 - (void)deleteMsg :(NSString*)conId :(void(^)(BOOL isSuccess))finished;
 - (void)queryLastMsg :(NSString*)username :(NSString*)conId :(void(^)(TextMessage *msg))result;
 - (void)createDatabaseAndTables :(NSString*)databaseName :(void(^)(void))complete;

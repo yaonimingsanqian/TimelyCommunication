@@ -64,7 +64,7 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIView *redball = [RedBall createRedBallWithoutNumber];
     CGRect frame = redball.frame;
-    frame.origin.x = 280;
+    frame.origin.x = 270;
     frame.origin.y = (cell.frame.size.height - frame.size.height)/2.f;
     redball.frame = frame;
     [cell.contentView addSubview:redball];

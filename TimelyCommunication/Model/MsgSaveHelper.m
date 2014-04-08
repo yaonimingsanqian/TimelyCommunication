@@ -76,25 +76,48 @@
     
     
 }
+- (NSMutableArray*)creageMsg :(FMResultSet*)rs
+{
+     NSMutableArray *msgSet = [[NSMutableArray alloc]init];
+    while (rs.next)
+    {
+        BaseMesage *msg = [[BaseMesage alloc]init];
+        msg.messageId = [rs stringForColumn:@"id"];
+        msg.type = [rs stringForColumn:@"type"];
+        msg.from = [rs stringForColumn:@"from"];
+        msg.to = [rs stringForColumn:@"to"];
+        msg.msgContent = [rs stringForColumn:@"msgContent"];
+        msg.sendDate = [rs dateForColumn:@"sendDate"];
+        msg.conversationId = [rs stringForColumn:@"conversationId"];
+        msg.isIncoming = [rs intForColumn:@"isIncoming"];
+        [msgSet addObject:msg];
+    }
+    return msgSet;
+}
+- (void)loadMore:(NSString *)conversationId :(int)origin :(int)length :(FMDatabaseQueue *)queue :(void (^)(NSArray *))result
+{
+    [queue inDatabase:^(FMDatabase *db) {
+        
+        NSString *sql = [NSString stringWithFormat:@"select * from %@ where conversationId=? order by id desc limit %d,%d",kMsgTableName,origin,length];
+        FMResultSet *rs = [db executeQuery:sql,conversationId];
+        NSMutableArray *msgSet = [self creageMsg:rs];
+        if(result)
+        {
+            NSArray* reversedArray = [[msgSet reverseObjectEnumerator] allObjects];
+            MAIN(^{
+                result(reversedArray);
+            });
+        }
+        [db closeOpenResultSets];
+        
+    }];
+}
 - (void)loadHistoryMsg:(NSString *)conversationId :(FMDatabaseQueue*)queue :(void(^)(NSArray*))result
 {
     [queue inDatabase:^(FMDatabase *db) {
-        NSMutableArray *msgSet = [[NSMutableArray alloc]init];
         NSString *sql = [NSString stringWithFormat:@"select * from %@ where conversationId=?",kMsgTableName];
         FMResultSet *rs = [db executeQuery:sql,conversationId];
-        while (rs.next)
-        {
-            BaseMesage *msg = [[BaseMesage alloc]init];
-            msg.messageId = [rs stringForColumn:@"id"];
-            msg.type = [rs stringForColumn:@"type"];
-            msg.from = [rs stringForColumn:@"from"];
-            msg.to = [rs stringForColumn:@"to"];
-            msg.msgContent = [rs stringForColumn:@"msgContent"];
-            msg.sendDate = [rs dateForColumn:@"sendDate"];
-            msg.conversationId = [rs stringForColumn:@"conversationId"];
-            msg.isIncoming = [rs intForColumn:@"isIncoming"];
-            [msgSet addObject:msg];
-        }
+        NSMutableArray *msgSet = [self creageMsg:rs];
         if(result)
         {
             MAIN(^{

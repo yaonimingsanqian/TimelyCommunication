@@ -213,6 +213,10 @@ static DataStorage *sharedInyance = nil;
 {
     [msgHelper deleteMSg:conId :queue :finished];
 }
+- (void)loadMoreMsg:(NSString *)conversationId :(int)origin :(int)lenght :(void (^)(NSArray *))result
+{
+    [msgHelper loadMore:conversationId :origin :lenght :queue :result];
+}
 - (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result
 {
     [msgHelper loadHistoryMsg:conversationId :queue :result];

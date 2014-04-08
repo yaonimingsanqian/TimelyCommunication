@@ -12,6 +12,7 @@
 		18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */; };
 		18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DD118C3417C00A76D7B /* ConversationMgr.m */; };
 		184C835A18F25311008D48DB /* RejectMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C835918F25311008D48DB /* RejectMsg.m */; };
+		184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 184C835B18F2CC82008D48DB /* navigationtitle.png */; };
 		1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */; };
 		1883924B18C9779100DC5257 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883924A18C9779100DC5257 /* icon.png */; };
 		1883925218C98AE000DC5257 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925118C98AE000DC5257 /* avatar.png */; };
@@ -48,6 +49,11 @@
 		18B2F28A18E6EC5900D753B0 /* DeleteContactMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B2F28918E6EC5900D753B0 /* DeleteContactMsg.m */; };
 		18B2F28D18E8279F00D753B0 /* ApplyMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B2F28C18E8279F00D753B0 /* ApplyMsg.m */; };
 		18B8F77718C4C23700718ADD /* RedBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8F77618C4C23700718ADD /* RedBall.m */; };
+		18C586F318F420C00006C172 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18C586E918F420C00006C172 /* MJRefresh.bundle */; };
+		18C586F418F420C00006C172 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C586EC18F420C00006C172 /* MJRefreshBaseView.m */; };
+		18C586F518F420C00006C172 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C586EE18F420C00006C172 /* MJRefreshConst.m */; };
+		18C586F618F420C00006C172 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C586F018F420C00006C172 /* MJRefreshFooterView.m */; };
+		18C586F718F420C00006C172 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C586F218F420C00006C172 /* MJRefreshHeaderView.m */; };
 		18D287FC18CC092400638879 /* DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FB18CC092400638879 /* DataStorage.m */; };
 		18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FE18CC09E600638879 /* ConversationHelper.m */; };
 		18D2880218CC178500638879 /* BaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2880118CC178500638879 /* BaseHelper.m */; };
@@ -110,6 +116,7 @@
 		18296DD118C3417C00A76D7B /* ConversationMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationMgr.m; sourceTree = "<group>"; };
 		184C835818F25311008D48DB /* RejectMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectMsg.h; sourceTree = "<group>"; };
 		184C835918F25311008D48DB /* RejectMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RejectMsg.m; sourceTree = "<group>"; };
+		184C835B18F2CC82008D48DB /* navigationtitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationtitle.png; sourceTree = "<group>"; };
 		1879F34D18C62D4B0054C812 /* SearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendViewController.h; sourceTree = "<group>"; };
 		1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendViewController.m; sourceTree = "<group>"; };
 		1883924A18C9779100DC5257 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -160,6 +167,16 @@
 		18B2F28C18E8279F00D753B0 /* ApplyMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyMsg.m; sourceTree = "<group>"; };
 		18B8F77518C4C23700718ADD /* RedBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedBall.h; sourceTree = "<group>"; };
 		18B8F77618C4C23700718ADD /* RedBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedBall.m; sourceTree = "<group>"; };
+		18C586E918F420C00006C172 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
+		18C586EA18F420C00006C172 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
+		18C586EB18F420C00006C172 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
+		18C586EC18F420C00006C172 /* MJRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshBaseView.m; sourceTree = "<group>"; };
+		18C586ED18F420C00006C172 /* MJRefreshConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshConst.h; sourceTree = "<group>"; };
+		18C586EE18F420C00006C172 /* MJRefreshConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshConst.m; sourceTree = "<group>"; };
+		18C586EF18F420C00006C172 /* MJRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshFooterView.h; sourceTree = "<group>"; };
+		18C586F018F420C00006C172 /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
+		18C586F118F420C00006C172 /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
+		18C586F218F420C00006C172 /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
 		18D287FA18CC092400638879 /* DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStorage.h; sourceTree = "<group>"; };
 		18D287FB18CC092400638879 /* DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStorage.m; sourceTree = "<group>"; };
 		18D287FD18CC09E600638879 /* ConversationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationHelper.h; sourceTree = "<group>"; };
@@ -278,6 +295,7 @@
 		18296DC018C3308100A76D7B /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				18C586E818F420C00006C172 /* MJRefresh */,
 				18D2880F18CC743400638879 /* NavigationControllerTitleHelper */,
 				18296DC118C3308100A76D7B /* NSString+md5 */,
 			);
@@ -294,6 +312,7 @@
 		1883925D18CA17DC00DC5257 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				184C835B18F2CC82008D48DB /* navigationtitle.png */,
 				18D2882318CCABBF00638879 /* searchfriend.png */,
 				18D2882118CCAB4F00638879 /* friend.png */,
 				18D2881F18CCA91300638879 /* next.png */,
@@ -403,6 +422,23 @@
 				18AFAA21187B18A600036ED8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18C586E818F420C00006C172 /* MJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				18C586E918F420C00006C172 /* MJRefresh.bundle */,
+				18C586EA18F420C00006C172 /* MJRefresh.h */,
+				18C586EB18F420C00006C172 /* MJRefreshBaseView.h */,
+				18C586EC18F420C00006C172 /* MJRefreshBaseView.m */,
+				18C586ED18F420C00006C172 /* MJRefreshConst.h */,
+				18C586EE18F420C00006C172 /* MJRefreshConst.m */,
+				18C586EF18F420C00006C172 /* MJRefreshFooterView.h */,
+				18C586F018F420C00006C172 /* MJRefreshFooterView.m */,
+				18C586F118F420C00006C172 /* MJRefreshHeaderView.h */,
+				18C586F218F420C00006C172 /* MJRefreshHeaderView.m */,
+			);
+			path = MJRefresh;
 			sourceTree = "<group>";
 		};
 		18D2880F18CC743400638879 /* NavigationControllerTitleHelper */ = {
@@ -626,6 +662,7 @@
 				18D2881C18CCA6D100638879 /* apply.png in Resources */,
 				18D2881E18CCA82F00638879 /* addfriend.png in Resources */,
 				18AFAA12187B18A500036ED8 /* Images.xcassets in Resources */,
+				184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */,
 				18DF826A187BC074000FDCFF /* me.png in Resources */,
 				18AD348618CA196F00A5DFC6 /* man.png in Resources */,
 				18A3842918C1CE14000EA528 /* register.png in Resources */,
@@ -647,6 +684,7 @@
 				18AFAA01187B18A500036ED8 /* InfoPlist.strings in Resources */,
 				18D2882218CCAB4F00638879 /* friend.png in Resources */,
 				18AD348718CA196F00A5DFC6 /* woman.png in Resources */,
+				18C586F318F420C00006C172 /* MJRefresh.bundle in Resources */,
 				1883925818C98B4900DC5257 /* PersonInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,10 +738,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D2882818CCB11000638879 /* SelfInfoViewController.m in Sources */,
+				18C586F518F420C00006C172 /* MJRefreshConst.m in Sources */,
 				18DF8248187BC053000FDCFF /* CommonData.m in Sources */,
 				18DF8263187BC074000FDCFF /* ChatViewCompent.m in Sources */,
 				18DF8247187BC053000FDCFF /* BaseMesage.m in Sources */,
 				1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */,
+				18C586F618F420C00006C172 /* MJRefreshFooterView.m in Sources */,
 				18E7FB4618BB63E300148255 /* User.m in Sources */,
 				18D2881A18CCA4D800638879 /* ContactCell.m in Sources */,
 				18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */,
@@ -717,6 +757,8 @@
 				18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */,
 				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
 				18AD348C18CA228300A5DFC6 /* AddFriendMgr.m in Sources */,
+				18C586F718F420C00006C172 /* MJRefreshHeaderView.m in Sources */,
+				18C586F418F420C00006C172 /* MJRefreshBaseView.m in Sources */,
 				18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */,
 				18B8F77718C4C23700718ADD /* RedBall.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
