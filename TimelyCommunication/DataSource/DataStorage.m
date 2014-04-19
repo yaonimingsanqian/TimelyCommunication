@@ -10,6 +10,7 @@
 #import "Config.h"
 #import "DDLog.h"
 #import "TextMessage.h"
+#define kTableCount 4
 static DataStorage *sharedInyance = nil;
 @implementation DataStorage
 
@@ -30,6 +31,7 @@ static DataStorage *sharedInyance = nil;
     {
         msgHelper = [[MsgSaveHelper alloc]init];
         conversationHelper = [[ConversationHelper alloc]init];
+        contactsHelper = [[ContactsHelper alloc]init];
         NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
         user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
        // queue = [FMDatabaseQueue databaseQueueWithPath:DATABASE_PATH(user)];
@@ -103,7 +105,7 @@ static DataStorage *sharedInyance = nil;
     NSLog(@"%@",tableName);
     static int finsihCount = 0;
     finsihCount++;
-    if(finsihCount == 2)
+    if(finsihCount == kTableCount)
     {
         finsihCount = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:kDatabaseCreateFinished object:nil];
@@ -151,6 +153,10 @@ static DataStorage *sharedInyance = nil;
 {
     [self addField:kMsgColumns :kMsgFieldType :kMsgTableName];
 }
+- (void)createContactsTable
+{
+    [self addField:kContactColumns :kContactColumnsType :kContactName];
+}
 - (void)createRedPoingTable
 {
     [self addField:kRedPointColumns :kRedPointColumnsType :kRedPointName];
@@ -176,6 +182,7 @@ static DataStorage *sharedInyance = nil;
     [self createConversationTable];
     [self createMsgTable];
     [self createRedPoingTable];
+    [self createContactsTable];
 }
 - (void)saveConversation:(NSString *)con :(void(^)(void))complete
 {
@@ -230,5 +237,20 @@ static DataStorage *sharedInyance = nil;
     [msgHelper queryLastMsg:username :conId :queue :result];
 }
 
-
+- (void)saveContacts:(NSArray *)contactIds :(NSArray *)types :(void (^)(BOOL))result
+{
+    [contactsHelper saveContacts:contactIds :types :queue :result];
+}
+- (void)deleteContacts:(NSArray *)contactIds :(NSArray *)types :(void (^)(BOOL))result
+{
+    [contactsHelper deleteContacts:contactIds :types :queue :result];
+}
+- (void)queryContacts:(NSArray *)contactIds :(NSArray *)types :(void (^)(NSArray *))result
+{
+    [contactsHelper queryContacts:contactIds :types :queue :result];
+}
+- (void)queryAllContacts :(NSString *)type :(void (^)(NSArray *))result
+{
+    [contactsHelper queryAllContacts:queue :type :result];
+}
 @end

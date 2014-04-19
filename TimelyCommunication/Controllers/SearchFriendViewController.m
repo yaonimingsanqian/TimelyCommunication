@@ -13,7 +13,7 @@
 #import "User.h"
 #import "NavigationControllerTitle.h"
 #import "PersonInfoViewController.h"
-
+#import "Config.h"
 @interface SearchFriendViewController ()
 
 @end
@@ -77,6 +77,13 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
      UITextField *search = (UITextField*)[self.view viewWithTag:101];
+    NSString *current = [[[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyJID] lowercaseString];
+    if([[search.text lowercaseString] isEqualToString:current])
+    {
+        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"提示" message:@"不能搜索自己" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil ];
+        [alert show];
+        return;
+    }
     [query where:@"username" isEqualTo:[search.text lowercaseString]];
     SearchFriendViewController __weak *tmp = self;
     [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {

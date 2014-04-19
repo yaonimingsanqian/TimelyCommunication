@@ -120,7 +120,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
-   
+    [ContactsMgr sharedInstance];
     self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];
 	[self setupStream];
 	self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -129,6 +129,7 @@
     if(username&&pass)
     {
         //数据库准备好后进行登录
+        
         [[DataStorage sharedInstance] createDatabaseAndTables:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :^{
         
             [self turnToMainPage];
@@ -233,9 +234,9 @@
 }
 - (NSXMLElement*)createMsg :(BaseMesage*)msg
 {
-    msg.msgContent = [GTMBase64 encodeBase64String:msg.msgContent];
+    NSString *msgContent = [GTMBase64 encodeBase64String:msg.msgContent];
     NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
-    [body setStringValue:msg.msgContent];
+    [body setStringValue:msgContent];
 	
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
 

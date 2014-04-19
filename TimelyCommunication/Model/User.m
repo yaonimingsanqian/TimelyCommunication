@@ -52,7 +52,9 @@
        
         loginSuccess(result);
         [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
-            [[ContactsMgr sharedInstance] parseFriends:result];
+            
+            NSArray *friendsInfo = [result objectForKey:@"friends"];
+            [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
         }];
         
     } onFailure:^(NSError *error) {

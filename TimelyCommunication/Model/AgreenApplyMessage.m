@@ -10,11 +10,12 @@
 #import "Config.h"
 #import "ConversationMgr.h"
 #import "DataStorage.h"
-
+#import "GTMBase64.h"
 @implementation AgreenApplyMessage
 
 - (void)doSelfThing
 {
+    self.msgContent = [GTMBase64 decodeBase64String:self.msgContent];
     NSString *fromwhere = [[self.from componentsSeparatedByString:@"@"] objectAtIndex:0];
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewTextMsg,kRefreshtype,fromwhere,kMsgFrom, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:info];

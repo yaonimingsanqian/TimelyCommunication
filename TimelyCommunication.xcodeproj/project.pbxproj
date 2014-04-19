@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1812648619023130005E076B /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812648519023130005E076B /* Contact.m */; };
 		18296DB918C2F56500A76D7B /* ContactsMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DB818C2F56500A76D7B /* ContactsMgr.m */; };
 		18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCB18C33C4A00A76D7B /* MessageFactory.m */; };
 		18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */; };
 		18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DD118C3417C00A76D7B /* ConversationMgr.m */; };
 		183156A21902250A002AE558 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831569F1902250A002AE558 /* GTMBase64.m */; };
 		183156A31902250A002AE558 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 183156A11902250A002AE558 /* README.md */; };
+		183156A719022B55002AE558 /* ContactsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 183156A619022B55002AE558 /* ContactsHelper.m */; };
 		184C835A18F25311008D48DB /* RejectMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C835918F25311008D48DB /* RejectMsg.m */; };
 		184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 184C835B18F2CC82008D48DB /* navigationtitle.png */; };
 		1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */; };
@@ -58,7 +60,6 @@
 		18C586F718F420C00006C172 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C586F218F420C00006C172 /* MJRefreshHeaderView.m */; };
 		18D287FC18CC092400638879 /* DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FB18CC092400638879 /* DataStorage.m */; };
 		18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D287FE18CC09E600638879 /* ConversationHelper.m */; };
-		18D2880218CC178500638879 /* BaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2880118CC178500638879 /* BaseHelper.m */; };
 		18D2880618CC3CAE00638879 /* lightBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D2880518CC3CAE00638879 /* lightBlack.png */; };
 		18D2880818CC3D1D00638879 /* tabbarbottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D2880718CC3D1D00638879 /* tabbarbottom.png */; };
 		18D2880A18CC3F5400638879 /* contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D2880918CC3F5400638879 /* contact.png */; };
@@ -108,6 +109,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1812648419023130005E076B /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		1812648519023130005E076B /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		18296DB718C2F56500A76D7B /* ContactsMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsMgr.h; sourceTree = "<group>"; };
 		18296DB818C2F56500A76D7B /* ContactsMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsMgr.m; sourceTree = "<group>"; };
 		18296DCA18C33C4A00A76D7B /* MessageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFactory.h; sourceTree = "<group>"; };
@@ -120,6 +123,8 @@
 		1831569F1902250A002AE558 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		183156A01902250A002AE558 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		183156A11902250A002AE558 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		183156A519022B55002AE558 /* ContactsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsHelper.h; sourceTree = "<group>"; };
+		183156A619022B55002AE558 /* ContactsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsHelper.m; sourceTree = "<group>"; };
 		184C835818F25311008D48DB /* RejectMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectMsg.h; sourceTree = "<group>"; };
 		184C835918F25311008D48DB /* RejectMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RejectMsg.m; sourceTree = "<group>"; };
 		184C835B18F2CC82008D48DB /* navigationtitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationtitle.png; sourceTree = "<group>"; };
@@ -183,12 +188,10 @@
 		18C586F018F420C00006C172 /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		18C586F118F420C00006C172 /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		18C586F218F420C00006C172 /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
-		18D287FA18CC092400638879 /* DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStorage.h; sourceTree = "<group>"; };
-		18D287FB18CC092400638879 /* DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStorage.m; sourceTree = "<group>"; };
-		18D287FD18CC09E600638879 /* ConversationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationHelper.h; sourceTree = "<group>"; };
-		18D287FE18CC09E600638879 /* ConversationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationHelper.m; sourceTree = "<group>"; };
-		18D2880018CC178500638879 /* BaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseHelper.h; sourceTree = "<group>"; };
-		18D2880118CC178500638879 /* BaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseHelper.m; sourceTree = "<group>"; };
+		18D287FA18CC092400638879 /* DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataStorage.h; path = DataSource/DataStorage.h; sourceTree = "<group>"; };
+		18D287FB18CC092400638879 /* DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataStorage.m; path = DataSource/DataStorage.m; sourceTree = "<group>"; };
+		18D287FD18CC09E600638879 /* ConversationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConversationHelper.h; path = DataSource/ConversationHelper.h; sourceTree = "<group>"; };
+		18D287FE18CC09E600638879 /* ConversationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConversationHelper.m; path = DataSource/ConversationHelper.m; sourceTree = "<group>"; };
 		18D2880518CC3CAE00638879 /* lightBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightBlack.png; sourceTree = "<group>"; };
 		18D2880718CC3D1D00638879 /* tabbarbottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbarbottom.png; sourceTree = "<group>"; };
 		18D2880918CC3F5400638879 /* contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact.png; sourceTree = "<group>"; };
@@ -219,8 +222,8 @@
 		18DF823C187BC053000FDCFF /* CommonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonData.m; sourceTree = "<group>"; };
 		18DF823D187BC053000FDCFF /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Conversation.h; path = ../Model/Conversation.h; sourceTree = "<group>"; };
 		18DF823E187BC053000FDCFF /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Conversation.m; path = ../Model/Conversation.m; sourceTree = "<group>"; };
-		18DF823F187BC053000FDCFF /* MsgSaveHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MsgSaveHelper.h; path = ../Model/MsgSaveHelper.h; sourceTree = "<group>"; };
-		18DF8240187BC053000FDCFF /* MsgSaveHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MsgSaveHelper.m; path = ../Model/MsgSaveHelper.m; sourceTree = "<group>"; };
+		18DF823F187BC053000FDCFF /* MsgSaveHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MsgSaveHelper.h; path = Model/MsgSaveHelper.h; sourceTree = "<group>"; };
+		18DF8240187BC053000FDCFF /* MsgSaveHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MsgSaveHelper.m; path = Model/MsgSaveHelper.m; sourceTree = "<group>"; };
 		18DF8243187BC053000FDCFF /* TextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessage.h; sourceTree = "<group>"; };
 		18DF8244187BC053000FDCFF /* TextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessage.m; sourceTree = "<group>"; };
 		18DF8251187BC074000FDCFF /* ChatViewCompent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewCompent.h; sourceTree = "<group>"; };
@@ -286,14 +289,6 @@
 				18296DD118C3417C00A76D7B /* ConversationMgr.m */,
 				18AD348A18CA228300A5DFC6 /* AddFriendMgr.h */,
 				18AD348B18CA228300A5DFC6 /* AddFriendMgr.m */,
-				18D287FA18CC092400638879 /* DataStorage.h */,
-				18D287FB18CC092400638879 /* DataStorage.m */,
-				18D287FD18CC09E600638879 /* ConversationHelper.h */,
-				18D287FE18CC09E600638879 /* ConversationHelper.m */,
-				18D2880018CC178500638879 /* BaseHelper.h */,
-				18D2880118CC178500638879 /* BaseHelper.m */,
-				18DF823F187BC053000FDCFF /* MsgSaveHelper.h */,
-				18DF8240187BC053000FDCFF /* MsgSaveHelper.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -317,6 +312,21 @@
 				183156A11902250A002AE558 /* README.md */,
 			);
 			path = GTMBase64;
+			sourceTree = "<group>";
+		};
+		183156A419022ACC002AE558 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				18D287FA18CC092400638879 /* DataStorage.h */,
+				18D287FB18CC092400638879 /* DataStorage.m */,
+				18D287FD18CC09E600638879 /* ConversationHelper.h */,
+				18D287FE18CC09E600638879 /* ConversationHelper.m */,
+				18DF823F187BC053000FDCFF /* MsgSaveHelper.h */,
+				18DF8240187BC053000FDCFF /* MsgSaveHelper.m */,
+				183156A519022B55002AE558 /* ContactsHelper.h */,
+				183156A619022B55002AE558 /* ContactsHelper.m */,
+			);
+			name = Database;
 			sourceTree = "<group>";
 		};
 		1883925D18CA17DC00DC5257 /* common */ = {
@@ -386,6 +396,7 @@
 		18AFA9FC187B18A500036ED8 /* TimelyCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				183156A419022ACC002AE558 /* Database */,
 				18296DC018C3308100A76D7B /* Helper */,
 				18296DB618C2F54A00A76D7B /* DataSource */,
 				18A3842A18C1F898000EA528 /* iPhoneXMPPAppDelegate.h */,
@@ -508,6 +519,8 @@
 				18B2F28918E6EC5900D753B0 /* DeleteContactMsg.m */,
 				18B2F28B18E8279F00D753B0 /* ApplyMsg.h */,
 				18B2F28C18E8279F00D753B0 /* ApplyMsg.m */,
+				1812648419023130005E076B /* Contact.h */,
+				1812648519023130005E076B /* Contact.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -755,6 +768,7 @@
 				18DF8247187BC053000FDCFF /* BaseMesage.m in Sources */,
 				1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */,
 				18C586F618F420C00006C172 /* MJRefreshFooterView.m in Sources */,
+				1812648619023130005E076B /* Contact.m in Sources */,
 				18E7FB4618BB63E300148255 /* User.m in Sources */,
 				18D2881A18CCA4D800638879 /* ContactCell.m in Sources */,
 				18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */,
@@ -775,10 +789,10 @@
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
-				18D2880218CC178500638879 /* BaseHelper.m in Sources */,
 				18E7FB4018BB621400148255 /* LoginView.m in Sources */,
 				18AD349018CAE4EF00A5DFC6 /* NewFriendViewController.m in Sources */,
 				18D287FC18CC092400638879 /* DataStorage.m in Sources */,
+				183156A719022B55002AE558 /* ContactsHelper.m in Sources */,
 				18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */,
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
 				18AD349D18CB04AB00A5DFC6 /* AgreenApplyMessage.m in Sources */,

@@ -12,6 +12,6 @@
 + (ContactsMgr*)sharedInstance;
 + (void)destory;
 @property (nonatomic,strong) NSMutableArray *friends;
-- (void)parseFriends :(NSDictionary*)friends;
+//- (void)parseFriends :(NSDictionary*)friends;
 - (BOOL)isContactExist :(NSString*)conName;
 @end

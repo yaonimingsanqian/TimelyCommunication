@@ -10,6 +10,7 @@
 #import "MsgSaveHelper.h"
 #import "ConversationHelper.h"
 #import "FMDataBaseQueue.h"
+#import "ContactsHelper.h"
 typedef void(^CreateComplete)(void);
 @interface DataStorage : NSObject
 {
@@ -17,9 +18,16 @@ typedef void(^CreateComplete)(void);
     ConversationHelper *conversationHelper;
     FMDatabaseQueue *queue;
     CreateComplete createDatabaseAndTableComplete;
+    ContactsHelper *contactsHelper;
 }
+#pragma mark - 单例
 + (DataStorage*)sharedInstance;
+#pragma mark - 建表
+- (void)createDatabaseAndTables :(NSString*)databaseName :(void(^)(void))complete;
+#pragma mark - 销毁
 + (void)destory;
+
+#pragma mark - 会话相关
 - (void)saveConversation :(NSString*)con :(void(^)(void))complete;
 - (void)queryConversation;
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;
@@ -27,11 +35,18 @@ typedef void(^CreateComplete)(void);
 - (void)queryConversationWithFinished:(queryFinished)result;
 - (void)deleteConversation:(NSString *)name :(void (^)(BOOL))finished;
 
+#pragma mark - 消息相关
 - (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete;
 - (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result;
 - (void)loadMoreMsg :(NSString*)conversationId :(int)origin :(int)lenght :(void(^)(NSArray*))result;
 - (void)deleteMsg :(NSString*)conId :(void(^)(BOOL isSuccess))finished;
 - (void)queryLastMsg :(NSString*)username :(NSString*)conId :(void(^)(TextMessage *msg))result;
-- (void)createDatabaseAndTables :(NSString*)databaseName :(void(^)(void))complete;
+
+#pragma mark - 联系人相关
+- (void)saveContacts :(NSArray*)contactIds :(NSArray*)types :(void(^)(BOOL isSuccess))result;
+- (void)deleteContacts :(NSArray*)contactIds :(NSArray*)types :(void(^)(BOOL isSuccess))result;
+- (void)queryContacts:(NSArray *)contactIds :(NSArray *)types :(void (^)(NSArray *))result;
+- (void)queryAllContacts :(NSString*)type :(void (^)(NSArray *))result;
+
 
 @end

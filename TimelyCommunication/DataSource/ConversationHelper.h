@@ -7,12 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BaseHelper.h"
 #import "FMDatabaseQueue.h"
 
 
 typedef void(^queryFinished)(NSArray *result);
-@interface ConversationHelper : BaseHelper
+@interface ConversationHelper : NSObject
 
 
 - (void)saveConversation :(NSString*)con :(FMDatabaseQueue*)queue :(void(^)(void))complete;

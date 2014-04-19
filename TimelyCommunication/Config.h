@@ -35,6 +35,7 @@
 #define kMsgTableName @"msgTable"
 #define kConversationName @"conversations"
 #define kRedPointName @"redpoint"
+#define kContactName @"contact"
 
 #pragma mark - 用户信息
 #define kXMPPmyJID @"kXMPPmyJID"
@@ -47,13 +48,13 @@
 #define kRegisterSuccess @"kRegisterSuccess"
 #define kRegisterFailed @"kRegisterFailed"
 #define kRefeshcontact @"kRefeshcontact"
-#define kContactDeleteOne @"kContactDeleteOne"
 #define kContactLoadFinish @"kContactLoadFinish"
 #define kDatabaseCreateFinished @"kDatabaseCreateFinished"
 #define kNewFriendApply @"kNewFriendApply"
 #define kFriendAddFinished @"kFriendAddFinished"
 #define kFriendAddFailed @"kFriendAddFailed"
-
+#define kSaveContact @"kSaveContact" //保存了一个联系人
+#define kDeleteContact @"kDeleteContact"//删除一个联系人
 //表字段以及类型
 //会话表
 #define kConversationColumns @[@"conversationName",@"type",@"notReadCount"]
@@ -66,6 +67,10 @@
 //红点表
 #define kRedPointColumns @[@"type",@"count"]
 #define kRedPointColumnsType @[@"VARCHAR",@"int"]
+
+//通讯录表
+#define kContactColumns @[@"uid",@"type"]
+#define kContactColumnsType @[@"VARCHAR",@"int"]
 
 
 //红点view的tag

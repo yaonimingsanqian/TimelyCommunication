@@ -18,6 +18,7 @@
 #import "CommonData.h"
 #import "MBProgressHUD.h"
 #import "RedBall.h"
+#import "DataStorage.h"
 
 @interface ContactsViewController ()
 
@@ -87,22 +88,10 @@
     NSDictionary *info = [noti object];
     if([[info objectForKey:kRefreshtype] isEqualToString:kNewFriend] || [[info objectForKey:kRefreshtype] isEqualToString:kNewTextMsg])
     {
-        if(![self isFriendExist:[info objectForKey:kMsgFrom]])
-        {
-            [[ContactsMgr sharedInstance].friends addObject:[info objectForKey:kMsgFrom]];
-            
-        }
+        [[DataStorage sharedInstance] saveContacts:[NSArray arrayWithObject:[info objectForKey:kMsgFrom]] :nil :nil];
     }else if([[info objectForKey:kRefreshtype] isEqualToString:kDeleteFriend])
     {
-        for (NSString *contact in [ContactsMgr sharedInstance].friends)
-        {
-            if([contact isEqualToString:[info objectForKey:kMsgFrom]])
-            {
-                [[ContactsMgr sharedInstance].friends removeObject:contact];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kContactDeleteOne object:contact userInfo:nil];
-                break;
-            }
-        }
+        [[DataStorage sharedInstance] deleteContacts:[NSArray arrayWithObject:[info objectForKey:kMsgFrom]] :nil :nil];
     }
     
     [self.tableView reloadData];
@@ -275,8 +264,7 @@
                     //发送推送给对方
                     [[Conversation sharedInstance] pushDeleteContact:friendId];
                     //更新自己的好友列表
-                     [[ContactsMgr sharedInstance].friends removeObjectAtIndex:indexPath.row];
-                     [tableView reloadData];
+                    [[DataStorage sharedInstance] deleteContacts:[NSArray arrayWithObject:[[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row]] :nil :nil];
                     
                 } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
                     [self handleError];
