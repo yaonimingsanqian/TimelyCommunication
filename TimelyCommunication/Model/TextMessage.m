@@ -12,6 +12,7 @@
 #import "Conversation.h"
 #import "DataStorage.h"
 #import "ContactsMgr.h"
+#import "GTMBase64.h"
 
 @implementation TextMessage
 
@@ -23,7 +24,7 @@
 {
     
    
-    
+    self.msgContent = [GTMBase64 decodeBase64String:self.msgContent];
     NSString *fromwhere = [[self.from componentsSeparatedByString:@"@"] objectAtIndex:0];
     BOOL isFriendExist = [self isFromUserMyFriend:fromwhere];
     if(!isFriendExist)

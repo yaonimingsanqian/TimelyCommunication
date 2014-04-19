@@ -25,6 +25,7 @@
 #import "SelfInfoViewController.h"
 #import "DataStorage.h"
 #import "ContactsMgr.h"
+#import "GTMBase64.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -127,21 +128,25 @@
     NSString *pass = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyPassword];
     if(username&&pass)
     {
-         [[DataStorage sharedInstance] createDatabaseAndTables:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :nil];
-        [self turnToMainPage];
-        stockUser = [[User alloc]init];
-        stockUser.password = pass;
-        stockUser.username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
-        [stockUser login:^(NSDictionary *success) {
-            NSLog(@"stockmob登录成功");
-        } :^(NSError *error) {
-            NSLog(@"登录失败");
+        //数据库准备好后进行登录
+        [[DataStorage sharedInstance] createDatabaseAndTables:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :^{
+        
+            [self turnToMainPage];
+            stockUser = [[User alloc]init];
+            stockUser.password = pass;
+            stockUser.username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
+            [stockUser login:^(NSDictionary *success) {
+                NSLog(@"stockmob登录成功");
+            } :^(NSError *error) {
+                NSLog(@"登录失败");
+            }];
+            
+            
+            iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+            [delegate disconnect];
+            [delegate connect];
         }];
-        
-        
-        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [delegate disconnect];
-        [delegate connect];
+       
         return YES;
         
     }
@@ -176,7 +181,7 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.1.127"];
+	[xmppStream setHostName:@"192.168.1.103"];
 	[xmppStream setHostPort:5222];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;
@@ -228,6 +233,7 @@
 }
 - (NSXMLElement*)createMsg :(BaseMesage*)msg
 {
+    msg.msgContent = [GTMBase64 encodeBase64String:msg.msgContent];
     NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
     [body setStringValue:msg.msgContent];
 	

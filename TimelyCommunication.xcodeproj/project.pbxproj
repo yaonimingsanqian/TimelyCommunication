@@ -11,6 +11,8 @@
 		18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCB18C33C4A00A76D7B /* MessageFactory.m */; };
 		18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */; };
 		18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DD118C3417C00A76D7B /* ConversationMgr.m */; };
+		183156A21902250A002AE558 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831569F1902250A002AE558 /* GTMBase64.m */; };
+		183156A31902250A002AE558 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 183156A11902250A002AE558 /* README.md */; };
 		184C835A18F25311008D48DB /* RejectMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C835918F25311008D48DB /* RejectMsg.m */; };
 		184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 184C835B18F2CC82008D48DB /* navigationtitle.png */; };
 		1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */; };
@@ -114,6 +116,10 @@
 		18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageUIViewController.m; sourceTree = "<group>"; };
 		18296DD018C3417C00A76D7B /* ConversationMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationMgr.h; sourceTree = "<group>"; };
 		18296DD118C3417C00A76D7B /* ConversationMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationMgr.m; sourceTree = "<group>"; };
+		1831569E1902250A002AE558 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		1831569F1902250A002AE558 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		183156A01902250A002AE558 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		183156A11902250A002AE558 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		184C835818F25311008D48DB /* RejectMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectMsg.h; sourceTree = "<group>"; };
 		184C835918F25311008D48DB /* RejectMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RejectMsg.m; sourceTree = "<group>"; };
 		184C835B18F2CC82008D48DB /* navigationtitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationtitle.png; sourceTree = "<group>"; };
@@ -295,18 +301,22 @@
 		18296DC018C3308100A76D7B /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				1831569D1902250A002AE558 /* GTMBase64 */,
 				18C586E818F420C00006C172 /* MJRefresh */,
 				18D2880F18CC743400638879 /* NavigationControllerTitleHelper */,
-				18296DC118C3308100A76D7B /* NSString+md5 */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		18296DC118C3308100A76D7B /* NSString+md5 */ = {
+		1831569D1902250A002AE558 /* GTMBase64 */ = {
 			isa = PBXGroup;
 			children = (
+				1831569E1902250A002AE558 /* GTMBase64.h */,
+				1831569F1902250A002AE558 /* GTMBase64.m */,
+				183156A01902250A002AE558 /* GTMDefines.h */,
+				183156A11902250A002AE558 /* README.md */,
 			);
-			path = "NSString+md5";
+			path = GTMBase64;
 			sourceTree = "<group>";
 		};
 		1883925D18CA17DC00DC5257 /* common */ = {
@@ -669,6 +679,7 @@
 				18D2882918CCB11000638879 /* SelfInfoViewController.xib in Resources */,
 				1883925F18CA17FC00DC5257 /* personavatar.png in Resources */,
 				18D2880E18CC716400638879 /* navigationbottom.png in Resources */,
+				183156A31902250A002AE558 /* README.md in Resources */,
 				18DF8267187BC074000FDCFF /* sound.png in Resources */,
 				1883924B18C9779100DC5257 /* icon.png in Resources */,
 				18DF826B187BC074000FDCFF /* search.png in Resources */,
@@ -772,6 +783,7 @@
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
 				18AD349D18CB04AB00A5DFC6 /* AgreenApplyMessage.m in Sources */,
 				18D2881218CC745600638879 /* NavigationControllerTitle.m in Sources */,
+				183156A21902250A002AE558 /* GTMBase64.m in Sources */,
 				18B2F28A18E6EC5900D753B0 /* DeleteContactMsg.m in Sources */,
 				18B2F28D18E8279F00D753B0 /* ApplyMsg.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
