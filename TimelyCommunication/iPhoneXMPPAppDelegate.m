@@ -26,6 +26,7 @@
 #import "DataStorage.h"
 #import "ContactsMgr.h"
 #import "GTMBase64.h"
+#import "DiscoveryViewController.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -76,7 +77,11 @@
             controller = [[SelfInfoViewController alloc]init];
             break;
         }
-            
+        case 102:
+        {
+            controller = [[DiscoveryViewController alloc]init];
+            break;
+        }
         default:
             controller = [[UIViewController alloc]init];
             break;
@@ -119,7 +124,7 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
+    TCLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
     [ContactsMgr sharedInstance];
     self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];
 	[self setupStream];

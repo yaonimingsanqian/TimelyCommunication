@@ -14,7 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "NavigationControllerTitle.h"
-
+#define TCLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define MAIN(block) dispatch_async(dispatch_get_main_queue(), block)
 
 #endif
