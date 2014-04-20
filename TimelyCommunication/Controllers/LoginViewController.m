@@ -49,6 +49,11 @@
 - (void)registerAction
 {
     RegisterViewController *registerViewController = [[RegisterViewController alloc]init];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    self.navigationItem.backBarButtonItem = backItem;
+    backItem.title = @"返回";
+    registerViewController.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:registerViewController animated:YES];
     
 
@@ -75,16 +80,27 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGestureAction)];
     [view addGestureRecognizer:tap];
 }
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"即时通信"];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     loginView = [[LoginView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    [loginView createAccountField:CGRectMake(60, 100, 200, 30) :1];
-    [loginView createPasswordField:CGRectMake(60, 160, 200, 30) :1];
-    [loginView createLoginBtn:CGRectMake(80, 220, 60, 30) :UIButtonTypeCustom :self :@selector(loginAction) :UIControlEventTouchUpInside];
-    [loginView createRegisterBtn:CGRectMake(170, 220, 60, 30) :UIButtonTypeCustom :self :@selector(registerAction) :UIControlEventTouchUpInside];
+    [loginView createAccountField:CGRectMake(30, 110, 260, 40) :1];
+    [loginView createPasswordField:CGRectMake(30, 150, 260, 40) :1];
+    [loginView createLoginBtn:CGRectMake(30, 220, 260, 40) :UIButtonTypeCustom :self :@selector(loginAction) :UIControlEventTouchUpInside];
+    [loginView createRegisterBtn:CGRectMake(30, 280, 260, 40) :UIButtonTypeCustom :self :@selector(registerAction) :UIControlEventTouchUpInside];
     [loginView setTextFieldDelegate:self];
     [self addTapGesture:loginView];
+    loginView.backgroundColor = [UIColor colorWithRed:237.f/255.f green:237.f/255.f blue:237.f/255.f alpha:1.f];
     [self.view addSubview:loginView];
 }
 

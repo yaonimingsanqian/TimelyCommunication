@@ -14,7 +14,9 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "NavigationControllerTitle.h"
+#import "NaviItems.h"
 #define TCLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define IOS7 ([[[UIDevice currentDevice]systemVersion]floatValue] >= 7.0 ? YES : NO)
 #define MAIN(block) dispatch_async(dispatch_get_main_queue(), block)
 
 #endif

@@ -133,7 +133,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [self setCellFontStyle:cell];
     }];
-    
+    CGRect frame = cell.frame;
+    frame.size.height = 70;
+    cell.frame = frame;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

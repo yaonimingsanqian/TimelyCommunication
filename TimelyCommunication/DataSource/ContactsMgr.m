@@ -19,6 +19,7 @@ static ContactsMgr *sharedInstance = nil;
         sharedInstance = [[ContactsMgr alloc]init];
         [[NSNotificationCenter defaultCenter] addObserver:sharedInstance selector:@selector(contactChange:) name:kSaveContact object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:sharedInstance selector:@selector(contactChange:) name:kDeleteContact object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:sharedInstance selector:@selector(contactChange:) name:kContactDidLoad object:nil];
     }
     
     return sharedInstance;
@@ -37,10 +38,13 @@ static ContactsMgr *sharedInstance = nil;
         
     }];
 }
+- (void)destoryData
+{
+   // [[NSNotificationCenter defaultCenter] removeObserver:sharedInstance];
+    [sharedInstance.friends removeAllObjects];
+}
 + (void)destory
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:sharedInstance];
-    sharedInstance = nil;
 }
 - (BOOL)isContactExist:(NSString *)conName
 {

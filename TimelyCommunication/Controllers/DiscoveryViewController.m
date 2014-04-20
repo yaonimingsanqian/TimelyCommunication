@@ -12,10 +12,13 @@
 #import "SMQuery.h"
 #import "Config.h"
 #import "CommonData.h"
-
-
+#import "MBProgressHUD.h"
+#import "ContactCell.h"
+#import "PersonInfoViewController.h"
 @interface DiscoveryViewController ()
-
+{
+    NSMutableArray *result;
+}
 @end
 
 @implementation DiscoveryViewController
@@ -31,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"通讯录"];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"发现"];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -39,10 +42,35 @@
     [NavigationControllerTitle hide:self.navigationController.navigationBar];
     
 }
+- (void)checkNearBy :(id)sender
+{
+    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+    [SMGeoPoint getGeoPointForCurrentLocationOnSuccess:^(SMGeoPoint *geoPoint) {
+        SMQuery *query = [[SMQuery alloc]initWithSchema:@"location"];
+        [query where:@"coordinate" isWithin:5 milesOfGeoPoint:geoPoint];
+        [[[SMClient defaultClient]dataStore] performQuery:query onSuccess:^(NSArray *results) {
+            [result removeAllObjects];
+           NSString *name = [CommonData sharedCommonData].curentUser.username;
+            for (NSDictionary *point in results)
+            {
+                NSString *people = [point objectForKey:@"username"];
+                if(![people isEqualToString:name])
+                   [result addObject:people];
+            }
+            [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+        } onFailure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+        }];
+    } onFailure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+    }];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    result = [[NSMutableArray alloc]init];
+    self.navigationItem.rightBarButtonItem = [NaviItems naviLeftBtnWithImage:[UIImage imageNamed:@"near_24_24"] target:self selector:@selector(checkNearBy:)];
     [[[SMLocationManager sharedInstance]locationManager] startUpdatingLocation];
     [SMGeoPoint getGeoPointForCurrentLocationOnSuccess:^(SMGeoPoint *geoPoint) {
         NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
@@ -84,20 +112,9 @@
     } onFailure:^(NSError *error) {
 
     }];
-    [SMGeoPoint getGeoPointForCurrentLocationOnSuccess:^(SMGeoPoint *geoPoint) {
-        SMQuery *query = [[SMQuery alloc]initWithSchema:@"location"];
-        [query where:@"coordinate" isWithin:5 milesOfGeoPoint:geoPoint];
-        [[[SMClient defaultClient]dataStore] performQuery:query onSuccess:^(NSArray *results) {
-            for (NSDictionary *point in results)
-            {
-                NSLog(@"%@",[point objectForKey:@"username"]);
-            }
-        } onFailure:^(NSError *error) {
-            NSLog(@"定位失败");
-        }];
-    } onFailure:^(NSError *error) {
-        NSLog(@"定位失败--");
-    }];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
     
     
 }
@@ -112,76 +129,76 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return result.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    static NSString *ident = @"iden";
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:ident];
+    if(!cell)
+    {
+        cell = [[ContactCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ident];
+       
+        cell.avatar = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 40, 40)];
+        cell.name = [[UILabel alloc]initWithFrame:CGRectMake(77, 17, 229, 21)];
+        cell.name.font = [UIFont systemFontOfSize:15.f];
+        [cell.contentView addSubview:cell.avatar];
+        [cell.contentView addSubview:cell.name];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.frame.size.height-0.5, cell.frame.size.width, 0.5)];
+        line.backgroundColor = [UIColor blackColor];
+        [cell.contentView addSubview:line];
+    }
+    CGRect frame = cell.frame;
+    frame.size.height = 60;
+    cell.frame = frame;
+    cell.avatar.frame = CGRectMake(15, 3, 40, 40);
+    cell.avatar.image = [UIImage imageNamed:@"mainPage.png"];
+    cell.name.text = [result objectAtIndex:indexPath.row];
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (User*)createUser :(NSDictionary*)userinfo
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    User *user = [[User alloc]init];
+    user.address = [userinfo objectForKey:@"address"];
+    user.age = [userinfo objectForKey:@"age"];
+    user.gender = [userinfo objectForKey:@"gender"];
+    user.username = [userinfo objectForKey:@"username"];
+    return user;
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
+    UITextField *search = (UITextField*)[self.view viewWithTag:101];
+    NSString *current = [[[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyJID] lowercaseString];
+    if([[search.text lowercaseString] isEqualToString:current])
+    {
+        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"提示" message:@"不能搜索自己" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil ];
+        [alert show];
+        return;
+    }
+    [query where:@"username" isEqualTo:[result objectAtIndex:indexPath.row]];
+    [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        if(results.count > 0)
+        {
+            User *user = [self createUser:[results objectAtIndex:0]];
+            PersonInfoViewController *personinfo = [[PersonInfoViewController alloc]initWithUser:user];
+            personinfo.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:personinfo animated:YES];
+            
+        }
+        
+    } onFailure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    }];
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

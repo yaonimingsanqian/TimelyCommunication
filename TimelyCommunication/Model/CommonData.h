@@ -12,5 +12,5 @@
 @interface CommonData : NSObject
 @property (nonatomic,strong) User *curentUser;
 + (CommonData*)sharedCommonData;
-+ (void)destory;
+- (void)destoryData;
 @end

@@ -42,12 +42,10 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyPassword];
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate disconnect];
-        [ConversationMgr destory];
-        [AddFriendMgr destory];
-        [ContactsMgr destory];
-        [Conversation destory];
+        [[ConversationMgr sharedInstance] destoryData];
+        [[ContactsMgr sharedInstance] destoryData];
+        [[CommonData sharedCommonData] destoryData];
         [DataStorage destory];
-        [CommonData destory];
         delegate.window.rootViewController = [[LoginViewController alloc]init];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     } onFailure:^(NSError *error) {

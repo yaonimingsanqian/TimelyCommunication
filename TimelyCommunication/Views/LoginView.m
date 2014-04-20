@@ -20,11 +20,11 @@
 }
 - (void)addAccountLabel
 {
-    [self createLabel:CGRectMake(20, 100, 40, 30) :@"帐户:"];
+   //[self createLabel:CGRectMake(20, 100, 40, 30) :@"帐户:"];
 }
 - (void)addpassLabel
 {
-    [self createLabel:CGRectMake(20, 160, 40, 30) :@"密码:"];
+   // [self createLabel:CGRectMake(20, 160, 40, 30) :@"密码:"];
 }
 #pragma mark - 接口
 - (void)resignFirstResponder
@@ -46,7 +46,7 @@
     btn = [UIButton buttonWithType:type];
     btn.frame = frame;
     [btn addTarget:target action:action forControlEvents:event];
-    btn.backgroundColor = [UIColor greenColor];
+    btn.backgroundColor = [UIColor colorWithRed:53/255.f green:99/255.f blue:25/255.f alpha:1.f];
     [btn setTitle:title forState:UIControlStateNormal];
     btn.titleLabel.textColor = [UIColor whiteColor];
     [self addSubview:btn];
@@ -62,17 +62,38 @@
 - (void)createAccountField:(CGRect)frmae :(int)tag
 {
     account = [[UITextField alloc]initWithFrame:frmae];
-    account.borderStyle = UITextBorderStyleBezel;
+    account.borderStyle = UITextBorderStyleRoundedRect;
+    account.leftViewMode = UITextFieldViewModeAlways;
+    account.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    account.placeholder = @"请输入用户名";
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, frmae.size.height)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor clearColor];
+    label.text = @"账号";
+    label.textColor = [UIColor colorWithRed:100/255.f green:100/255.f blue:100/255.f alpha:1.f];
+    account.leftView = label;
     [self addSubview:account];
     [self addAccountLabel];
 }
 - (void)createPasswordField:(CGRect)frame :(int)tag
 {
     password = [[UITextField alloc]initWithFrame:frame];
-    password.borderStyle = UITextBorderStyleBezel;
+    password.borderStyle = UITextBorderStyleRoundedRect;
     password.secureTextEntry = YES;
     [self addSubview:password];
-    [self addpassLabel];
+    password.placeholder = @"请输入密码";
+    
+    
+    password.leftViewMode = UITextFieldViewModeAlways;
+    password.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, frame.size.height)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor clearColor];
+    label.text = @"密码";
+    label.textColor = [UIColor colorWithRed:100/255.f green:100/255.f blue:100/255.f alpha:1.f];
+    password.leftView = label;
 }
 - (BOOL)setTextFieldDelegate:(id<UITextFieldDelegate>)pTextFieldDelegate
 {

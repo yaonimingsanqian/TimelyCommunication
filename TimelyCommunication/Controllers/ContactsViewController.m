@@ -58,6 +58,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:kRefeshcontact object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:kContactLoadFinish object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFriendApply:) name:kNewFriendApply object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kContactDidLoad object:nil];
 }
 - (void)newFriendApply :(NSNotification*)noti
 {
@@ -162,7 +163,9 @@
         cell.name.text = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     }
     
-    
+    CGRect frame = cell.frame;
+    frame.size.height = 60;
+    cell.frame = frame;
     cell.showsReorderControl = YES;
     return cell;
 }

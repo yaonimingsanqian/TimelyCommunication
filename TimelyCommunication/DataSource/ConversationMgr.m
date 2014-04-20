@@ -21,9 +21,9 @@ static ConversationMgr *sharedInstance = nil;
         sharedInstance = [[ConversationMgr alloc]init];
     return sharedInstance;
 }
-+ (void)destory
+- (void)destoryData
 {
-    sharedInstance = nil;
+    [self.conversations removeAllObjects];
 }
 - (id)init
 {

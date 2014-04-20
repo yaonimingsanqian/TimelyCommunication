@@ -21,7 +21,7 @@ static AddFriendMgr *shared = nil;
 }
 + (void)destory
 {
-    shared = nil;
+
 }
 - (BOOL)isMeHasSendRqquest :(NSArray*)members
 {

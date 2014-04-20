@@ -9,9 +9,9 @@
 #import "CommonData.h"
 static CommonData *sharedInstance = nil;
 @implementation CommonData
-+ (void)destory
+- (void)destoryData
 {
-    sharedInstance = nil;
+    self.curentUser = nil;
 }
 +(CommonData*)sharedCommonData
 {

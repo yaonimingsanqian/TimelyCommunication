@@ -8,6 +8,7 @@
 
 #import "RegisterViewController.h"
 #import "MBProgressHUD.h"
+#import "NaviItems.h"
 
 @interface RegisterViewController ()
 
@@ -66,6 +67,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [super viewWillAppear:animated];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"注册"];
 }
 - (void)createRegisterButton
 {
@@ -85,26 +88,31 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = item;
 }
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     registerView = [[RegisterView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    registerView.backgroundColor = [UIColor colorWithRed:237.f/255.f green:237.f/255.f blue:237.f/255.f alpha:1.f];
     registerView.contentSize = CGSizeMake(320, 640);
     
-    [registerView createAccountTextField:CGRectMake(70, 20, 200, 30)];
+    [registerView createAccountTextField:CGRectMake(30, 20, 260, 35)];
     
-    [registerView createPassTextField:CGRectMake(70, 70, 200, 30)];
-    [registerView createPassConfirmTextField:CGRectMake(70, 120, 200, 30)];
-    [registerView createAddressTextField:CGRectMake(70, 170, 200, 30)];
-    [registerView createAgeTextField:CGRectMake(70, 220, 200, 30)];
-    [registerView createGenderTextField:CGRectMake(70, 270, 200, 30)];
+    [registerView createPassTextField:CGRectMake(30, 60, 260, 35)];
+    [registerView createPassConfirmTextField:CGRectMake(30, 100, 260, 35)];
+    [registerView createAddressTextField:CGRectMake(30, 140, 260, 35)];
+    [registerView createAgeTextField:CGRectMake(30, 180, 260, 35)];
+    [registerView createGenderTextField:CGRectMake(30, 220, 260, 35)];
     [self addTapGesture:registerView];
     [self.view addSubview:registerView];
     registerView.address.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
-    [self createBackBtn];
-    [self createRegisterButton];
+    self.navigationItem.rightBarButtonItem = [NaviItems naviRightBtnWithImage:[UIImage imageNamed:@"confirm_24_compy"] target:self selector:@selector(registerAction)];
 }
 
 - (void)didReceiveMemoryWarning
