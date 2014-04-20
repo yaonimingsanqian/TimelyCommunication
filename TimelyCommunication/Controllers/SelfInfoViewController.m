@@ -46,7 +46,7 @@
         [[ContactsMgr sharedInstance] destoryData];
         [[CommonData sharedCommonData] destoryData];
         [DataStorage destory];
-        delegate.window.rootViewController = [[LoginViewController alloc]init];
+        delegate.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LoginViewController alloc]init]];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     } onFailure:^(NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"退出失败" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
