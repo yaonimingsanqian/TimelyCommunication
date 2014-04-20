@@ -28,7 +28,17 @@
     }
     return self;
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"通讯录"];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,7 +58,7 @@
                 [insertDic setValue:geoPoint forKey:@"coordinate"];
                 
                 [[[SMClient defaultClient] dataStore] createObject:insertDic inSchema:@"location" onSuccess:^(NSDictionary *object, NSString *schema) {
-                    NSLog(@"定位成功");
+                    TCLog(@"定位成功");
                 } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
 
                 }];

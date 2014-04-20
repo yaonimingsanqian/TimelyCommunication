@@ -14,7 +14,6 @@
 		18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCE18C33FC600A76D7B /* MainPageUIViewController.m */; };
 		18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DD118C3417C00A76D7B /* ConversationMgr.m */; };
 		183156A21902250A002AE558 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831569F1902250A002AE558 /* GTMBase64.m */; };
-		183156A31902250A002AE558 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 183156A11902250A002AE558 /* README.md */; };
 		183156A719022B55002AE558 /* ContactsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 183156A619022B55002AE558 /* ContactsHelper.m */; };
 		184C835A18F25311008D48DB /* RejectMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C835918F25311008D48DB /* RejectMsg.m */; };
 		184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 184C835B18F2CC82008D48DB /* navigationtitle.png */; };
@@ -125,7 +124,6 @@
 		1831569E1902250A002AE558 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		1831569F1902250A002AE558 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		183156A01902250A002AE558 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		183156A11902250A002AE558 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		183156A519022B55002AE558 /* ContactsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsHelper.h; sourceTree = "<group>"; };
 		183156A619022B55002AE558 /* ContactsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsHelper.m; sourceTree = "<group>"; };
 		184C835818F25311008D48DB /* RejectMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectMsg.h; sourceTree = "<group>"; };
@@ -312,7 +310,6 @@
 				1831569E1902250A002AE558 /* GTMBase64.h */,
 				1831569F1902250A002AE558 /* GTMBase64.m */,
 				183156A01902250A002AE558 /* GTMDefines.h */,
-				183156A11902250A002AE558 /* README.md */,
 			);
 			path = GTMBase64;
 			sourceTree = "<group>";
@@ -697,7 +694,6 @@
 				18D2882918CCB11000638879 /* SelfInfoViewController.xib in Resources */,
 				1883925F18CA17FC00DC5257 /* personavatar.png in Resources */,
 				18D2880E18CC716400638879 /* navigationbottom.png in Resources */,
-				183156A31902250A002AE558 /* README.md in Resources */,
 				18DF8267187BC074000FDCFF /* sound.png in Resources */,
 				1883924B18C9779100DC5257 /* icon.png in Resources */,
 				18DF826B187BC074000FDCFF /* search.png in Resources */,
