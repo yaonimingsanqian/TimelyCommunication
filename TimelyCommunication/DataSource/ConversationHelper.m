@@ -48,20 +48,20 @@
         
     }];
 }
-- (void)queryConversation :(FMDatabaseQueue*)queue
-{
-    [queue inDatabase:^(FMDatabase *db) {
-        
-        NSString *querySql = [NSString stringWithFormat:@"select * from %@",kConversationName];
-        FMResultSet *rs = [db executeQuery:querySql];
-        while (rs.next)
-        {
-            [[ConversationMgr sharedInstance].conversations addObject:[rs stringForColumn:@"conversationName"]];
-        }
-        [db closeOpenResultSets];
-    }];
-    
-}
+//- (void)queryConversation :(FMDatabaseQueue*)queue
+//{
+//    [queue inDatabase:^(FMDatabase *db) {
+//        
+//        NSString *querySql = [NSString stringWithFormat:@"select * from %@",kConversationName];
+//        FMResultSet *rs = [db executeQuery:querySql];
+//        while (rs.next)
+//        {
+//            [[ConversationMgr sharedInstance].conversations addObject:[rs stringForColumn:@"conversationName"]];
+//        }
+//        [db closeOpenResultSets];
+//    }];
+//    
+//}
 - (void)queryNotReadCount :(NSString *)conversationName :(FMDatabaseQueue*)queue :(void(^)(int count))result
 {
     [queue inDatabase:^(FMDatabase *db) {

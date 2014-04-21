@@ -188,10 +188,10 @@ static DataStorage *sharedInyance = nil;
 {
     [conversationHelper saveConversation:con :queue :complete];
 }
-- (void)queryConversation
-{
-    [conversationHelper queryConversation:queue];
-}
+//- (void)queryConversation
+//{
+//    [conversationHelper queryConversation:queue];
+//}
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd
 {
     [conversationHelper updateConversation:conversationName :isAdd :queue :^(int count) {

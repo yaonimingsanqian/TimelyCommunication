@@ -15,7 +15,7 @@ typedef void(^queryFinished)(NSArray *result);
 
 
 - (void)saveConversation :(NSString*)con :(FMDatabaseQueue*)queue :(void(^)(void))complete;
-- (void)queryConversation :(FMDatabaseQueue*)queue;
+//- (void)queryConversation :(FMDatabaseQueue*)queue;
 - (void)queryConversationWithFinished :(FMDatabaseQueue*)queue :(queryFinished)result;
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAddv :(FMDatabaseQueue*)queue :(void(^)(int count))complete;
 - (void)queryNotReadCount :(NSString*)conversationName :(FMDatabaseQueue*)queue :(void(^)(int count))result;

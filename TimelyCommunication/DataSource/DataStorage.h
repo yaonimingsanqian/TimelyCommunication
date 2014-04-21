@@ -29,7 +29,6 @@ typedef void(^CreateComplete)(void);
 
 #pragma mark - 会话相关
 - (void)saveConversation :(NSString*)con :(void(^)(void))complete;
-- (void)queryConversation;
 - (void)updateConversation :(NSString*)conversationName :(BOOL)isAdd;
 - (void)queryNotReadCount :(NSString*)conversationName :(void(^)(int count))result;
 - (void)queryConversationWithFinished:(queryFinished)result;
