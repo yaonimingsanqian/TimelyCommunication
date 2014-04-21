@@ -15,6 +15,15 @@
 
 @implementation ConversationHelper
 
+- (BOOL)isQueryConversationExist :(NSString*)conName :(NSArray*)result
+{
+    for (NSString *source in result)
+    {
+        if([source isEqualToString:conName])
+            return YES;
+    }
+    return NO;
+}
 - (void)queryConversationWithFinished :(FMDatabaseQueue*)queue :(queryFinished)result
 {
     [queue inDatabase:^(FMDatabase *db) {
@@ -23,7 +32,11 @@
         NSMutableArray *results = [[NSMutableArray alloc]init];
         while (rs.next)
         {
-            [results addObject:[rs stringForColumn:@"conversationName"]];
+            NSString *conName = [rs stringForColumn:@"conversationName"];
+            if(![self  isQueryConversationExist:conName :results])
+            {
+                [results addObject:conName];
+            }
         }
         [db closeOpenResultSets];
         if(result)

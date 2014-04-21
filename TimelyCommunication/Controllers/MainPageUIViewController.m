@@ -23,6 +23,7 @@
 - (void)dealloc
 {
     NSLog(@"MainPageUIViewController dealloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -45,10 +46,13 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg:) name:kNewTextMsg object:nil];
-    [[DataStorage sharedInstance] queryConversation];
+    [[DataStorage sharedInstance] queryConversationWithFinished:^(NSArray *result) {
+        [ConversationMgr sharedInstance].conversations = [NSMutableArray arrayWithArray:result];
+        [self.tableView reloadData];
+    }];
+    
     self.tableView.separatorColor = [UIColor whiteColor];
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

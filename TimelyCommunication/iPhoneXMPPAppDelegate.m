@@ -104,14 +104,8 @@
     
     self.conversationNavi = [self createTabBarItem:@"会话" :@"chat.png" :100];
     self.contactNavi = [self createTabBarItem:@"通讯录" :@"contact.png" :101];
-  //  [self.conversationNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationtitle.png"] forBarMetrics:UIBarMetricsDefault];
-   // [self.contactNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationtitle.png"] forBarMetrics:UIBarMetricsDefault];
-  
-
     self.searchNavi = [self createTabBarItem:@"发现" :@"search.png" :102];
-   //   [self.searchNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBg@2x.png"] forBarMetrics:UIBarMetricsDefault];
     self.meNavi = [self createTabBarItem:@"我" :@"me.png" :103];
-  //  [self.meNavi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationtitle.png"] forBarMetrics:UIBarMetricsDefault];
     
     NSMutableArray *controllers=[[NSMutableArray alloc]initWithObjects:self.conversationNavi,self.self.contactNavi,self.searchNavi,self.meNavi,nil];
     [tabBarController setViewControllers:controllers];
