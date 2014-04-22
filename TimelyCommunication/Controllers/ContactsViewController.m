@@ -54,7 +54,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.tableView.separatorColor = [UIColor whiteColor];
+    self.tableView.separatorColor = [UIColor clearColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:kRefeshcontact object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:kContactLoadFinish object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFriendApply:) name:kNewFriendApply object:nil];
@@ -134,7 +134,7 @@
         cell.rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(280, 20,20,20)];
         [cell.contentView addSubview:cell.avatar];
         [cell.contentView addSubview:cell.name];
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 59, 320, 1)];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 59.5, 320, 0.5)];
         line.backgroundColor = [UIColor blackColor];
         [cell.contentView addSubview:line];
         [cell.contentView addSubview:cell.rightImage];

@@ -15,8 +15,11 @@
 #import "MainPageCell.h"
 #import "NavigationControllerTitle.h"
 #import "DataStorage.h"
+#import "MBProgressHUD.h"
 @interface MainPageUIViewController ()
-
+{
+    MBProgressHUD *mbProgressHUD;
+}
 @end
 @implementation MainPageUIViewController
 
@@ -46,12 +49,28 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg:) name:kNewTextMsg object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginStatus:) name:kLoginSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginStatus:) name:kLoginFailed object:nil];
     [[DataStorage sharedInstance] queryConversationWithFinished:^(NSArray *result) {
         [ConversationMgr sharedInstance].conversations = [NSMutableArray arrayWithArray:result];
         [self.tableView reloadData];
     }];
+    self.tableView.separatorColor = [UIColor clearColor];
     
-    self.tableView.separatorColor = [UIColor whiteColor];
+   mbProgressHUD = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+   mbProgressHUD.labelText = @"正在登录";
+}
+- (void)LoginStatus :(NSNotification*)noti
+{
+    if([[noti name] isEqualToString:kLoginSuccess])
+    {
+        mbProgressHUD.labelText = @"登录成功";
+    }else
+    {
+        mbProgressHUD.labelText = @"登录失败";
+    }
+    
+    [mbProgressHUD hide:YES afterDelay:1.f];
 }
 - (void)didReceiveMemoryWarning
 {

@@ -27,6 +27,7 @@
 #import "ContactsMgr.h"
 #import "GTMBase64.h"
 #import "DiscoveryViewController.h"
+#import "MyViewController.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -74,7 +75,7 @@
         }
         case 103:
         {
-            controller = [[SelfInfoViewController alloc]init];
+            controller = [[MyViewController alloc]init];
             break;
         }
         case 102:
@@ -181,7 +182,7 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.1.103"];
+	[xmppStream setHostName:@"192.168.191.4"];
 	[xmppStream setHostPort:5222];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;

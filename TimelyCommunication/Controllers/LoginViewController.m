@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 #import "RegisterViewController.h"
 #import "iPhoneXMPPAppDelegate.h"
+#import "Config.h"
 @interface LoginViewController ()
 
 @end
@@ -30,12 +31,16 @@
     login = [[User alloc]init];
     login.password = [loginView password];
     login.username = [[loginView account] lowercaseString];
+    [loginView resignFirstResponder];
     [login login:^(NSDictionary *success) {
+        
         [MBProgressHUD hideHUDForView:loginView animated:YES];
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate connect];
         [delegate turnToMainPage];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
     } :^(NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:nil];
          [MBProgressHUD hideHUDForView:loginView animated:YES];
         NSDictionary *userinfo = [error userInfo];
         NSString *msg = [userinfo objectForKey:@"NSLocalizedDescription"];

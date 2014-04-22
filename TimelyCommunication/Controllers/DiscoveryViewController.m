@@ -18,6 +18,7 @@
 @interface DiscoveryViewController ()
 {
     NSMutableArray *result;
+    MBProgressHUD *showView;
 }
 @end
 
@@ -44,7 +45,7 @@
 }
 - (void)checkNearBy :(id)sender
 {
-    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+   showView = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     [SMGeoPoint getGeoPointForCurrentLocationOnSuccess:^(SMGeoPoint *geoPoint) {
         SMQuery *query = [[SMQuery alloc]initWithSchema:@"location"];
         [query where:@"coordinate" isWithin:5 milesOfGeoPoint:geoPoint];
@@ -60,10 +61,12 @@
             [self.tableView reloadData];
             [MBProgressHUD hideHUDForView:self.tableView animated:YES];
         } onFailure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+            showView.labelText = @"定位发生错误";
+            [showView hide:YES afterDelay:1.f];
         }];
     } onFailure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+        showView.labelText = @"定位发生错误";
+        [showView hide:YES afterDelay:1.f];
     }];
 }
 - (void)viewDidLoad

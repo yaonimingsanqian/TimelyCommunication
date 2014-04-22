@@ -47,6 +47,7 @@
     User __weak *tmp = self;
     [[SMClient defaultClient]loginWithUsername:self.username password:self.password onSuccess:^(NSDictionary *result) {
         [self createUser:result];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
         [[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
        
@@ -58,7 +59,7 @@
         }];
         
     } onFailure:^(NSError *error) {
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:nil];
         loginFailed(error);
     }];
 }

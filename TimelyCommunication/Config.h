@@ -56,6 +56,8 @@
 #define kSaveContact @"kSaveContact" //保存了一个联系人
 #define kDeleteContact @"kDeleteContact"//删除一个联系人
 #define kContactDidLoad @"kContactDidLoad"
+#define kLoginSuccess @"kLoginSuccess"
+#define kLoginFailed @"kLoginFailed"
 //表字段以及类型
 //会话表
 #define kConversationColumns @[@"conversationName",@"type",@"notReadCount"]

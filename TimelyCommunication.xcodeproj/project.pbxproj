@@ -25,6 +25,7 @@
 		184C835A18F25311008D48DB /* RejectMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C835918F25311008D48DB /* RejectMsg.m */; };
 		184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 184C835B18F2CC82008D48DB /* navigationtitle.png */; };
 		1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */; };
+		187F89FE1906BAEF00FD9FBF /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F89FD1906BAEF00FD9FBF /* MyViewController.m */; };
 		1883924B18C9779100DC5257 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883924A18C9779100DC5257 /* icon.png */; };
 		1883925218C98AE000DC5257 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925118C98AE000DC5257 /* avatar.png */; };
 		1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883925518C98B4900DC5257 /* PersonInfoViewController.m */; };
@@ -146,6 +147,8 @@
 		184C835B18F2CC82008D48DB /* navigationtitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationtitle.png; sourceTree = "<group>"; };
 		1879F34D18C62D4B0054C812 /* SearchFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendViewController.h; sourceTree = "<group>"; };
 		1879F34E18C62D4B0054C812 /* SearchFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendViewController.m; sourceTree = "<group>"; };
+		187F89FC1906BAEF00FD9FBF /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
+		187F89FD1906BAEF00FD9FBF /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		1883924A18C9779100DC5257 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1883925118C98AE000DC5257 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 		1883925418C98B4900DC5257 /* PersonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoViewController.h; sourceTree = "<group>"; };
@@ -527,6 +530,8 @@
 				18D2882618CCB11000638879 /* SelfInfoViewController.m */,
 				1812648A1902A252005E076B /* DiscoveryViewController.h */,
 				1812648B1902A252005E076B /* DiscoveryViewController.m */,
+				187F89FC1906BAEF00FD9FBF /* MyViewController.h */,
+				187F89FD1906BAEF00FD9FBF /* MyViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -817,6 +822,7 @@
 				18AFAA03187B18A500036ED8 /* main.m in Sources */,
 				18AD349418CAEA0800A5DFC6 /* SimpleCell.m in Sources */,
 				18E7FB4D18BB7C9C00148255 /* RegisterView.m in Sources */,
+				187F89FE1906BAEF00FD9FBF /* MyViewController.m in Sources */,
 				18A3843618C2E69C000EA528 /* ContactsViewController.m in Sources */,
 				18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */,
 				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
