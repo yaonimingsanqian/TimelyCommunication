@@ -83,10 +83,10 @@
         label.tag = 10;
         if(indexPath.row == 0)
         {
-            label.text = [NSString stringWithFormat:@"姓名:  %@",[CommonData sharedCommonData].curentUser.username];
+            label.text = [NSString stringWithFormat:@"姓名:  %@",[CommonData sharedCommonData].curentUser.username == nil?@"未知":[CommonData sharedCommonData].curentUser.username];
         }else if(indexPath.row == 1)
         {
-            label.text = [NSString stringWithFormat:@"地址:  %@",[CommonData sharedCommonData].curentUser.address];
+            label.text = [NSString stringWithFormat:@"地址:  %@",[CommonData sharedCommonData].curentUser.address==nil?@"未知":[CommonData sharedCommonData].curentUser.address];
         }else if(indexPath.row == 2)
         {
             label.text = [NSString stringWithFormat:@"年龄:  %@",[CommonData sharedCommonData].curentUser.age==nil?@"未知":[CommonData sharedCommonData].curentUser.age];
