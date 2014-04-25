@@ -19,7 +19,9 @@
     
 }
 @property (nonatomic,assign) id<UITextViewDelegate> delegate;
+@property (nonatomic,strong) UITextView *inputTextView;
 
 - (id)initWithFrame:(CGRect)frame :(id<UITextViewDelegate>)delegate;
 - (void)hideKeyboard;
+- (void)resizeInputTextView;
 @end

@@ -10,13 +10,16 @@
 #define HLPChatVoewDemo_Config_h
 
 #pragma - mark -会话页面的宏定义
+
+#define kInputMaxHeight 88
+#define kInpuTextFrameOriginYOffset 7
 #define kChatViewFrame CGRectMake(0, 0, 320, 568-48)//520
 #define kChatViewFrameForIPHONE4 CGRectMake(0, 0, 320, 480-48)
 #define kInputViewFrame CGRectMake(0, 568-48, 320, 48)
 #define kInputViewFrameForIPHONE4 CGRectMake(0, 480-48, 320, 48)//432
 #define kInputViewColor [UIColor colorWithRed:211/255.f green:211/255.f blue:211/255.f alpha:1.f];
 #define kSoundAndTextBtnFrame CGRectMake(5, 14, 20, 20)
-#define kInputTextFrame CGRectMake(35, 10, 220, 28)
+#define kInputTextFrame CGRectMake(35, kInpuTextFrameOriginYOffset, 220, 34)
 #define kFaceBtnFrame CGRectMake(260, 12, 24, 24)
 #define kMoreBtnFrame CGRectMake(295, 15, 18, 18)
 #define kSoundAndTextBtnBgImage @"sound.png"
@@ -29,6 +32,7 @@
 #define kDeleteFriend @"kDeleteFriend"
 #define kMsgFrom @"kMsgFrom"
 #define kRefreshtype @"kRefreshtype"
+#define kChatMoreBtnClick @"kChatMoreBtnClick"
 
 #pragma mark - 数据库操作
 #define DATABASE_PATH(useraccount) [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]stringByAppendingFormat:@"/%@.sqlite",useraccount]

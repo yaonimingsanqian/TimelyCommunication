@@ -14,7 +14,9 @@
 #import "iPhoneXMPPAppDelegate.h"
 #import "Config.h"
 @interface LoginViewController ()
-
+{
+    MBProgressHUD *waiting;
+}
 @end
 
 @implementation LoginViewController
@@ -27,7 +29,8 @@
 #pragma mark - 私有
 - (void)loginAction
 {
-    [MBProgressHUD showHUDAddedTo:loginView animated:YES ];
+    waiting = [MBProgressHUD showHUDAddedTo:loginView animated:YES ];
+    waiting.labelText = @"请稍后";
     login = [[User alloc]init];
     login.password = [loginView password];
     login.username = [[loginView account] lowercaseString];

@@ -28,6 +28,7 @@
 #import "GTMBase64.h"
 #import "DiscoveryViewController.h"
 #import "MyViewController.h"
+#import "SettingViewController.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -75,7 +76,7 @@
         }
         case 103:
         {
-            controller = [[MyViewController alloc]init];
+            controller = [[SettingViewController alloc]init];
             break;
         }
         case 102:
@@ -106,7 +107,7 @@
     self.conversationNavi = [self createTabBarItem:@"会话" :@"chat.png" :100];
     self.contactNavi = [self createTabBarItem:@"通讯录" :@"contact.png" :101];
     self.searchNavi = [self createTabBarItem:@"发现" :@"search.png" :102];
-    self.meNavi = [self createTabBarItem:@"我" :@"me.png" :103];
+    self.meNavi = [self createTabBarItem:@"设置" :@"me.png" :103];
     
     NSMutableArray *controllers=[[NSMutableArray alloc]initWithObjects:self.conversationNavi,self.self.contactNavi,self.searchNavi,self.meNavi,nil];
     [tabBarController setViewControllers:controllers];

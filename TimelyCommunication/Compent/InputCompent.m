@@ -9,7 +9,7 @@
 #import "InputCompent.h"
 
 @implementation InputCompent
-
+@synthesize inputTextView = inputTextView;
 - (void)createMoreBtn
 {
     moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -30,6 +30,8 @@
     inputTextView.returnKeyType = UIReturnKeySend;
     inputTextView.enablesReturnKeyAutomatically = YES;
     inputTextView.delegate = self.delegate;
+    inputTextView.font = [UIFont systemFontOfSize:15];
+
     [self addSubview:inputTextView];
 }
 - (void)createFaceBtn
@@ -53,11 +55,22 @@
     }
     return self;
 }
+- (void)resizeInputTextView
+{
+    inputTextView.frame = kInputTextFrame;
+}
 - (void)hideKeyboard
 {
     [inputTextView resignFirstResponder];
 }
-
+- (void)moreAction
+{
+    CGRect frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height-48, 320, 48);
+    UIView *moreView = [[UIView alloc]initWithFrame:frame];
+    CGRect frameSelf = self.frame;
+    frameSelf.size.height += frame.size.height;
+    
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

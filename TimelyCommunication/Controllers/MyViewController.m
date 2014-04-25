@@ -16,7 +16,9 @@
 #import "DataStorage.h"
 #import "LoginViewController.h"
 @interface MyViewController ()
-
+{
+    MBProgressHUD *waiting;
+}
 @end
 
 @implementation MyViewController
@@ -113,7 +115,9 @@
 }
 - (void)logout:(UIButton *)sender
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    waiting =  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    waiting.labelText = @"正在退出";
     [[SMClient defaultClient] logoutOnSuccess:^(NSDictionary *result) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyJID];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyPassword];
@@ -135,16 +139,13 @@
 {
     if(indexPath.section == 1)
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"确定退出" message:@"确定退出么?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"您退出后将清楚密码，但是历史数据会保存" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出" otherButtonTitles:nil, nil];
+        [sheet showInView:self.tableView];
     }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex == 0)
-    {
-        NSLog(@"dd");
-    }else
     {
         [self logout:nil];
     }

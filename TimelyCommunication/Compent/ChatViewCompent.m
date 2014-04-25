@@ -39,6 +39,21 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshbegin" object:nil];
 }
+- (void)resizeInputCompent
+{
+    CGRect currentFrame = inputCompent.frame;
+    currentFrame.size.height = kInputViewFrame.size.height;
+    if([[UIScreen mainScreen] bounds].size.height != 480)
+    {
+        inputCompent.frame = currentFrame;
+    }else
+    {
+        inputCompent.frame = currentFrame;
+    }
+    CGRect currentInputTextFrame = inputCompent.inputTextView.frame;
+    currentInputTextFrame.size.height = kInputTextFrame.size.height;
+    inputCompent.inputTextView.frame = currentInputTextFrame;
+}
 - (void)createInputFrame
 {
     if([[UIScreen mainScreen] bounds].size.height != 480)
@@ -156,8 +171,38 @@
 }
 */
 
+- (CGRect)caculateNewFrame :(CGSize)offsetSize :(CGRect)destFrame
+{
+    TCLog(@"%f",offsetSize.height);
+    CGFloat offset = offsetSize.height - destFrame.size.height;
+    destFrame.origin.y -= offset;
+    destFrame.size.height = offsetSize.height;
+    return destFrame;
+}
 #pragma - mark - UITextViewDelegate
 
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if(textView.contentSize.height > kInputMaxHeight) return;
+    CGRect inputTextFrame = inputCompent.inputTextView.frame;
+    CGRect newInputTextFrame = [self caculateNewFrame:textView.contentSize :inputTextFrame];
+    CGFloat offset = newInputTextFrame.size.height - inputTextFrame.size.height;
+        
+    CGRect inputCompentFrame = inputCompent.frame;
+    inputCompentFrame.size.height += offset;
+    inputCompentFrame.origin.y -= offset;
+    inputCompent.frame = inputCompentFrame;
+    newInputTextFrame.origin.y = kInpuTextFrameOriginYOffset;
+    inputCompent.inputTextView.frame = newInputTextFrame;
+    
+    CGRect chatTableViewFrame = chatTableView.frame;
+    chatTableViewFrame.size.height = inputCompent.frame.origin.y;
+    chatTableView.frame = chatTableViewFrame;
+    [chatTableView scrollToBottomAnimated:NO];
+
+    
+    
+}
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 
 {
@@ -165,6 +210,7 @@
         
        // [textView resignFirstResponder];
         [self.delegate sendTextMessage:textView.text];
+        [self resizeInputCompent];
         textView.text = nil;
         return NO;
     }
