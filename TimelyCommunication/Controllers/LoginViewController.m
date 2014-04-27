@@ -29,6 +29,13 @@
 #pragma mark - 私有
 - (void)loginAction
 {
+    
+    if([loginView password].length <= 0 || [loginView account].length <= 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入用户名和密码" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     waiting = [MBProgressHUD showHUDAddedTo:loginView animated:YES ];
     waiting.labelText = @"请稍后";
     login = [[User alloc]init];
