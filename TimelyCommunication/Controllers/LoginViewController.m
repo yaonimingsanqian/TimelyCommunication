@@ -13,6 +13,7 @@
 #import "RegisterViewController.h"
 #import "iPhoneXMPPAppDelegate.h"
 #import "Config.h"
+#import "DataStorage.h"
 @interface LoginViewController ()
 {
     MBProgressHUD *waiting;

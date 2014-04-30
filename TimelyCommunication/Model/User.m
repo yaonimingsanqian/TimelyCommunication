@@ -51,9 +51,9 @@
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
         [[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
        
-        loginSuccess(result);
+        
         [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
-            
+            loginSuccess(result);
             NSArray *friendsInfo = [result objectForKey:@"friends"];
             [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
         }];
