@@ -45,6 +45,7 @@ static int origin;
     message.from = [CommonData sharedCommonData].curentUser.username;
     message.isIncoming = NO;
     message.messageId = [self md5:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]];
+    message.status = MsgStatusSending;
     [_messageArray addObject:message];
    
     [[DataStorage sharedInstance] saveMsg:message :^{
@@ -68,7 +69,8 @@ static int origin;
     HPLChatData *hplData;
     BaseMesage *textMsg = [_messageArray objectAtIndex:row];
     hplData = [[HPLChatData alloc]initWithText:textMsg.msgContent date:textMsg.sendDate type:textMsg.isIncoming];
-    
+    int status = textMsg.status;
+    [hplData setMessageStatus:status];
     return hplData;
 }
 
@@ -145,9 +147,23 @@ static int origin;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg) name:kNewTextMsg object:nil];
     //refreshbegin
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMore) name:@"refreshbegin" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendSuccess:) name:kSendMsgSuccess object:nil];
      [[DataStorage sharedInstance] updateConversation:_username :NO];
 
     
+}
+- (void)msgSendSuccess :(NSNotification*)noti
+{
+    NSString *msgId = [noti object];
+    for (TextMessage *msg in _messageArray)
+    {
+        if([msg.messageId isEqualToString:msgId])
+        {
+            msg.status = MsgStatusSuccess;
+            break;
+        }
+    }
+    [chatViewCompent reloadDataWithoutScrollToBottom];
 }
 
 - (void)didReceiveMemoryWarning
@@ -157,6 +173,7 @@ static int origin;
 }
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"ChatViewController dealloc");
 }
 @end

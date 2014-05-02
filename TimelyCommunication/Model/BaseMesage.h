@@ -14,9 +14,17 @@ typedef enum
     MEssageAudion
     
 }MessageType;
+
+typedef enum
+{
+    MsgStatusSending=0,
+    MsgStatusSuccess,
+    MsgStatusFailed
+}MsgStatus;
 @interface BaseMesage : NSObject
 
 @property (nonatomic,assign) BOOL isIncoming;
+@property (nonatomic,assign) MsgStatus status;
 @property (nonatomic,copy) NSString *conversationId;
 @property (nonatomic,copy) NSString *from;
 @property (nonatomic,copy) NSString *to;

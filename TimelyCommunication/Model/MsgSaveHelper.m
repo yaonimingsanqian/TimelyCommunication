@@ -29,6 +29,20 @@
         }
     }];
 }
+- (void)markedAsFailed:(NSString *)msgId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
+{
+    [queue inDatabase:^(FMDatabase *db) {
+        
+        NSString *updateSql = [NSString stringWithFormat:@"update %@ set isSendSuccess=? where msgId=?",kMsgTableName];
+        BOOL isSuccess = [db executeUpdate:updateSql,@"2",msgId];
+        if(finished)
+        {
+            MAIN(^{
+                finished(isSuccess);
+            });
+        }
+    }];
+}
 - (void)markedAsReceived:(NSString *)msgId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
 {
     [queue inDatabase:^(FMDatabase *db) {
@@ -96,7 +110,7 @@
     while (rs.next)
     {
         BaseMesage *msg = [[BaseMesage alloc]init];
-        msg.messageId = [rs stringForColumn:@"id"];
+        msg.messageId = [rs stringForColumn:@"msgId"];
         msg.type = [rs stringForColumn:@"type"];
         msg.from = [rs stringForColumn:@"from"];
         msg.to = [rs stringForColumn:@"to"];
@@ -104,6 +118,7 @@
         msg.sendDate = [rs dateForColumn:@"sendDate"];
         msg.conversationId = [rs stringForColumn:@"conversationId"];
         msg.isIncoming = [rs intForColumn:@"isIncoming"];
+        msg.status = [rs intForColumn:@"isSendSuccess"];
         [msgSet addObject:msg];
     }
     return msgSet;

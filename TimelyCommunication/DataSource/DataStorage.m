@@ -277,6 +277,10 @@ static DataStorage *sharedInyance = nil;
     [conversationHelper queryConversationWithFinished :queue :result];
 }
 
+- (void)markedAsSendFailed:(NSString *)msgID :(void (^)(BOOL))finished
+{
+    [msgHelper markedAsFailed:msgID :queue :finished];
+}
 - (void)markedAsSendSuccess:(NSString *)msgID :(void (^)(BOOL))finished
 {
     [msgHelper markedAsReceived:msgID :queue :finished];

@@ -62,6 +62,7 @@
 #define kContactDidLoad @"kContactDidLoad"
 #define kLoginSuccess @"kLoginSuccess"
 #define kLoginFailed @"kLoginFailed"
+#define kSendMsgSuccess @"kSendMsgSuccess"
 //表字段以及类型
 //会话表
 #define kConversationColumns @[@"conversationName",@"type",@"notReadCount"]

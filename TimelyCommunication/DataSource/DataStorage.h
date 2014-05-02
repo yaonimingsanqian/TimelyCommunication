@@ -41,6 +41,7 @@ typedef void(^CreateComplete)(void);
 #pragma mark - 消息相关
 - (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete;
 - (void)markedAsSendSuccess :(NSString*)msgID :(void(^)(BOOL isSuccess))finished;
+- (void)markedAsSendFailed :(NSString*)msgID :(void(^)(BOOL isSuccess))finished;
 - (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result;
 - (void)loadMoreMsg :(NSString*)conversationId :(int)origin :(int)lenght :(void(^)(NSArray*))result;
 - (void)deleteMsg :(NSString*)conId :(void(^)(BOOL isSuccess))finished;

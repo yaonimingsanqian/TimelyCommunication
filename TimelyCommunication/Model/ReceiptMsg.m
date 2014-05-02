@@ -8,6 +8,7 @@
 
 #import "ReceiptMsg.h"
 #import "DataStorage.h"
+#import "Config.h"
 
 @implementation ReceiptMsg
 
@@ -16,7 +17,7 @@
     
     [[DataStorage sharedInstance] markedAsSendSuccess:self.messageId :^(BOOL isSuccess) {
         
-        TCLog(@"%@消息发送成功",self.messageId);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSendMsgSuccess object:self.messageId userInfo:nil];
     }];
 }
 @end
