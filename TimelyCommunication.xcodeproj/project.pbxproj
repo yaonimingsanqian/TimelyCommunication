@@ -17,6 +17,7 @@
 		181264A01903E5A6005E076B /* confirm_24.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812649F1903E5A6005E076B /* confirm_24.png */; };
 		181264A21903E624005E076B /* confirm_24_compy.png in Resources */ = {isa = PBXBuildFile; fileRef = 181264A11903E624005E076B /* confirm_24_compy.png */; };
 		1823BAB61913411800DC85E0 /* Colours.m in Sources */ = {isa = PBXBuildFile; fileRef = 1823BAB51913411800DC85E0 /* Colours.m */; };
+		1823BABA19134E2C00DC85E0 /* ReceiptMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 1823BAB919134E2C00DC85E0 /* ReceiptMsg.m */; };
 		18240381190A5F91007BDB0B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18240380190A5F91007BDB0B /* SettingViewController.m */; };
 		18296DB918C2F56500A76D7B /* ContactsMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DB818C2F56500A76D7B /* ContactsMgr.m */; };
 		18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCB18C33C4A00A76D7B /* MessageFactory.m */; };
@@ -133,6 +134,8 @@
 		181264A11903E624005E076B /* confirm_24_compy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = confirm_24_compy.png; sourceTree = "<group>"; };
 		1823BAB41913411800DC85E0 /* Colours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colours.h; sourceTree = "<group>"; };
 		1823BAB51913411800DC85E0 /* Colours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colours.m; sourceTree = "<group>"; };
+		1823BAB819134E2C00DC85E0 /* ReceiptMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptMsg.h; sourceTree = "<group>"; };
+		1823BAB919134E2C00DC85E0 /* ReceiptMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptMsg.m; sourceTree = "<group>"; };
 		1824037F190A5F91007BDB0B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		18240380190A5F91007BDB0B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		18296DB718C2F56500A76D7B /* ContactsMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsMgr.h; sourceTree = "<group>"; };
@@ -575,6 +578,8 @@
 				18B2F28C18E8279F00D753B0 /* ApplyMsg.m */,
 				1812648419023130005E076B /* Contact.h */,
 				1812648519023130005E076B /* Contact.m */,
+				1823BAB819134E2C00DC85E0 /* ReceiptMsg.h */,
+				1823BAB919134E2C00DC85E0 /* ReceiptMsg.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -866,6 +871,7 @@
 				18B2F28D18E8279F00D753B0 /* ApplyMsg.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				1812649419037597005E076B /* NaviItems.m in Sources */,
+				1823BABA19134E2C00DC85E0 /* ReceiptMsg.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
 				1823BAB61913411800DC85E0 /* Colours.m in Sources */,
 				1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */,

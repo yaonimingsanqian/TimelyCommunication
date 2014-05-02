@@ -13,6 +13,7 @@
 #import "DeleteContactMsg.h"
 #import "ApplyMsg.h"
 #import "RejectMsg.h"
+#import "ReceiptMsg.h"
 @implementation MessageFactory
 
 + (BaseMesage*)createMsg:(XMPPMessage *)msg
@@ -28,6 +29,8 @@
         baseMsg = [[ApplyMsg alloc]init];
     if([[msg type] isEqualToString:@"reject"])
         baseMsg = [[RejectMsg alloc]init];
+    if([[msg type] isEqualToString:@"received"])
+        baseMsg = [[ReceiptMsg alloc]init];
         
     baseMsg.isIncoming = YES;
     baseMsg.from = [msg fromStr];
@@ -36,6 +39,7 @@
     baseMsg.sendDate = [NSDate dateWithTimeIntervalSince1970:[[[msg attributeForName:@"time"] stringValue] doubleValue]];
     baseMsg.conversationId = [[baseMsg.from componentsSeparatedByString:@"@"] objectAtIndex:0];
     baseMsg.msgContent = [msg body];
+    baseMsg.messageId = [[msg attributeForName:@"id"] stringValue];
     return baseMsg;
 }
 @end

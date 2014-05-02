@@ -38,6 +38,7 @@
 - (void)anonymousConnection;
 //- (void)disconnect;
 - (void)sendMsg :(BaseMesage*)msg;
+- (void)sendReceive :(XMPPMessage*)msg;
 - (void)pushAgreenMsg :(BaseMesage*)msg;
 - (void)pushDeleteContactMsg :(BaseMesage*)msg;
 - (void)pushApplay :(BaseMesage*)msg;

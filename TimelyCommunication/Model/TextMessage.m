@@ -13,12 +13,22 @@
 #import "DataStorage.h"
 #import "ContactsMgr.h"
 #import "GTMBase64.h"
+#import "XMPPMessage.h"
+#import "NSXMLElement+XMPP.h"
+#import "iPhoneXMPPAppDelegate.h"
 
 @implementation TextMessage
 
 - (BOOL)isFromUserMyFriend :(NSString*)from
 {
     return [[ContactsMgr sharedInstance] isContactExist:from];
+}
+- (void)sendRecieved
+{
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"received" to:[XMPPJID jidWithString:self.from] elementID:self.messageId];
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [msg addAttributeWithName:@"xmlns" stringValue:@"jabber:client"];
+    [delegate sendReceive:msg];
 }
 - (void)doSelfThing
 {
@@ -46,6 +56,7 @@
     [[DataStorage sharedInstance] saveMsg:self :^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kNewTextMsg object:info];
     }];
+    [self sendRecieved];
 }
 - (void)postLocalNotifaction
 {
