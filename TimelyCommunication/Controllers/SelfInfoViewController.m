@@ -41,7 +41,7 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyJID];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyPassword];
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [delegate disconnect];
+        [delegate logout];
         [[ConversationMgr sharedInstance] destoryData];
         [[ContactsMgr sharedInstance] destoryData];
         [[CommonData sharedCommonData] destoryData];

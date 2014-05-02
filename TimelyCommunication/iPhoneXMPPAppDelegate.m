@@ -29,6 +29,8 @@
 #import "DiscoveryViewController.h"
 #import "MyViewController.h"
 #import "SettingViewController.h"
+#import "Reachability.h"
+#import "Colours.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -40,6 +42,9 @@
 @interface iPhoneXMPPAppDelegate()
 {
     User *stockUser;
+    int lastTimeNetWorkState;
+    BOOL isLogin;
+    Reachability *hostReach;
 }
 
 - (void)setupStream;
@@ -60,6 +65,22 @@
 @synthesize xmppReconnect;
 
 @synthesize window;
+
+- (void)reachabilityChanged:(NSNotification *)note {
+    if(!isLogin) return;
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+    NetworkStatus status = [curReach currentReachabilityStatus];
+    if(status != lastTimeNetWorkState)
+    {
+        [self disconnect];
+    }
+    if(lastTimeNetWorkState != status && status != NotReachable && isLogin)
+    {
+        [self connect];
+    }
+    lastTimeNetWorkState = status;
+}
 
 - (UIViewController*)createVCAccordingTag :(int)tag
 {
@@ -117,9 +138,17 @@
     self.window.rootViewController = nil;
     self.window.rootViewController = tabBarController;
     
+    
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name: kReachabilityChangedNotification
+                                               object: nil];
+    
+    hostReach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    [hostReach startNotifier];
     TCLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
     [ContactsMgr sharedInstance];
     self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];
@@ -133,12 +162,14 @@
         
         [[DataStorage sharedInstance] createDatabaseAndTables:[[username componentsSeparatedByString:@"@"] objectAtIndex:0] :^{
         
+           // [[self.window viewWithTag:1024] removeFromSuperview];
             [self turnToMainPage];
             stockUser = [[User alloc]init];
             stockUser.password = pass;
             stockUser.username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
             [stockUser login:^(NSDictionary *success) {
                 NSLog(@"stockmob登录成功");
+                isLogin = YES;
             } :^(NSError *error) {
                 NSLog(@"登录失败");
             }];
@@ -148,7 +179,10 @@
             [delegate disconnect];
             [delegate connect];
         }];
-       
+       // UIView *tmpView = [[UIView alloc]initWithFrame:self.window.frame];
+        //tmpView.backgroundColor = [UIColor colorFromHexString:@"wave"];
+        //tmpView.tag = 1024;
+        //[self.window addSubview:tmpView];
         return YES;
         
     }
@@ -183,7 +217,7 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.191.4"];
+	[xmppStream setHostName:@"192.168.1.103"];
 	[xmppStream setHostPort:5222];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;
@@ -309,10 +343,15 @@
 
 	return YES;
 }
-
+- (void)logout
+{
+    isLogin = NO;
+    [self disconnect];
+}
 - (void)disconnect
 {
 	[self goOffline];
+    
 	[xmppStream disconnect];
     //[self teardownStream];
 }

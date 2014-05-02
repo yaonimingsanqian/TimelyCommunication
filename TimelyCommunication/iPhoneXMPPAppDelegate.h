@@ -36,13 +36,13 @@
 
 - (BOOL)connect;
 - (void)anonymousConnection;
-- (void)disconnect;
+//- (void)disconnect;
 - (void)sendMsg :(BaseMesage*)msg;
 - (void)pushAgreenMsg :(BaseMesage*)msg;
 - (void)pushDeleteContactMsg :(BaseMesage*)msg;
 - (void)pushApplay :(BaseMesage*)msg;
 - (void)pushReject :(BaseMesage*)msg;
-
+- (void)logout;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *conversationNavi;
 @property (strong, nonatomic) UINavigationController *contactNavi;
