@@ -68,7 +68,7 @@
 #define kConversationColumnsType @[@"VARCHAR",@"VARCHAR",@"int"]
 
 //消息表
-#define kMsgColumns @[@"type",@"from",@"to",@"msgContent",@"sendDate",@"conversationId",@"isIncoming"]
+#define kMsgColumns @[@"type",@"from",@"to",@"msgContent",@"sendDate",@"conversationId",@"isIncoming",@"msgId",@"isSendSuccess"]
 #define kMsgFieldType @[@"int",@"VARCHAR",@"VARCHAR",@"VARCHAR",@"DATETIME",@"VARCHAR",@"int"]
 
 //红点表
@@ -85,6 +85,9 @@
 
 //红点提示类型
 #define kNewFriend @"kNewFriend"
+
+//数据库版本
+#define kDBVersion @"2"
 
 
 

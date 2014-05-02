@@ -105,8 +105,9 @@ static DataStorage *sharedInyance = nil;
     NSLog(@"%@",tableName);
     static int finsihCount = 0;
     finsihCount++;
-    if(finsihCount == kTableCount)
+    if(finsihCount == kTableCount && !isNeedUpdateDatabase)
     {
+        self.isDatabaseReady = YES;
         finsihCount = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:kDatabaseCreateFinished object:nil];
         if(createDatabaseAndTableComplete)
@@ -167,6 +168,11 @@ static DataStorage *sharedInyance = nil;
     {
         createDatabaseAndTableComplete = complete;
     }
+    NSString *dbVersion = [[NSUserDefaults standardUserDefaults] objectForKey:databaseName];
+    if(!dbVersion)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:kDBVersion forKey:databaseName];
+    }
     if(!queue)
     {
         NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:databaseName];
@@ -174,15 +180,75 @@ static DataStorage *sharedInyance = nil;
         if(![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
         {
             [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
-           
+            
         }
         path = [path stringByAppendingPathComponent:[databaseName stringByAppendingString:@".sqlite"]];
         queue = [[FMDatabaseQueue alloc]initWithPath:path];
     }
-    [self createConversationTable];
-    [self createMsgTable];
-    [self createRedPoingTable];
-    [self createContactsTable];
+    if(!dbVersion || [dbVersion isEqualToString:kDBVersion])
+    {
+        
+        [self createConversationTable];
+        [self createMsgTable];
+        [self createRedPoingTable];
+        [self createContactsTable];
+    }else if([dbVersion intValue] < [kDBVersion intValue])
+    {
+        isNeedUpdateDatabase = YES;
+        
+        for(int i = [dbVersion intValue];i < [kDBVersion intValue];i++)
+        {
+            NSString *selStr=[NSString stringWithFormat:@"updateDbFrom%dTo%d",i,i+1];
+            
+            SEL sel=NSSelectorFromString(selStr);
+            
+            if (YES==[self respondsToSelector:sel])
+            {
+                IMP imp = [self methodForSelector:sel];
+                void (*performSelector)(id, SEL) = (void *)imp;
+                performSelector(self,sel);
+            }
+        }
+        [[NSUserDefaults standardUserDefaults] setObject:kDBVersion forKey:databaseName];
+    }
+    
+    
+}
+- (void)complete
+{
+    self.isDatabaseReady = YES;
+    if(createDatabaseAndTableComplete)
+    {
+        createDatabaseAndTableComplete();
+    }
+}
+- (void)updateDbFrom1To2
+{
+     DataStorage __weak *tmp = self;
+    
+    [queue inDatabase:^(FMDatabase *db) {
+        TCLog(@"数据库正在更新 updateDbFrom1To2。。");
+        NSString *updateStr1 = [NSString stringWithFormat:@"ALTER TABLE %@ ADD '%@' %@",kMsgTableName,@"msgId",@"VARCHAR"];
+        if(NO == [db executeUpdate:updateStr1])
+        {
+            TCLog(@"插入行失败了");
+            //NSAssert(NO==YES, @"插入行失败了");
+            //return ;
+        }
+         NSString *updateStr2 = [NSString stringWithFormat:@"ALTER TABLE %@ ADD '%@' %@",kMsgTableName,@"isSendSuccess",@"VARCHAR"];
+        if(NO == [db executeUpdate:updateStr2])
+        {
+            TCLog(@"插入行失败了");
+           // NSAssert(NO==YES, @"插入行失败了");
+            //return ;
+        }
+        NSString *updateSql = [NSString stringWithFormat:@"update %@ set msgId=?,isSendSuccess=?",kMsgTableName];
+        [db executeUpdate:updateSql,@"db1",@"1"];
+        MAIN(^{
+            TCLog(@"数据库更新完毕 updateDbFrom1To2");
+            [tmp complete];
+        });
+    }];
 }
 - (void)saveConversation:(NSString *)con :(void(^)(void))complete
 {
@@ -211,7 +277,10 @@ static DataStorage *sharedInyance = nil;
     [conversationHelper queryConversationWithFinished :queue :result];
 }
 
-
+- (void)markedAsSendSuccess:(NSString *)msgID :(void (^)(BOOL))finished
+{
+    [msgHelper markedAsReceived:msgID :queue :finished];
+}
 - (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete
 {
     return [msgHelper saveMsg :msg :queue :complete];

@@ -12,7 +12,7 @@
 #import "ConversationMgr.h"
 #import "DataStorage.h"
 #import "NavigationControllerTitle.h"
-
+#import<CommonCrypto/CommonDigest.h>
 @interface ChatViewController ()
 {
    
@@ -22,17 +22,29 @@ static int origin;
 @implementation ChatViewController
 @synthesize username=_username,messageArray=_messageArray;
 #pragma mark - ChatDelegate
+
+- (NSString *)md5 :(NSString*)source
+{
+    const char *cStr = [source UTF8String];
+    unsigned char result[16];
+    CC_MD5( cStr, strlen(cStr),result );
+    NSMutableString *hash =[NSMutableString string];
+    for (int i = 0; i < 16; i++)
+        [hash appendFormat:@"%02X", result[i]];
+    return [hash uppercaseString];
+}
 - (void)sendTextMessage:(NSString *)text
 {
     if(text.length <= 0) return;
     TextMessage *message = [[TextMessage alloc]init];
     message.msgContent = text;
-    message.type = MessageText;
+    message.type = @"chat";
     message.sendDate = [NSDate date];
     message.conversationId = _username;
     message.to = _username;
     message.from = [CommonData sharedCommonData].curentUser.username;
     message.isIncoming = NO;
+    message.messageId = [self md5:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]];
     [_messageArray addObject:message];
    
     [[DataStorage sharedInstance] saveMsg:message :^{

@@ -51,12 +51,20 @@
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
         [[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
        
-        
-        [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
+        if([DataStorage sharedInstance].isDatabaseReady == NO)
+        {
+            [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
+                loginSuccess(result);
+                NSArray *friendsInfo = [result objectForKey:@"friends"];
+                [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
+            }];
+        }else
+        {
             loginSuccess(result);
             NSArray *friendsInfo = [result objectForKey:@"friends"];
             [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
-        }];
+        }
+       
         
     } onFailure:^(NSError *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:nil];

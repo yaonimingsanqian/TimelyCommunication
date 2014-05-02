@@ -19,7 +19,11 @@ typedef void(^CreateComplete)(void);
     FMDatabaseQueue *queue;
     CreateComplete createDatabaseAndTableComplete;
     ContactsHelper *contactsHelper;
+    BOOL isNeedUpdateDatabase;
+    
 }
+
+@property (nonatomic,assign) BOOL isDatabaseReady;
 #pragma mark - 单例
 + (DataStorage*)sharedInstance;
 #pragma mark - 建表
@@ -36,6 +40,7 @@ typedef void(^CreateComplete)(void);
 
 #pragma mark - 消息相关
 - (BOOL)saveMsg :(BaseMesage*)msg :(void(^)(void))complete;
+- (void)markedAsSendSuccess :(NSString*)msgID :(void(^)(BOOL isSuccess))finished;
 - (void)loadHistoryMsg :(NSString*)conversationId :(void(^)(NSArray*))result;
 - (void)loadMoreMsg :(NSString*)conversationId :(int)origin :(int)lenght :(void(^)(NSArray*))result;
 - (void)deleteMsg :(NSString*)conId :(void(^)(BOOL isSuccess))finished;

@@ -31,7 +31,7 @@
 #import "SettingViewController.h"
 #import "Reachability.h"
 #import "Colours.h"
-#import<CommonCrypto/CommonDigest.h>
+
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
   static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -268,16 +268,6 @@
         isRegister = YES;
     }
 }
-- (NSString *)md5 :(NSString*)source
-{
-    const char *cStr = [source UTF8String];
-    unsigned char result[16];
-    CC_MD5( cStr, strlen(cStr),result );
-    NSMutableString *hash =[NSMutableString string];
-    for (int i = 0; i < 16; i++)
-        [hash appendFormat:@"%02X", result[i]];
-    return [hash uppercaseString];
-}
 - (NSXMLElement*)createMsg :(BaseMesage*)msg
 {
     NSString *msgContent = [GTMBase64 encodeBase64String:msg.msgContent];
@@ -290,7 +280,7 @@
     [message addAttributeWithName:@"to" stringValue:jid];
     [message addAttributeWithName:@"from" stringValue:msg.from];
     [message addAttributeWithName:@"time" stringValue:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]];
-    [message addAttributeWithName:@"id" stringValue:[self md5:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]]]];
+    [message addAttributeWithName:@"id" stringValue:msg.messageId];
     [message addChild:body];
     return message;
 }

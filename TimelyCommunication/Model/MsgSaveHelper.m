@@ -29,11 +29,25 @@
         }
     }];
 }
+- (void)markedAsReceived:(NSString *)msgId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
+{
+    [queue inDatabase:^(FMDatabase *db) {
+        
+        NSString *updateSql = [NSString stringWithFormat:@"update %@ set isSendSuccess=? where msgId=?",kMsgTableName];
+        BOOL isSuccess = [db executeUpdate:updateSql,@"1",msgId];
+        if(finished)
+        {
+            MAIN(^{
+                finished(isSuccess);
+            });
+        }
+    }];
+}
 - (BOOL)saveMsg:(BaseMesage *)msg :(FMDatabaseQueue*)queue :(void(^)(void))complete
 {
     [queue inDatabase:^(FMDatabase *db) {
-        NSString *insertStr = [NSString stringWithFormat:@"INSERT INTO '%@' ('type', 'from','to','msgContent','sendDate','conversationId','isIncoming') VALUES (?,?,?,?,?,?,?)",kMsgTableName];
-        [db executeUpdate:insertStr,msg.type,[msg.from stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],[msg.to stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],msg.msgContent,msg.sendDate,msg.conversationId,[NSString stringWithFormat:@"%d",msg.isIncoming]];
+        NSString *insertStr = [NSString stringWithFormat:@"INSERT INTO '%@' ('type', 'from','to','msgContent','sendDate','conversationId','isIncoming','msgId','isSendSuccess') VALUES (?,?,?,?,?,?,?,?,?)",kMsgTableName];
+        [db executeUpdate:insertStr,msg.type,[msg.from stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],[msg.to stringByReplacingOccurrencesOfString:@"\\40" withString:@"@"],msg.msgContent,msg.sendDate,msg.conversationId,[NSString stringWithFormat:@"%d",msg.isIncoming],msg.messageId,@"0"];
         if(complete)
         {
             MAIN(^{

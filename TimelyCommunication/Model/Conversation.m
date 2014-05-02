@@ -23,6 +23,10 @@ typedef enum{
     Reject
 }PushMsgType;
 @implementation Conversation
++ (void)destory
+{
+    
+}
 + (Conversation*)sharedInstance
 {
     if(!sharedInstance)

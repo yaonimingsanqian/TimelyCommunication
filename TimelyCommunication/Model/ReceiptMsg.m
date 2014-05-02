@@ -7,11 +7,16 @@
 //
 
 #import "ReceiptMsg.h"
+#import "DataStorage.h"
 
 @implementation ReceiptMsg
 
 - (void)doSelfThing
 {
-    TCLog(@"消息发送成功");
+    
+    [[DataStorage sharedInstance] markedAsSendSuccess:self.messageId :^(BOOL isSuccess) {
+        
+        TCLog(@"%@消息发送成功",self.messageId);
+    }];
 }
 @end
