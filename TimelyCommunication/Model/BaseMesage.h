@@ -19,7 +19,8 @@ typedef enum
 {
     MsgStatusSending=0,
     MsgStatusSuccess,
-    MsgStatusFailed
+    MsgStatusFailed,
+    MsgStatusSend
 }MsgStatus;
 @interface BaseMesage : NSObject
 

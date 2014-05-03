@@ -16,6 +16,7 @@ typedef void(^LoadMsgComplete)(NSArray* msgArray);
 - (BOOL)saveMsg :(BaseMesage*)msg :(FMDatabaseQueue*)queue :(void(^)(void))complete;
 - (void)markedAsReceived :(NSString*)msgId :(FMDatabaseQueue*)queue :(void(^)(BOOL isSuccess))finished;
 - (void)markedAsFailed :(NSString*)msgId :(FMDatabaseQueue*)queue :(void(^)(BOOL isSuccess))finished;
+- (void)markedAsSend :(NSString*)msgId :(FMDatabaseQueue*)queue :(void(^)(BOOL isSuccess))finished;
 - (void)loadHistoryMsg :(NSString*)conversationId :(FMDatabaseQueue*)queue :(void(^)(NSArray *))result;
 - (void)loadHistoryMsg :(NSString*)conversationId :(LoadMsgComplete)complete;
 - (void)queryLastMsg :(NSString*)username :(NSString*)conId :(FMDatabaseQueue*)queue :(void(^)(TextMessage *last))result;

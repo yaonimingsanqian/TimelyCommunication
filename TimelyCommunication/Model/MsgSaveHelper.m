@@ -16,9 +16,21 @@
 #pragma mark - 私有
 #pragma mark - 接口
 
+- (void)updateMgsStatus :(FMDatabase*)db :(NSString*)msgId :(NSString*)status :(void(^)(BOOL isSuccess))finished
+{
+    NSString *updateSql = [NSString stringWithFormat:@"update %@ set isSendSuccess=? where msgId=?",kMsgTableName];
+    BOOL isSuccess = [db executeUpdate:updateSql,status,msgId];
+    if(finished)
+    {
+        MAIN(^{
+            finished(isSuccess);
+        });
+    }
+}
 - (void)deleteMSg:(NSString *)conId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
 {
     [queue inDatabase:^(FMDatabase *db) {
+        
         NSString *deleteStr = [NSString stringWithFormat:@"delete from %@ where conversationId=?",kMsgTableName];
         BOOL isSuccess = [db executeUpdate:deleteStr,conId];
         if(finished)
@@ -29,32 +41,25 @@
         }
     }];
 }
+- (void)markedAsSend:(NSString *)msgId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
+{
+    [queue inDatabase:^(FMDatabase *db) {
+        
+        [self updateMgsStatus:db :msgId :@"3" :finished];
+    }];
+}
 - (void)markedAsFailed:(NSString *)msgId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
 {
     [queue inDatabase:^(FMDatabase *db) {
         
-        NSString *updateSql = [NSString stringWithFormat:@"update %@ set isSendSuccess=? where msgId=?",kMsgTableName];
-        BOOL isSuccess = [db executeUpdate:updateSql,@"2",msgId];
-        if(finished)
-        {
-            MAIN(^{
-                finished(isSuccess);
-            });
-        }
+        [self updateMgsStatus:db :msgId :@"2" :finished];
     }];
 }
 - (void)markedAsReceived:(NSString *)msgId :(FMDatabaseQueue *)queue :(void (^)(BOOL))finished
 {
     [queue inDatabase:^(FMDatabase *db) {
         
-        NSString *updateSql = [NSString stringWithFormat:@"update %@ set isSendSuccess=? where msgId=?",kMsgTableName];
-        BOOL isSuccess = [db executeUpdate:updateSql,@"1",msgId];
-        if(finished)
-        {
-            MAIN(^{
-                finished(isSuccess);
-            });
-        }
+        [self updateMgsStatus:db :msgId :@"1" :finished];
     }];
 }
 - (BOOL)saveMsg:(BaseMesage *)msg :(FMDatabaseQueue*)queue :(void(^)(void))complete

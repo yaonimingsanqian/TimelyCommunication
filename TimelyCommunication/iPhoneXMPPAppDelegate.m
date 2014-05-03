@@ -143,6 +143,7 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    lastTimeNetWorkState = -1;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name: kReachabilityChangedNotification
@@ -540,8 +541,22 @@
         [[tabBarController.view viewWithTag:111] removeFromSuperview];
     }
 }
-
-
+- (void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message
+{
+    NSString *msgId = [[message attributeForName:@"id"] stringValue];
+    [[DataStorage sharedInstance] markedAsSend:msgId :^(BOOL isSuccess) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSendMsg object:msgId userInfo:nil];
+    }];
+}
+- (void)xmppStream:(XMPPStream *)sender didFailToSendMessage:(XMPPMessage *)message error:(NSError *)error
+{
+    NSString *msgId = [[message attributeForName:@"id"] stringValue];
+    [[DataStorage sharedInstance] markedAsSendFailed:msgId :^(BOOL isSuccess) {
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSendMsgFailed object:msgId userInfo:nil];
+    }];
+}
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
     TCLog(@"%@",message);

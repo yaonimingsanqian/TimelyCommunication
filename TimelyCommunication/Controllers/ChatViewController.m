@@ -71,6 +71,7 @@ static int origin;
     hplData = [[HPLChatData alloc]initWithText:textMsg.msgContent date:textMsg.sendDate type:textMsg.isIncoming];
     int status = textMsg.status;
     [hplData setMessageStatus:status];
+
     return hplData;
 }
 
@@ -147,23 +148,39 @@ static int origin;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNewMsg) name:kNewTextMsg object:nil];
     //refreshbegin
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMore) name:@"refreshbegin" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendSuccess:) name:kSendMsgSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendStatus:) name:kSendMsgSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendStatus:) name:kSendMsgFailed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendStatus:) name:kSendMsg object:nil];
      [[DataStorage sharedInstance] updateConversation:_username :NO];
 
     
 }
-- (void)msgSendSuccess :(NSNotification*)noti
+- (void)reloadData
+{
+    [chatViewCompent reloadData];
+}
+- (void)msgSendStatus :(NSNotification*)noti
 {
     NSString *msgId = [noti object];
     for (TextMessage *msg in _messageArray)
     {
         if([msg.messageId isEqualToString:msgId])
         {
-            msg.status = MsgStatusSuccess;
+            if([[noti name] isEqualToString:kSendMsgSuccess])
+            {
+                 msg.status = MsgStatusSuccess;
+            }else if([[noti name] isEqualToString:kSendMsgFailed])
+            {
+                msg.status = MsgStatusFailed;
+            }else
+            {
+                msg.status = MsgStatusSend;
+            }
+           
             break;
         }
     }
-    [chatViewCompent reloadData];
+    [self performSelector:@selector( reloadData) withObject:nil afterDelay:0.4f];
 }
 
 - (void)didReceiveMemoryWarning
