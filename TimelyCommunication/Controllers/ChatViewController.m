@@ -163,7 +163,7 @@ static int origin;
             break;
         }
     }
-    [chatViewCompent reloadDataWithoutScrollToBottom];
+    [chatViewCompent reloadData];
 }
 
 - (void)didReceiveMemoryWarning

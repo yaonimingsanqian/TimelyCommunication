@@ -173,7 +173,6 @@
 
 - (CGRect)caculateNewFrame :(CGSize)offsetSize :(CGRect)destFrame
 {
-    TCLog(@"%f",offsetSize.height);
     CGFloat offset = offsetSize.height - destFrame.size.height;
     destFrame.origin.y -= offset;
     destFrame.size.height = offsetSize.height;
