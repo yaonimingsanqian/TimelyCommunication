@@ -8,7 +8,7 @@
 
 #import "SettingViewController.h"
 #import "MyViewController.h"
-
+#import "ContactCell.h"
 @interface SettingViewController ()
 
 @end
@@ -36,7 +36,16 @@
     self.tableView.separatorColor = [UIColor clearColor];
     
 }
-
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"设置"];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -59,21 +68,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *iden = @"iden";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:iden];
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:iden];
     if(!cell)
     {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:iden];
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.frame.size.height-0.5, 320, 0.5)];
-        line.backgroundColor = [UIColor blackColor];
+        cell = [[ContactCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:iden];
+        
+        cell.avatar = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 30)];
+        cell.name = [[UILabel alloc]initWithFrame:CGRectMake(65, (cell.frame.size.height-21)/2.f, 229, 21)];
+        cell.name.font = [UIFont boldSystemFontOfSize:16];
+        [cell.contentView addSubview:cell.name];
+        [cell.contentView addSubview:cell.avatar];
+        
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(18, cell.frame.size.height-0.5, 320, 0.5)];
+        line.backgroundColor = [UIColor lightGrayColor];
         [cell.contentView addSubview:line];
     }
-    [[cell.contentView viewWithTag:101] removeFromSuperview];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(30, 5, 300, cell.frame.size.height-10)];
-    label.tag = 101;
-    label.text = @"设置";
-    [cell.contentView addSubview:label];
-    // Configure the cell...
-    [cell.contentView addSubview:label];
+    cell.name.text = nil;
+    cell.avatar.image = nil;
+    cell.name.text = @"个人信息";
+    cell.avatar.image = [UIImage imageNamed:@"setting_1"];
+    cell.rightImage.image = [UIImage imageNamed:@"grayarrow@2x.png"];
     return cell;
 }
 

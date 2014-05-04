@@ -31,6 +31,8 @@
 #import "SettingViewController.h"
 #import "Reachability.h"
 #import "Colours.h"
+#import "KeychainItemWrapper.h"
+
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -143,6 +145,7 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     lastTimeNetWorkState = -1;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
@@ -154,11 +157,16 @@
     TCLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
     [ContactsMgr sharedInstance];
     self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];
+    [[SMClient defaultClient] setTokenRefreshFailureBlock:^(NSError *error, SMFailureBlock originalFailureBlock){
+        TCLog(@"你被踢下线了");
+    }];
 	[self setupStream];
 	self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    NSString *username = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyJID];
-    NSString *pass = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyPassword];
-    if(username&&pass)
+    
+    KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+    NSString *username =  [wapper objectForKey:(__bridge id)(kSecAttrAccount)];
+    NSString *pass =  [wapper objectForKey:(__bridge id)(kSecValueData)];
+    if(username.length >0&&pass.length >0)
     {
         //数据库准备好后进行登录
         
@@ -219,7 +227,7 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.1.103"];
+	[xmppStream setHostName:@"192.168.1.141"];
 	[xmppStream setHostPort:5222];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;
@@ -326,14 +334,14 @@
 	if (![xmppStream isDisconnected]) {
 		return YES;
 	}
-	NSString *myJID = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyJID];
-	NSString *myPassword = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyPassword];
+    KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+    NSString *myJID =  [wapper objectForKey:(__bridge id)(kSecAttrAccount)];
+    NSString *myPassword =  [wapper objectForKey:(__bridge id)(kSecValueData)];
 	
 	if (myJID == nil || myPassword == nil) {
 		return NO;
 	}
-
-	[xmppStream setMyJID:[XMPPJID jidWithString:myJID]];
+	[xmppStream setMyJID:[XMPPJID jidWithString:myJID resource:@"ios"]];
 	password = myPassword;
 
 	NSError *error = nil;
@@ -582,4 +590,9 @@
     
     [msg doSelfThing];
 }
+- (void)xmppStreamWasToldToDisconnect:(XMPPStream *)sender
+{
+    TCLog(@"下线");
+}
+
 @end

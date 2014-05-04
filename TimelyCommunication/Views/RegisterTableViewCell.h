@@ -10,4 +10,6 @@
 
 @interface RegisterTableViewCell : UITableViewCell
 
+@property (nonatomic,strong) UITextField *item;
+@property (nonatomic,strong) NSString *placeHolder;
 @end

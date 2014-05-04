@@ -10,7 +10,7 @@
 #import "Config.h"
 #import "DDLog.h"
 #import "TextMessage.h"
-#define kTableCount 4
+#define kTableCount 5
 static DataStorage *sharedInyance = nil;
 @implementation DataStorage
 
@@ -158,12 +158,17 @@ static DataStorage *sharedInyance = nil;
 {
     [self addField:kContactColumns :kContactColumnsType :kContactName];
 }
+- (void)createUpdateDatabaseJournal
+{
+    [self addField:kDatabaseUpdateColumns :kDatabaseUpdateColumnsType :kDatabaseJournalName];
+}
 - (void)createRedPoingTable
 {
     [self addField:kRedPointColumns :kRedPointColumnsType :kRedPointName];
 }
 - (void)createDatabaseAndTables:(NSString *)databaseName :(void (^)(void))complete
 {
+    dbName = databaseName;
     if(complete)
     {
         createDatabaseAndTableComplete = complete;
@@ -192,6 +197,7 @@ static DataStorage *sharedInyance = nil;
         [self createMsgTable];
         [self createRedPoingTable];
         [self createContactsTable];
+        [self createUpdateDatabaseJournal];
     }else if([dbVersion intValue] < [kDBVersion intValue])
     {
         isNeedUpdateDatabase = YES;
@@ -209,7 +215,7 @@ static DataStorage *sharedInyance = nil;
                 performSelector(self,sel);
             }
         }
-        [[NSUserDefaults standardUserDefaults] setObject:kDBVersion forKey:databaseName];
+        
     }
     
     
@@ -229,11 +235,15 @@ static DataStorage *sharedInyance = nil;
     [queue inDatabase:^(FMDatabase *db) {
         TCLog(@"数据库正在更新 updateDbFrom1To2。。");
         NSString *updateStr1 = [NSString stringWithFormat:@"ALTER TABLE %@ ADD '%@' %@",kMsgTableName,@"msgId",@"VARCHAR"];
+        BOOL isSuccess1=NO,isSuccess2=NO;
         if(NO == [db executeUpdate:updateStr1])
         {
             TCLog(@"插入行失败了");
             //NSAssert(NO==YES, @"插入行失败了");
             //return ;
+        }else
+        {
+            isSuccess1 = YES;
         }
          NSString *updateStr2 = [NSString stringWithFormat:@"ALTER TABLE %@ ADD '%@' %@",kMsgTableName,@"isSendSuccess",@"VARCHAR"];
         if(NO == [db executeUpdate:updateStr2])
@@ -241,10 +251,19 @@ static DataStorage *sharedInyance = nil;
             TCLog(@"插入行失败了");
            // NSAssert(NO==YES, @"插入行失败了");
             //return ;
+        }else
+        {
+            isSuccess2 = YES;
         }
         NSString *updateSql = [NSString stringWithFormat:@"update %@ set msgId=?,isSendSuccess=?",kMsgTableName];
         [db executeUpdate:updateSql,@"db1",@"1"];
+        
+        NSString *jornal = [NSString stringWithFormat:@"insert into %@ ('dbversion','journal','isSuccess') values(?,?,?)",kDatabaseJournalName];
+        [db executeUpdate:jornal,kDBVersion,@"updateDbFrom1To2",isSuccess2&&isSuccess1?@"1":@"0"];
+                            
         MAIN(^{
+            if(isSuccess1 && isSuccess2)
+                [[NSUserDefaults standardUserDefaults] setObject:kDBVersion forKey:dbName];
             TCLog(@"数据库更新完毕 updateDbFrom1To2");
             [tmp complete];
         });

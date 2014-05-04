@@ -19,6 +19,7 @@ typedef void(^CreateComplete)(void);
     FMDatabaseQueue *queue;
     CreateComplete createDatabaseAndTableComplete;
     ContactsHelper *contactsHelper;
+    NSString *dbName;
     BOOL isNeedUpdateDatabase;
     
 }

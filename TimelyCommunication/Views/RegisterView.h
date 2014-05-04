@@ -31,5 +31,6 @@
 - (void)createPassTextField :(CGRect)frame;
 - (void)createPassConfirmTextField :(CGRect)frame;
 - (void)hideKeyboard;
+- (void)createRegisterBtn :(CGRect)frame :(id)target :(SEL)action;
 
 @end

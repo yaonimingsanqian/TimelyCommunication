@@ -7,9 +7,12 @@
 //
 
 #import "RegisterVC.h"
+#import "RegisterTableViewCell.h"
 
 @interface RegisterVC ()
-
+{
+    NSArray *items;
+}
 @end
 
 @implementation RegisterVC
@@ -26,12 +29,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    items = @[@"用户名",@"密    码",@"确    认",@"地    址",@"年    龄",@"性    别"];
+    self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.backgroundColor = [UIColor colorWithRed:241/255.f green:241/255.f blue:241/255.f alpha:1.f];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,28 +44,32 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return items.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    static NSString *iden = @"iden";
+    RegisterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:iden];
+    if(!cell)
+    {
+        cell = [[RegisterTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:iden];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.frame.size.height-0.5, 320, 0.5)];
+//        line.backgroundColor = [UIColor lightGrayColor];
+//        [cell.contentView addSubview:line];
+    }
+    cell.placeHolder = [items objectAtIndex:indexPath.row];
+    //cell.textLabel.text = [items objectAtIndex:indexPath.row];
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

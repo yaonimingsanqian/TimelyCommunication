@@ -18,6 +18,14 @@
 		181264A21903E624005E076B /* confirm_24_compy.png in Resources */ = {isa = PBXBuildFile; fileRef = 181264A11903E624005E076B /* confirm_24_compy.png */; };
 		1823BAB61913411800DC85E0 /* Colours.m in Sources */ = {isa = PBXBuildFile; fileRef = 1823BAB51913411800DC85E0 /* Colours.m */; };
 		1823BABA19134E2C00DC85E0 /* ReceiptMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 1823BAB919134E2C00DC85E0 /* ReceiptMsg.m */; };
+		1823BABD1914A5FE00DC85E0 /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823BABC1914A5FE00DC85E0 /* setting.png */; };
+		1823BABF1914A88300DC85E0 /* grayarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823BABE1914A88300DC85E0 /* grayarrow@2x.png */; };
+		1823BAC11914A95D00DC85E0 /* setting_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823BAC01914A95D00DC85E0 /* setting_1.png */; };
+		1823BAC31914E69100DC85E0 /* name.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823BAC21914E69100DC85E0 /* name.png */; };
+		1823BAC71914E94D00DC85E0 /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823BAC61914E94D00DC85E0 /* address.png */; };
+		1823BAC91914EC5800DC85E0 /* old.png in Resources */ = {isa = PBXBuildFile; fileRef = 1823BAC81914EC5800DC85E0 /* old.png */; };
+		1823BACC1914EE3F00DC85E0 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1823BACB1914EE3F00DC85E0 /* RegisterVC.m */; };
+		1823BACF1914F0E900DC85E0 /* RegisterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1823BACE1914F0E900DC85E0 /* RegisterTableViewCell.m */; };
 		18240381190A5F91007BDB0B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18240380190A5F91007BDB0B /* SettingViewController.m */; };
 		18296DB918C2F56500A76D7B /* ContactsMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DB818C2F56500A76D7B /* ContactsMgr.m */; };
 		18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18296DCB18C33C4A00A76D7B /* MessageFactory.m */; };
@@ -136,6 +144,16 @@
 		1823BAB51913411800DC85E0 /* Colours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colours.m; sourceTree = "<group>"; };
 		1823BAB819134E2C00DC85E0 /* ReceiptMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptMsg.h; sourceTree = "<group>"; };
 		1823BAB919134E2C00DC85E0 /* ReceiptMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptMsg.m; sourceTree = "<group>"; };
+		1823BABC1914A5FE00DC85E0 /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
+		1823BABE1914A88300DC85E0 /* grayarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayarrow@2x.png"; sourceTree = "<group>"; };
+		1823BAC01914A95D00DC85E0 /* setting_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_1.png; sourceTree = "<group>"; };
+		1823BAC21914E69100DC85E0 /* name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = name.png; path = ../name.png; sourceTree = "<group>"; };
+		1823BAC61914E94D00DC85E0 /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
+		1823BAC81914EC5800DC85E0 /* old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = old.png; sourceTree = "<group>"; };
+		1823BACA1914EE3F00DC85E0 /* RegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterVC.h; sourceTree = "<group>"; };
+		1823BACB1914EE3F00DC85E0 /* RegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
+		1823BACD1914F0E900DC85E0 /* RegisterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewCell.h; sourceTree = "<group>"; };
+		1823BACE1914F0E900DC85E0 /* RegisterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewCell.m; sourceTree = "<group>"; };
 		1824037F190A5F91007BDB0B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		18240380190A5F91007BDB0B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		18296DB718C2F56500A76D7B /* ContactsMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsMgr.h; sourceTree = "<group>"; };
@@ -320,6 +338,19 @@
 				1823BAB51913411800DC85E0 /* Colours.m */,
 			);
 			name = Colors;
+			sourceTree = "<group>";
+		};
+		1823BABB1914A5F500DC85E0 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				1823BAC81914EC5800DC85E0 /* old.png */,
+				1823BAC61914E94D00DC85E0 /* address.png */,
+				1823BAC21914E69100DC85E0 /* name.png */,
+				1823BAC01914A95D00DC85E0 /* setting_1.png */,
+				1823BABE1914A88300DC85E0 /* grayarrow@2x.png */,
+				1823BABC1914A5FE00DC85E0 /* setting.png */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		18296DB618C2F54A00A76D7B /* DataSource */ = {
@@ -553,6 +584,8 @@
 				187F89FD1906BAEF00FD9FBF /* MyViewController.m */,
 				1824037F190A5F91007BDB0B /* SettingViewController.h */,
 				18240380190A5F91007BDB0B /* SettingViewController.m */,
+				1823BACA1914EE3F00DC85E0 /* RegisterVC.h */,
+				1823BACB1914EE3F00DC85E0 /* RegisterVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -600,6 +633,7 @@
 		18DF8255187BC074000FDCFF /* images */ = {
 			isa = PBXGroup;
 			children = (
+				1823BABB1914A5F500DC85E0 /* Setting */,
 				181264A11903E624005E076B /* confirm_24_compy.png */,
 				1812649F1903E5A6005E076B /* confirm_24.png */,
 				1883925D18CA17DC00DC5257 /* common */,
@@ -647,6 +681,8 @@
 				18D2881818CCA4D800638879 /* ContactCell.h */,
 				18D2881918CCA4D800638879 /* ContactCell.m */,
 				18D2882718CCB11000638879 /* SelfInfoViewController.xib */,
+				1823BACD1914F0E900DC85E0 /* RegisterTableViewCell.h */,
+				1823BACE1914F0E900DC85E0 /* RegisterTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -736,6 +772,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1823BAC31914E69100DC85E0 /* name.png in Resources */,
 				18D2882018CCA91300638879 /* next.png in Resources */,
 				18AFAA0D187B18A500036ED8 /* Main_iPad.storyboard in Resources */,
 				18D2880C18CC410000638879 /* chat.png in Resources */,
@@ -750,10 +787,12 @@
 				18AFAA12187B18A500036ED8 /* Images.xcassets in Resources */,
 				184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */,
 				18DF826A187BC074000FDCFF /* me.png in Resources */,
+				1823BAC91914EC5800DC85E0 /* old.png in Resources */,
 				18AD348618CA196F00A5DFC6 /* man.png in Resources */,
 				18A3842918C1CE14000EA528 /* register.png in Resources */,
 				18D2882918CCB11000638879 /* SelfInfoViewController.xib in Resources */,
 				1883925F18CA17FC00DC5257 /* personavatar.png in Resources */,
+				1823BAC11914A95D00DC85E0 /* setting_1.png in Resources */,
 				18D2880E18CC716400638879 /* navigationbottom.png in Resources */,
 				18DF8267187BC074000FDCFF /* sound.png in Resources */,
 				18DF826B187BC074000FDCFF /* search.png in Resources */,
@@ -771,9 +810,12 @@
 				181264A21903E624005E076B /* confirm_24_compy.png in Resources */,
 				18AFAA01187B18A500036ED8 /* InfoPlist.strings in Resources */,
 				18D2882218CCAB4F00638879 /* friend.png in Resources */,
+				1823BAC71914E94D00DC85E0 /* address.png in Resources */,
 				1812649C19037ABE005E076B /* near_24_24.png in Resources */,
+				1823BABD1914A5FE00DC85E0 /* setting.png in Resources */,
 				18434377191285C500195DAD /* icon.png in Resources */,
 				18AD348718CA196F00A5DFC6 /* woman.png in Resources */,
+				1823BABF1914A88300DC85E0 /* grayarrow@2x.png in Resources */,
 				18C586F318F420C00006C172 /* MJRefresh.bundle in Resources */,
 				1883925818C98B4900DC5257 /* PersonInfoViewController.xib in Resources */,
 			);
@@ -859,6 +901,7 @@
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
+				1823BACF1914F0E900DC85E0 /* RegisterTableViewCell.m in Sources */,
 				18E7FB4018BB621400148255 /* LoginView.m in Sources */,
 				18AD349018CAE4EF00A5DFC6 /* NewFriendViewController.m in Sources */,
 				18D287FC18CC092400638879 /* DataStorage.m in Sources */,
@@ -872,6 +915,7 @@
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				1812649419037597005E076B /* NaviItems.m in Sources */,
 				1823BABA19134E2C00DC85E0 /* ReceiptMsg.m in Sources */,
+				1823BACC1914EE3F00DC85E0 /* RegisterVC.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
 				1823BAB61913411800DC85E0 /* Colours.m in Sources */,
 				1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */,

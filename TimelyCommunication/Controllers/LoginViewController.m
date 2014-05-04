@@ -14,6 +14,7 @@
 #import "iPhoneXMPPAppDelegate.h"
 #import "Config.h"
 #import "DataStorage.h"
+#import "RegisterVC.h"
 @interface LoginViewController ()
 {
     MBProgressHUD *waiting;
@@ -51,8 +52,19 @@
         [delegate turnToMainPage];
         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
     } :^(NSError *error) {
+        
+        [MBProgressHUD hideHUDForView:loginView animated:YES];
+        if(error.code == 401)//用户名或者密码错误
+        {
+            NSDictionary *userinfo = [error userInfo];
+            NSString *desc = [userinfo objectForKey:@"error_description"];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:desc delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+            [alert show];
+            return ;
+            
+        }
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:nil];
-         [MBProgressHUD hideHUDForView:loginView animated:YES];
         NSDictionary *userinfo = [error userInfo];
         NSString *msg = [userinfo objectForKey:@"NSLocalizedDescription"];
        

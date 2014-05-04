@@ -40,6 +40,7 @@
 #define kConversationName @"conversations"
 #define kRedPointName @"redpoint"
 #define kContactName @"contact"
+#define kDatabaseJournalName @"databaseupdatejournal"
 
 #pragma mark - 用户信息
 #define kXMPPmyJID @"kXMPPmyJID"
@@ -72,7 +73,7 @@
 
 //消息表
 #define kMsgColumns @[@"type",@"from",@"to",@"msgContent",@"sendDate",@"conversationId",@"isIncoming",@"msgId",@"isSendSuccess"]
-#define kMsgFieldType @[@"int",@"VARCHAR",@"VARCHAR",@"VARCHAR",@"DATETIME",@"VARCHAR",@"int"]
+#define kMsgFieldType @[@"int",@"VARCHAR",@"VARCHAR",@"VARCHAR",@"DATETIME",@"VARCHAR",@"int",@"VARCHAR",@"VARCHAR"]
 
 //红点表
 #define kRedPointColumns @[@"type",@"count"]
@@ -81,6 +82,10 @@
 //通讯录表
 #define kContactColumns @[@"uid",@"type"]
 #define kContactColumnsType @[@"VARCHAR",@"int"]
+
+//数据库更新日志
+#define kDatabaseUpdateColumns @[@"dbversion",@"journal",@"isSuccess"]
+#define kDatabaseUpdateColumnsType @[@"VARCHAR",@"VARCHAR",@"VARCHAR"]
 
 
 //红点view的tag

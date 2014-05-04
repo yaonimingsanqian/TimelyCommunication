@@ -13,7 +13,7 @@
 #import "CommonData.h"
 #import "DataStorage.h"
 #import "MBProgressHUD.h"
-
+#import "KeychainItemWrapper.h"
 @implementation User
 
 - (void)dealloc
@@ -49,7 +49,11 @@
         [self createUser:result];
         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
-        [[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
+        //[[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
+        
+        KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+        [wapper setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:(__bridge id)(kSecAttrAccount)];
+        [wapper setObject:tmp.password forKey:(__bridge id)(kSecValueData)];
        
         if([DataStorage sharedInstance].isDatabaseReady == NO)
         {
@@ -107,7 +111,13 @@
     User __weak *tmp = self;
     [[[SMClient defaultClient]dataStore] createObject:user inSchema:@"user" options:option onSuccess:^(NSDictionary *object, NSString *schema_) {
         [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
-        [[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
+        
+        KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+        [wapper setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:(__bridge id)(kSecAttrAccount)];
+        [wapper setObject:tmp.password forKey:(__bridge id)(kSecValueData)];
+        
+       // NSString *kSecAccount =  [wapper objectForKey:(__bridge id)(kSecAttrAccount)];
+       // NSString *kSecPassword =  [wapper objectForKey:(__bridge id)(kSecValueData)];
         
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate anonymousConnection];

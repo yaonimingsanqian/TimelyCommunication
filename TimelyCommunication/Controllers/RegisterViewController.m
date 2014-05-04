@@ -34,8 +34,30 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (int)isValidate
+{
+    if([registerView.account.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) return -1;
+    if([registerView.pass.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) return -1;
+    if([registerView.passConfirm.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) return -1;
+    if([registerView.gender.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) return -1;
+    if([registerView.address.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) return -1;
+    if([registerView.age.text stringByReplacingOccurrencesOfString:@" " withString:@""].length <= 0) return -1;
+    NSString *pass = [registerView.pass.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *passConfirm = [registerView.passConfirm.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if(![pass isEqualToString:passConfirm]) return -2;
+    return 0;
+                      
+}
 - (void)registerAction
 {
+
+    int retCode = [self isValidate];
+    if(retCode != 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:retCode==-1?@"信息缺失":@"两次密码不一致" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     user = nil;
     user = [[User alloc]init];
     user.username = [[registerView.account text] lowercaseString];
@@ -101,18 +123,19 @@
     registerView.backgroundColor = [UIColor colorWithRed:237.f/255.f green:237.f/255.f blue:237.f/255.f alpha:1.f];
     registerView.contentSize = CGSizeMake(320, 640);
     
-    [registerView createAccountTextField:CGRectMake(30, 20, 260, 35)];
+    [registerView createAccountTextField:CGRectMake(5, 20, 310, 40)];
     
-    [registerView createPassTextField:CGRectMake(30, 60, 260, 35)];
-    [registerView createPassConfirmTextField:CGRectMake(30, 100, 260, 35)];
-    [registerView createAddressTextField:CGRectMake(30, 140, 260, 35)];
-    [registerView createAgeTextField:CGRectMake(30, 180, 260, 35)];
-    [registerView createGenderTextField:CGRectMake(30, 220, 260, 35)];
+    [registerView createPassTextField:CGRectMake(5, 59, 310, 40)];
+    [registerView createPassConfirmTextField:CGRectMake(5, 98, 310, 40)];
+    [registerView createAddressTextField:CGRectMake(5, 160, 310, 40)];
+    [registerView createAgeTextField:CGRectMake(5, 199, 310, 40)];
+    [registerView createGenderTextField:CGRectMake(5, 238, 310, 40)];
+    [registerView createRegisterBtn:CGRectMake(5, 295, 310, 45) :self :@selector(registerAction)];
     [self addTapGesture:registerView];
     [self.view addSubview:registerView];
     registerView.address.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.navigationItem.rightBarButtonItem = [NaviItems naviRightBtnWithImage:[UIImage imageNamed:@"confirm_24_compy"] target:self selector:@selector(registerAction)];
+  //  self.navigationItem.rightBarButtonItem = [NaviItems naviRightBtnWithImage:[UIImage imageNamed:@"confirm_24_compy"] target:self selector:@selector(registerAction)];
 }
 
 - (void)didReceiveMemoryWarning

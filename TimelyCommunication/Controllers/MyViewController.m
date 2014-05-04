@@ -15,6 +15,8 @@
 #import "MBProgressHUD.h"
 #import "DataStorage.h"
 #import "LoginViewController.h"
+#import "ContactCell.h"
+#import "KeychainItemWrapper.h"
 @interface MyViewController ()
 {
     MBProgressHUD *waiting;
@@ -42,6 +44,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.separatorColor = [UIColor clearColor];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,43 +67,68 @@
     return 1;
 }
 
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if(section == 1) return 80;
+    return 0;
+}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 40;
+//}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString  static *reuseIdentifier = @"reuseIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    ContactCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(!cell)
     {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.frame.size.height-0.5, 320, 0.5)];
-        line.backgroundColor = [UIColor blackColor];
+        cell = [[ContactCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(18, cell.frame.size.height-0.5, 320, 0.5)];
+        line.backgroundColor = [UIColor lightGrayColor];
         [cell.contentView addSubview:line];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+        cell.avatar = [[UIImageView alloc]initWithFrame:CGRectMake(15, (cell.frame.size.height-20)/2, 20, 20)];
+        cell.name = [[UILabel alloc]initWithFrame:CGRectMake(65, (cell.frame.size.height-21)/2, 229, 21)];
+        cell.name.font = [UIFont boldSystemFontOfSize:16];
+        [cell.contentView addSubview:cell.name];
+        [cell.contentView addSubview:cell.avatar];
+        //cell.backgroundColor = [UIColor colorWithRed:171/255.f green:171/255.f blue:171/255.f alpha:171/255.f];
+    }else
+    {
+        [[cell.contentView viewWithTag:10] removeFromSuperview];
     }
-    UIView *view = [cell.contentView viewWithTag:10];
-    [view removeFromSuperview];
-     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 290, cell.frame.size.height)];
+    cell.name.text = nil;
+    cell.avatar.image = nil;
+   
     if(indexPath.section == 0)
     {
        
-        label.tag = 10;
         if(indexPath.row == 0)
         {
-            label.text = [NSString stringWithFormat:@"姓名:  %@",[CommonData sharedCommonData].curentUser.username == nil?@"未知":[CommonData sharedCommonData].curentUser.username];
+            cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.username == nil?@"未知":[CommonData sharedCommonData].curentUser.username];
+            cell.avatar.image = [UIImage imageNamed:@"name"];
         }else if(indexPath.row == 1)
         {
-            label.text = [NSString stringWithFormat:@"地址:  %@",[CommonData sharedCommonData].curentUser.address==nil?@"未知":[CommonData sharedCommonData].curentUser.address];
+            
+            cell.avatar.image = [UIImage imageNamed:@"address.png"];
+            cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.address==nil?@"未知":[CommonData sharedCommonData].curentUser.address];
         }else if(indexPath.row == 2)
         {
-            label.text = [NSString stringWithFormat:@"年龄:  %@",[CommonData sharedCommonData].curentUser.age==nil?@"未知":[CommonData sharedCommonData].curentUser.age];
+            cell.avatar.image = [UIImage imageNamed:@"old"];
+            cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.age==nil?@"未知":[CommonData sharedCommonData].curentUser.age];
         }
-        [cell.contentView addSubview:label];
     }else
     {
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 290, cell.frame.size.height)];
+        label.tag = 10;
         label.text = @"退出";
         label.textAlignment = NSTextAlignmentCenter;
         [cell.contentView addSubview:label];
+        label.textColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor redColor];
     }
-    
     return cell;
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -119,8 +147,9 @@
     waiting =  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     waiting.labelText = @"正在退出";
     [[SMClient defaultClient] logoutOnSuccess:^(NSDictionary *result) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyJID];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyPassword];
+        
+         KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+        [wapper resetKeychainItem];
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate logout];
         [[ConversationMgr sharedInstance] destoryData];

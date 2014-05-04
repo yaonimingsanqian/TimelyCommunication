@@ -38,8 +38,8 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[SMClient defaultClient] logoutOnSuccess:^(NSDictionary *result) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyJID];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kXMPPmyPassword];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kXMPPmyJID];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kXMPPmyPassword];
         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate logout];
         [[ConversationMgr sharedInstance] destoryData];
