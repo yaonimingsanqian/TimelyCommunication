@@ -218,6 +218,8 @@
 {
     if(indexPath.section == 0)
         return NO;
+    if(indexPath.section == 1 && indexPath.row == 0)
+        return NO;
     return YES;
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
