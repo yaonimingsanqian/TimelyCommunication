@@ -15,6 +15,7 @@
 #import "Config.h"
 #import "iPhoneXMPPAppDelegate.h"
 #import "Conversation.h"
+#import <Parse/Parse.h>
 #define kColor 200/255.f
 
 static int addTime = 0;
@@ -38,22 +39,15 @@ static int addTime = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
-    [query where:@"username" isEqualTo:[CommonData sharedCommonData].curentUser.username];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
-        if(results.count > 0)
-        {
-            NSDictionary *info = [results objectAtIndex:0];
-            NSArray *addme = [info objectForKey:@"addme"];
-            addmes = [NSMutableArray arrayWithArray:addme];
-            [self.tableView reloadData];
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }
-    } onFailure:^(NSError *error) {
+    PFQuery *pfQuery =[[PFQuery alloc]initWithClassName:@"social"];
+    [pfQuery whereKey:@"username" equalTo:[CommonData sharedCommonData].curentUser.username];
+    [pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        PFObject *info = [objects objectAtIndex:0];
+         NSArray *addme = info[@"addme"];
+        addmes = [NSMutableArray arrayWithArray:addme];
+        [self.tableView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"数据请求发生错误" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alert show];
     }];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addFrieFailed:) name:kFriendAddFailed object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addFriendSuccess:) name:kFriendAddFinished object:nil];
@@ -181,42 +175,25 @@ static int addTime = 0;
     int tag = sender.tag;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *username = [addmes objectAtIndex:tag];
-    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
-    [query where:@"username" isEqualTo:[CommonData sharedCommonData].curentUser.username];
-    [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
-        if(results.count > 0)
-        {
-            NSDictionary *info = [results objectAtIndex:0];
-            NSArray *friends = [info objectForKey:@"friends"];
-            NSMutableArray *apply = [NSMutableArray arrayWithArray:[info objectForKey:@"addme"]];
-            [apply removeObject:username];
-            NSMutableArray *newFriends = [NSMutableArray arrayWithArray:friends];
-            if(![self isFriendExist:username :newFriends])
-               [newFriends addObject:username];
-            NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:newFriends,@"friends",apply,@"addme", nil];
-            
-            //更新当前用户的 friend列表和申请列表
-            [[[SMClient defaultClient] dataStore] updateObjectWithId:[CommonData sharedCommonData].curentUser.username inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
-                
-                
-               // NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kNewFriend,kRefreshtype,username,kMsgFrom, nil];
-               // [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
-            //更新申请者的friend列表
-                [self updateApplierFriendList:username];
-
-            } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                
-            }];
-
-        }
-    } onFailure:^(NSError *error) {
-       // NSDictionary *info = [error userInfo];
+    
+    PFQuery *pfquery = [[PFQuery alloc]initWithClassName:@"social"];
+    [pfquery whereKey:@"username" equalTo:[CommonData sharedCommonData].curentUser.username];
+    
+    [pfquery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
-         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        PFObject *info = [objects objectAtIndex:0];
+        NSArray *friends = info[@"friends"];
+        NSMutableArray *apply = info[@"addme"];
+        [apply removeObject:username];
+         NSMutableArray *newFriends = [NSMutableArray arrayWithArray:friends];
+        if(![self isFriendExist:username :newFriends])
+            [newFriends addObject:username];
+        info[@"friends"] = newFriends;
+        info[@"addme"] = apply;
+        [info saveEventually];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFriendAddFinished object:username];
     }];
-    
-    
     
 }
 

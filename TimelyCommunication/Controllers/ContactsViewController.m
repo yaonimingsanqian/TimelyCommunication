@@ -19,7 +19,7 @@
 #import "MBProgressHUD.h"
 #import "RedBall.h"
 #import "DataStorage.h"
-
+#import <Parse/Parse.h>
 @interface ContactsViewController ()
 
 @end
@@ -228,15 +228,19 @@
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
     //更新自己的朋友列表
     [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     NSString *friendId = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     NSString *meId = [CommonData sharedCommonData].curentUser.username;
-    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
-    [query where:@"username" isEqualTo:meId];
-    [[[SMClient defaultClient] dataStore] performQuery:query  onSuccess:^(NSArray *results) {
-        NSDictionary *meinfo = [results objectAtIndex:0];
-        NSMutableArray *friends = [NSMutableArray arrayWithArray:[meinfo objectForKey:@"friends"]];
+    
+    PFQuery *pqueryMe = [[PFQuery alloc]initWithClassName:@"social"];
+    [pqueryMe whereKey:@"username" equalTo:meId];
+    [pqueryMe findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        PFObject *me = [objects objectAtIndex:0];
+         NSMutableArray *friends = [NSMutableArray arrayWithArray:me[@"friends"]];
         for (NSString *friend in friends)
         {
             if([friend isEqualToString:friendId])
@@ -245,44 +249,15 @@
                 break;
             }
         }
-        NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:friends,@"friends", nil];
-        [[[SMClient defaultClient] dataStore] updateObjectWithId:meId inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
-            //更新对方的朋友列表
-            SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
-            [query where:@"username" isEqualTo:friendId];
-            [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
-                NSDictionary *userinfo = [results objectAtIndex:0];
-                NSMutableArray *friends = [NSMutableArray arrayWithArray:[userinfo objectForKey:@"friends"]];
-                for (NSString *friend in friends)
-                {
-                    if([friend isEqualToString:meId])
-                    {
-                        [friends removeObject:friend];
-                        break;
-                    }
-                }
-                NSDictionary *update = [NSDictionary dictionaryWithObjectsAndKeys:friends,@"friends", nil];
-                [[[SMClient defaultClient] dataStore] updateObjectWithId:friendId inSchema:@"user" update:update onSuccess:^(NSDictionary *object, NSString *schema) {
-                    [MBProgressHUD hideAllHUDsForView:self.tableView animated:YES];
-                    //发送推送给对方
-                    [[Conversation sharedInstance] pushDeleteContact:friendId];
-                    //更新自己的好友列表
-                    [[DataStorage sharedInstance] deleteContacts:[NSArray arrayWithObject:[[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row]] :nil :nil];
-                    
-                } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-                    [self handleError];
-                }];
-            } onFailure:^(NSError *error) {
-                [self handleError];
-            }];
-            
-        } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-            [self handleError];
-        }];
-    } onFailure:^(NSError *error) {
-        [self handleError];
+        me[@"friends"] = friends;
+        [me saveEventually];
+        //更新自己的好友列表
+        [[DataStorage sharedInstance] deleteContacts:[NSArray arrayWithObject:[[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row]] :nil :nil];
+        [[Conversation sharedInstance] pushDeleteContact:friendId];
+        [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+        
     }];
-     
+    
 }
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {

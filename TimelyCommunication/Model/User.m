@@ -67,31 +67,37 @@
             [[NSUserDefaults standardUserDefaults] setObject:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
             [[NSUserDefaults standardUserDefaults] setObject:self.password forKey:kXMPPmyPassword];
             
-           
-            
-            if([DataStorage sharedInstance].isDatabaseReady == NO)
-            {
-                [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
+            PFQuery *fquery = [[PFQuery alloc]initWithClassName:@"social"];
+            [fquery whereKey:@"username" equalTo:self.username];
+            [fquery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                PFObject *obj = [objects objectAtIndex:0];
+                if([DataStorage sharedInstance].isDatabaseReady == NO)
+                {
+                    [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
+                        loginSuccess(nil);
+                        NSArray *friendsInfo = obj[@"friends"];
+                        [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
+                        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+                        [delegate logout];
+                        [delegate connect];
+                    }];
+                }else
+                {
                     loginSuccess(nil);
-                    NSArray *friendsInfo = auser[@"friends"];
+                    NSArray *friendsInfo = obj[@"friends"];
                     [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
                     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
                     [delegate logout];
                     [delegate connect];
-                }];
-            }else
-            {
-                loginSuccess(nil);
-                NSArray *friendsInfo = auser[@"friends"];
-                [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
-                iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-                [delegate logout];
-                [delegate connect];
-            }
+                }
+                
+            }];
+            
+            
         }
         else
         {
-            
+            loginFailed(error);
         }
         
     }];
@@ -138,15 +144,25 @@
             [[NSUserDefaults standardUserDefaults] setObject:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
             [[KeyChainHelper sharedInstance] saveAccount:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]]];
             [[KeyChainHelper sharedInstance] savePass:self.password];
-            
-            iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-            [delegate anonymousConnection];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerSuccess) name:kRegisterSuccess object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerUnSuccess) name:kRegisterFailed object:nil];
+            
+           
             PFObject *obj = [[PFObject alloc]initWithClassName:@"social"];
             obj[@"username"] = self.username;
             obj[@"addme"] = [NSArray array];
-            [obj saveEventually];
+            obj[@"friends"] = [NSArray arrayWithObject:@"admin"];
+
+            [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded)
+                {
+                    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+                    [delegate anonymousConnection];
+                }else
+                {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kRegisterFailed object:nil];
+                }
+            }];
             
         } else {
             pFailed(error);

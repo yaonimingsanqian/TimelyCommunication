@@ -11,6 +11,8 @@
 #import "ConversationMgr.h"
 #import "DataStorage.h"
 #import "GTMBase64.h"
+#import <Parse/Parse.h>
+#import "CommonData.h"
 @implementation AgreenApplyMessage
 
 - (void)doSelfThing
@@ -26,5 +28,29 @@
     }
     [[DataStorage sharedInstance] saveMsg:self :nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
+
+    PFQuery *query = [[PFQuery alloc]initWithClassName:@"social"];
+    [query whereKey:@"username" equalTo:[CommonData sharedCommonData].curentUser.username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        PFObject *info = [objects objectAtIndex:0];
+        NSArray *friends = info[@"friends"];
+        NSMutableArray *newFriends = [NSMutableArray arrayWithArray:friends];
+        if(![self isFriendExist:fromwhere :newFriends])
+            [newFriends addObject:fromwhere];
+        info[@"friends"] = newFriends;
+        [info saveEventually];
+    }];
+}
+- (BOOL)isFriendExist :(NSString*)friend :(NSArray*)friends
+{
+    for (NSString *unmae in friends)
+    {
+        if([unmae isEqualToString:friend])
+        {
+            return YES;
+        }
+    }
+    return NO;
 }
 @end
