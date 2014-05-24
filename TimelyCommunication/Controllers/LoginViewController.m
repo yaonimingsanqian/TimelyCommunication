@@ -54,10 +54,10 @@
     } :^(NSError *error) {
         
         [MBProgressHUD hideHUDForView:loginView animated:YES];
-        if(error.code == 401)//用户名或者密码错误
+        if(error.code == 101)//用户名或者密码错误
         {
             NSDictionary *userinfo = [error userInfo];
-            NSString *desc = [userinfo objectForKey:@"error_description"];
+            NSString *desc = [userinfo objectForKey:@"error"];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:desc delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
             [alert show];
             return ;

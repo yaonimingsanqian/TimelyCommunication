@@ -21,7 +21,10 @@
 #import "DataStorage.h"
 #import <Parse/Parse.h>
 @interface ContactsViewController ()
-
+{
+    PFQuery *pqueryMe;
+    PFQuery *pqueryhis;
+}
 @end
 
 @implementation ContactsViewController
@@ -44,6 +47,8 @@
 {
     [super viewWillDisappear:animated];
     [NavigationControllerTitle hide:self.navigationController.navigationBar];
+    [pqueryhis cancel];
+    [pqueryMe cancel];
 }
 - (void)viewDidLoad
 {
@@ -103,7 +108,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -235,7 +239,7 @@
     NSString *friendId = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     NSString *meId = [CommonData sharedCommonData].curentUser.username;
     
-    PFQuery *pqueryMe = [[PFQuery alloc]initWithClassName:@"social"];
+    pqueryMe = [[PFQuery alloc]initWithClassName:@"social"];
     [pqueryMe whereKey:@"username" equalTo:meId];
     [pqueryMe findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -256,6 +260,24 @@
         [[Conversation sharedInstance] pushDeleteContact:friendId];
         [MBProgressHUD hideHUDForView:self.tableView animated:YES];
         
+    }];
+    
+    pqueryhis = [[PFQuery alloc]initWithClassName:@"social"];
+    [pqueryhis whereKey:@"username" equalTo:friendId];
+    [pqueryhis findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        PFObject *me = [objects objectAtIndex:0];
+        NSMutableArray *friends = [NSMutableArray arrayWithArray:me[@"friends"]];
+        for (NSString *friend in friends)
+        {
+            if([friend isEqualToString:[CommonData sharedCommonData].curentUser.username])
+            {
+                [friends removeObject:friend];
+                break;
+            }
+        }
+        me[@"friends"] = friends;
+        [me saveInBackground];
     }];
     
 }

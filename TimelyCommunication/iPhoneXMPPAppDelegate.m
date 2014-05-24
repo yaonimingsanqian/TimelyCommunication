@@ -34,6 +34,7 @@
 #import "KeychainItemWrapper.h"
 #import <Parse/Parse.h>
 #import "KeyChainHelper.h"
+#import "CommonData.h"
 
 
 // Log levels: off, error, warn, info, verbose
@@ -153,6 +154,7 @@
                                              selector:@selector(reachabilityChanged:)
                                                  name: kReachabilityChangedNotification
                                                object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kickoff) name:@"kickoff" object:nil];
     
     hostReach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
     [hostReach startNotifier];
@@ -598,5 +600,18 @@
 {
     TCLog(@"下线");
 }
-
+- (void)kickoff
+{
+    
+    [PFUser logOut];
+    KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+    [wapper resetKeychainItem];
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate logout];
+    [[ConversationMgr sharedInstance] destoryData];
+    [[ContactsMgr sharedInstance] destoryData];
+    [[CommonData sharedCommonData] destoryData];
+    [DataStorage destory];
+    delegate.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LoginViewController alloc]init]];
+}
 @end

@@ -195,6 +195,20 @@ static int addTime = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:kFriendAddFinished object:username];
     }];
     
+    //更新对方的朋友列表，这目前来说不太合理
+    
+    PFQuery *query = [[PFQuery alloc]initWithClassName:@"social"];
+    [query whereKey:@"username" equalTo:username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        PFObject *info = [objects objectAtIndex:0];
+        NSArray *friends = info[@"friends"];
+        NSMutableArray *newFriends = [NSMutableArray arrayWithArray:friends];
+        if(![self isFriendExist:[CommonData sharedCommonData].curentUser.username :newFriends])
+            [newFriends addObject:[CommonData sharedCommonData].curentUser.username];
+        info[@"friends"] = newFriends;
+        [info saveEventually];
+    }];
 }
 
 /*

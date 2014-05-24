@@ -56,6 +56,11 @@
             isSuccess = [db executeUpdate:deleteSql,uid,type];
             
         }
+        if(contactIds.count == 0)
+        {
+             NSString *deleteSql = [NSString stringWithFormat:@"delete from %@",kContactName];
+            isSuccess = [db executeUpdate:deleteSql];
+        }
         if(result)
         {
             MAIN(^{

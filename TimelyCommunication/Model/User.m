@@ -65,7 +65,7 @@
             //
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
             [[NSUserDefaults standardUserDefaults] setObject:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
-            [[NSUserDefaults standardUserDefaults] setObject:self.password forKey:kXMPPmyPassword];
+            //[[NSUserDefaults standardUserDefaults] setObject:self.password forKey:kXMPPmyPassword];
             
             PFQuery *fquery = [[PFQuery alloc]initWithClassName:@"social"];
             [fquery whereKey:@"username" equalTo:self.username];
@@ -76,19 +76,27 @@
                     [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
                         loginSuccess(nil);
                         NSArray *friendsInfo = obj[@"friends"];
-                        [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
-                        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-                        [delegate logout];
-                        [delegate connect];
+                        [[DataStorage sharedInstance] deleteContacts:nil :nil :^(BOOL isSuccess) {
+                            [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
+                            iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+                            [delegate logout];
+                            [delegate connect];
+                        }];
                     }];
                 }else
                 {
                     loginSuccess(nil);
                     NSArray *friendsInfo = obj[@"friends"];
-                    [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
-                    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-                    [delegate logout];
-                    [delegate connect];
+                    [[DataStorage sharedInstance] deleteContacts:nil :nil :^(BOOL isSuccess) {
+                        [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
+                        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+                        [delegate logout];
+                        [delegate connect];
+                    }];
+//                    [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
+//                    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+//                    [delegate logout];
+//                    [delegate connect];
                 }
                 
             }];

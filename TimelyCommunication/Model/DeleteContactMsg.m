@@ -18,23 +18,7 @@
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:kDeleteFriend,kRefreshtype,fromwhere,kMsgFrom, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kRefeshcontact object:info];
     
-    PFQuery *pqueryMe = [[PFQuery alloc]initWithClassName:@"social"];
-    [pqueryMe whereKey:@"username" equalTo:[CommonData sharedCommonData].curentUser.username];
-    [pqueryMe findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-        PFObject *me = [objects objectAtIndex:0];
-        NSMutableArray *friends = [NSMutableArray arrayWithArray:me[@"friends"]];
-        for (NSString *friend in friends)
-        {
-            if([friend isEqualToString:fromwhere])
-            {
-                [friends removeObject:friend];
-                break;
-            }
-        }
-        me[@"friends"] = friends;
-        [me saveEventually];
-    }];
+    
     
 }
 @end

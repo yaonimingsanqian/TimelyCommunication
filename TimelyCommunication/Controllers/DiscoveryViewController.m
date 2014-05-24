@@ -15,6 +15,7 @@
 #import "MBProgressHUD.h"
 #import "ContactCell.h"
 #import "PersonInfoViewController.h"
+#import <Parse/Parse.h>
 @interface DiscoveryViewController ()
 {
     NSMutableArray *result;
@@ -45,28 +46,34 @@
 }
 - (void)checkNearBy :(id)sender
 {
+    NSString *name = [CommonData sharedCommonData].curentUser.username;
    showView = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
-    [SMGeoPoint getGeoPointForCurrentLocationOnSuccess:^(SMGeoPoint *geoPoint) {
-        SMQuery *query = [[SMQuery alloc]initWithSchema:@"location"];
-        [query where:@"coordinate" isWithin:5 milesOfGeoPoint:geoPoint];
-        [[[SMClient defaultClient]dataStore] performQuery:query onSuccess:^(NSArray *results) {
-            [result removeAllObjects];
-           NSString *name = [CommonData sharedCommonData].curentUser.username;
-            for (NSDictionary *point in results)
+    showView.labelText = @"正在查找...";
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+        
+        PFQuery *meq = [[PFQuery alloc]initWithClassName:@"social"];
+        [meq whereKey:@"username" equalTo:name];
+        [meq findObjectsInBackgroundWithBlock:^(NSArray *aobjects, NSError *error) {
+            PFObject *p = [aobjects firstObject];
+            p[@"location"] = geoPoint;
+            [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+            [p saveEventually];
+        }];
+        
+        PFQuery *query = [[PFQuery alloc]initWithClassName:@"social"];
+        [query whereKey:@"location" nearGeoPoint:geoPoint withinKilometers:5];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            
+            for (PFObject *pf in objects)
             {
-                NSString *people = [point objectForKey:@"username"];
+                NSString *people = pf[@"username"];
                 if(![people isEqualToString:name])
-                   [result addObject:people];
+                    [result addObject:people];
             }
             [self.tableView reloadData];
             [MBProgressHUD hideHUDForView:self.tableView animated:YES];
-        } onFailure:^(NSError *error) {
-            showView.labelText = @"定位发生错误";
-            [showView hide:YES afterDelay:1.f];
+
         }];
-    } onFailure:^(NSError *error) {
-        showView.labelText = @"定位发生错误";
-        [showView hide:YES afterDelay:1.f];
     }];
 }
 - (void)viewDidLoad
@@ -74,47 +81,21 @@
     [super viewDidLoad];
     result = [[NSMutableArray alloc]init];
     self.navigationItem.rightBarButtonItem = [NaviItems naviLeftBtnWithImage:[UIImage imageNamed:@"near_24_24"] target:self selector:@selector(checkNearBy:)];
-    [[[SMLocationManager sharedInstance]locationManager] startUpdatingLocation];
-    [SMGeoPoint getGeoPointForCurrentLocationOnSuccess:^(SMGeoPoint *geoPoint) {
-        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
-        username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
-        SMQuery *query = [[SMQuery alloc]initWithSchema:@"location"];
-        [query where:@"username" isEqualTo:username];
-        [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
-            if(results.count <= 0)
-            {
-                  //NSDictionary *updatedTodo = [NSDictionary dictionaryWithObjectsAndKeys:username, @"username",geoPoint,"coordinate", nil];
-                NSMutableDictionary *insertDic = [[NSMutableDictionary alloc]init];
-                [insertDic setValue:username forKey:@"username"];
-                [insertDic setValue:geoPoint forKey:@"coordinate"];
-                
-                [[[SMClient defaultClient] dataStore] createObject:insertDic inSchema:@"location" onSuccess:^(NSDictionary *object, NSString *schema) {
-                    TCLog(@"定位成功");
-                } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-
-                }];
-            }else
-            {
-                NSDictionary *info = [results objectAtIndex:0];
-                
-                NSMutableDictionary *insertDic = [[NSMutableDictionary alloc]init];
-                [insertDic setValue:username forKey:@"username"];
-                [insertDic setValue:geoPoint forKey:@"coordinate"];
-                [[[SMClient defaultClient] dataStore] updateObjectWithId:[info objectForKey:@"location_id"] inSchema:@"location" update:insertDic onSuccess:^(NSDictionary *object, NSString *schema) {
-                    
-                    NSLog(@"等位成功更新成功");
-                   
-                } onFailure:^(NSError *error, NSDictionary *object, NSString *schema) {
-                    NSLog(@"定位成功，更新失败");
-                }];
-                
-            }
-        } onFailure:^(NSError *error) {
-
-        }];
-    } onFailure:^(NSError *error) {
-
-    }];
+//    [[[SMLocationManager sharedInstance]locationManager] startUpdatingLocation];
+//    [SMGeoPoint getGeoPointForCurrentLocationOnSuccess:^(SMGeoPoint *geoPoint) {
+//        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
+//        username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
+//        PFQuery *query = [[PFQuery alloc]initWithClassName:@"social"];
+//        [query whereKey:@"username" equalTo:username];
+//        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//            PFObject *obj = [objects firstObject];
+//            obj[@"location"] = geoPoint;
+//            [obj saveEventually];
+//            
+//        }];
+//    } onFailure:^(NSError *error) {
+//
+//    }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     
@@ -167,41 +148,30 @@
     return cell;
 }
 
-- (User*)createUser :(NSDictionary*)userinfo
+- (User*)createUser :(PFObject*)userinfo
 {
     User *user = [[User alloc]init];
-    user.address = [userinfo objectForKey:@"address"];
-    user.age = [userinfo objectForKey:@"age"];
-    user.gender = [userinfo objectForKey:@"gender"];
-    user.username = [userinfo objectForKey:@"username"];
+    user.address = userinfo[@"address"];
+    user.age = userinfo[@"age"];
+    user.gender = userinfo[@"gender"];
+    user.username = userinfo[@"username"];
     return user;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
-    UITextField *search = (UITextField*)[self.view viewWithTag:101];
-    NSString *current = [[[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyJID] lowercaseString];
-    if([[search.text lowercaseString] isEqualToString:current])
-    {
-        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"提示" message:@"不能搜索自己" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil ];
-        [alert show];
-        return;
-    }
-    [query where:@"username" isEqualTo:[result objectAtIndex:indexPath.row]];
-    [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        if(results.count > 0)
-        {
-            User *user = [self createUser:[results objectAtIndex:0]];
-            PersonInfoViewController *personinfo = [[PersonInfoViewController alloc]initWithUser:user];
-            personinfo.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:personinfo animated:YES];
-            
-        }
-        
-    } onFailure:^(NSError *error) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    showView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    showView.labelText = @"正在获取信息....";
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" equalTo:[result objectAtIndex:indexPath.row]];
+     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+         
+         [MBProgressHUD hideHUDForView:self.view animated:YES];
+         PFObject *pf = [objects firstObject];
+         User *user = [self createUser:pf];
+         PersonInfoViewController *personinfo = [[PersonInfoViewController alloc]initWithUser:user];
+         personinfo.hidesBottomBarWhenPushed = YES;
+         [self.navigationController pushViewController:personinfo animated:YES];
+         
     }];
 }
 @end
