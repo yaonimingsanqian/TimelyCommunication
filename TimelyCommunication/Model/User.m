@@ -14,6 +14,7 @@
 #import "DataStorage.h"
 #import "MBProgressHUD.h"
 #import "KeychainItemWrapper.h"
+#import <Parse/Parse.h>
 @implementation User
 
 - (void)dealloc
@@ -42,37 +43,49 @@
 }
 - (void)login:(LoginSuccess)success :(LoginFailed)failed
 {
+    
     loginSuccess = success;
     loginFailed = failed;
-    User __weak *tmp = self;
-    [[SMClient defaultClient]loginWithUsername:self.username password:self.password onSuccess:^(NSDictionary *result) {
-        [self createUser:result];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
-        [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
-        //[[NSUserDefaults standardUserDefaults] setObject:tmp.password forKey:kXMPPmyPassword];
-        
-        KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
-        [wapper setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:(__bridge id)(kSecAttrAccount)];
-        [wapper setObject:tmp.password forKey:(__bridge id)(kSecValueData)];
-       
-        if([DataStorage sharedInstance].isDatabaseReady == NO)
+    
+    
+    [PFUser logInWithUsernameInBackground:self.username password:self.password block:^(PFUser *auser, NSError *error) {
+        if (auser)
         {
-            [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
-                loginSuccess(result);
-                NSArray *friendsInfo = [result objectForKey:@"friends"];
+            KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+            [wapper setObject:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:(__bridge id)(kSecAttrAccount)];
+            [wapper setObject:self.password forKey:(__bridge id)(kSecValueData)];
+            User *user = [[User alloc]init];
+            user.username = auser[@"username"];
+            user.password = auser[@"password"];
+            user.address = auser[@"address"];
+            user.gender = auser[@"gender"];
+            [CommonData sharedCommonData].curentUser = user;
+            //
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
+            [[NSUserDefaults standardUserDefaults] setObject:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
+            [[NSUserDefaults standardUserDefaults] setObject:self.password forKey:kXMPPmyPassword];
+            
+           
+            
+            if([DataStorage sharedInstance].isDatabaseReady == NO)
+            {
+                [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
+                    loginSuccess(nil);
+                    NSArray *friendsInfo = auser[@"friends"];
+                    [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
+                }];
+            }else
+            {
+                loginSuccess(nil);
+                NSArray *friendsInfo = auser[@"friends"];
                 [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
-            }];
-        }else
-        {
-            loginSuccess(result);
-            NSArray *friendsInfo = [result objectForKey:@"friends"];
-            [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
+            }
         }
-       
+        else
+        {
+            
+        }
         
-    } onFailure:^(NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:nil];
-        loginFailed(error);
     }];
 }
 - (void)registerUnSuccess
@@ -95,37 +108,39 @@
 }
 - (void)registerUser :(RegisterSuccess)success :(RegisterFailed)pFailed
 {
-    SMRequestOptions *option = [SMRequestOptions optionsWithHTTPS];
-    NSMutableDictionary *user = [[NSMutableDictionary alloc]init];
-    [user setValue:self.username forKey:@"username"];
-    [user setValue:self.password forKey:@"password"];
-    [user setValue:self.gender forKey:@"gender"];
-    [user setValue:self.address forKey:@"address"];
-    [user setValue:self.age forKey:@"age"];
-    [user setValue:[NSArray arrayWithObject:@"admin"] forKey:@"friends"];
-    [user setValue:nil forKey:@"addme"];
-    [user setValue:nil forKey:@"addothers"];
-    [user setValue:nil forKey:@"blacklis"];
+    
     registerSuccess = success;
     registerFailed = pFailed;
-    User __weak *tmp = self;
-    [[[SMClient defaultClient]dataStore] createObject:user inSchema:@"user" options:option onSuccess:^(NSDictionary *object, NSString *schema_) {
-        [[NSUserDefaults standardUserDefaults] setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
-        
-        KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
-        [wapper setObject:[tmp.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:(__bridge id)(kSecAttrAccount)];
-        [wapper setObject:tmp.password forKey:(__bridge id)(kSecValueData)];
-        
-       // NSString *kSecAccount =  [wapper objectForKey:(__bridge id)(kSecAttrAccount)];
-       // NSString *kSecPassword =  [wapper objectForKey:(__bridge id)(kSecValueData)];
-        
-        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [delegate anonymousConnection];
-        [[NSNotificationCenter defaultCenter] addObserver:tmp selector:@selector(registerSuccess) name:kRegisterSuccess object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:tmp selector:@selector(registerUnSuccess) name:kRegisterFailed object:nil];
-        
-    } onFailure:^(NSError *error, NSDictionary *object, NSString *schema_) {
-        pFailed(error);
+    PFUser *pfUser = [PFUser user];
+    pfUser.username = self.username;
+    pfUser.password = self.password;
+    pfUser[@"gender"] = self.gender;
+    pfUser[@"address"] = self.address;
+    pfUser[@"age"] = self.age;
+    pfUser[@"friends"] = [NSArray arrayWithObject:@"admin"];
+    pfUser[@"addme"] = [NSArray array];
+    pfUser[@"addothers"] = [NSArray array];;
+    pfUser[@"blacklist"] = [NSArray array];;
+    
+    
+    [pfUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            [[NSUserDefaults standardUserDefaults] setObject:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:kXMPPmyJID];
+            
+            KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+            [wapper setObject:[self.username stringByAppendingString:[NSString stringWithFormat:@"@%@",kServerName]] forKey:(__bridge id)(kSecAttrAccount)];
+            [wapper setObject:self.password forKey:(__bridge id)(kSecValueData)];
+            
+            // NSString *kSecAccount =  [wapper objectForKey:(__bridge id)(kSecAttrAccount)];
+            // NSString *kSecPassword =  [wapper objectForKey:(__bridge id)(kSecValueData)];
+            
+            iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+            [delegate anonymousConnection];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerSuccess) name:kRegisterSuccess object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerUnSuccess) name:kRegisterFailed object:nil];
+        } else {
+            pFailed(error);
+        }
     }];
 }
 @end

@@ -17,6 +17,7 @@
 #import "LoginViewController.h"
 #import "ContactCell.h"
 #import "KeychainItemWrapper.h"
+#import <Parse/Parse.h>
 @interface MyViewController ()
 {
     MBProgressHUD *waiting;
@@ -144,25 +145,17 @@
 - (void)logout:(UIButton *)sender
 {
     
-    waiting =  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    waiting.labelText = @"正在退出";
-    [[SMClient defaultClient] logoutOnSuccess:^(NSDictionary *result) {
-        
-         KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
-        [wapper resetKeychainItem];
-        iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [delegate logout];
-        [[ConversationMgr sharedInstance] destoryData];
-        [[ContactsMgr sharedInstance] destoryData];
-        [[CommonData sharedCommonData] destoryData];
-        [DataStorage destory];
-        delegate.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LoginViewController alloc]init]];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    } onFailure:^(NSError *error) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"退出失败" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alert show];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+    [PFUser logOut];
+    KeychainItemWrapper *wapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"openfireZhao" accessGroup:nil];
+    [wapper resetKeychainItem];
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate logout];
+    [[ConversationMgr sharedInstance] destoryData];
+    [[ContactsMgr sharedInstance] destoryData];
+    [[CommonData sharedCommonData] destoryData];
+    [DataStorage destory];
+    delegate.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LoginViewController alloc]init]];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

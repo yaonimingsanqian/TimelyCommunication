@@ -32,6 +32,7 @@
 #import "Reachability.h"
 #import "Colours.h"
 #import "KeychainItemWrapper.h"
+#import <Parse/Parse.h>
 
 
 // Log levels: off, error, warn, info, verbose
@@ -156,10 +157,10 @@
     [hostReach startNotifier];
     TCLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
     [ContactsMgr sharedInstance];
-    self.client = [[SMClient alloc] initWithAPIVersion:@"0" publicKey:@"516d1971-6d5e-40c1-995b-27e9034f94bc"];
-    [[SMClient defaultClient] setTokenRefreshFailureBlock:^(NSError *error, SMFailureBlock originalFailureBlock){
-        TCLog(@"你被踢下线了");
-    }];
+    
+    [Parse setApplicationId:@"0yooA3IfwIFeKPwatR1OHHZ9otJr8QZFdmu0zpF2"
+                  clientKey:@"OvBEZG2dTOGnlzg9HpaapTby0Ipu503u6rnrJSeC"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 	[self setupStream];
 	self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -227,7 +228,7 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.1.141"];
+	[xmppStream setHostName:@"192.168.1.104"];
 	[xmppStream setHostPort:5222];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;

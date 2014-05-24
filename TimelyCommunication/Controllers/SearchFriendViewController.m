@@ -14,6 +14,7 @@
 #import "NavigationControllerTitle.h"
 #import "PersonInfoViewController.h"
 #import "Config.h"
+#import <Parse/Parse.h>
 @interface SearchFriendViewController ()
 {
     MBProgressHUD *mb;
@@ -65,13 +66,13 @@
     UITextField *search = (UITextField*)[self.view viewWithTag:101];
     [search resignFirstResponder];
 }
-- (User*)createUser :(NSDictionary*)userinfo
+- (User*)createUser :(PFObject*)userinfo
 {
     User *user = [[User alloc]init];
-    user.address = [userinfo objectForKey:@"address"];
-    user.age = [userinfo objectForKey:@"age"];
-    user.gender = [userinfo objectForKey:@"gender"];
-    user.username = [userinfo objectForKey:@"username"];
+    user.address = userinfo[@"address"];
+    user.age = userinfo[@"age"];
+    user.gender = userinfo[@"gender"];
+    user.username = userinfo[@"username"];
     return user;
 }
 - (void)search
@@ -79,7 +80,6 @@
     [self tap];
    mb = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     mb.labelText = @"正在搜索..";
-    SMQuery *query = [[SMQuery alloc]initWithSchema:@"user"];
      UITextField *search = (UITextField*)[self.view viewWithTag:101];
     NSString *current = [[[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyJID] lowercaseString];
     if([[search.text lowercaseString] isEqualToString:[[current componentsSeparatedByString:@"@"] objectAtIndex:0]])
@@ -89,25 +89,22 @@
         [alert show];
         return;
     }
-    [query where:@"username" isEqualTo:[search.text lowercaseString]];
-    SearchFriendViewController __weak *tmp = self;
-    [[[SMClient defaultClient] dataStore] performQuery:query onSuccess:^(NSArray *results) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        if(results.count > 0)
-        {
-            User *user = [tmp createUser:[results objectAtIndex:0]];
-            PersonInfoViewController *personinfo = [[PersonInfoViewController alloc]initWithUser:user];
-            personinfo.hidesBottomBarWhenPushed = YES;
-            
-            UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-            self.navigationItem.backBarButtonItem = backItem;
-            backItem.title = @"返回";
-            [tmp.navigationController pushViewController:personinfo animated:YES];
-            
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" equalTo:[search.text lowercaseString]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            if(objects.count > 0)
+            {
+                User *user = [self createUser:[objects objectAtIndex:0]];
+                PersonInfoViewController *personinfo = [[PersonInfoViewController alloc]initWithUser:user];
+                personinfo.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:personinfo animated:YES];
+                
+            }
+        } else {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         }
-        
-    } onFailure:^(NSError *error) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
 }
 - (void)didReceiveMemoryWarning
