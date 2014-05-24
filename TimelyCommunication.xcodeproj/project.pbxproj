@@ -73,6 +73,7 @@
 		18B8F77718C4C23700718ADD /* RedBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B8F77618C4C23700718ADD /* RedBall.m */; };
 		18C3C5C51930718D00FA315C /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C5C31930718D00FA315C /* GTMBase64.m */; };
 		18C3C5CB193074B900FA315C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C5CA193074B900FA315C /* User.m */; };
+		18C3C5CF1930895800FA315C /* KeyChainHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C3C5CE1930895800FA315C /* KeyChainHelper.m */; };
 		18C586F318F420C00006C172 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18C586E918F420C00006C172 /* MJRefresh.bundle */; };
 		18C586F418F420C00006C172 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C586EC18F420C00006C172 /* MJRefreshBaseView.m */; };
 		18C586F518F420C00006C172 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C586EE18F420C00006C172 /* MJRefreshConst.m */; };
@@ -226,6 +227,9 @@
 		18C3C5C41930718D00FA315C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		18C3C5C9193074B900FA315C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		18C3C5CA193074B900FA315C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		18C3C5CD1930895800FA315C /* KeyChainHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainHelper.h; sourceTree = "<group>"; };
+		18C3C5CE1930895800FA315C /* KeyChainHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainHelper.m; sourceTree = "<group>"; };
+		18C3C5D01930897400FA315C /* SharedInstanceGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedInstanceGCD.h; path = ../SharedInstanceGCD.h; sourceTree = "<group>"; };
 		18C586E918F420C00006C172 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		18C586EA18F420C00006C172 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		18C586EB18F420C00006C172 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -373,6 +377,7 @@
 		18296DC018C3308100A76D7B /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				18C3C5CC1930894000FA315C /* keychainHelper */,
 				1823BAB71913411D00DC85E0 /* Colors */,
 				1812649119037597005E076B /* NaviItems */,
 				1831569D1902250A002AE558 /* GTMBase64 */,
@@ -525,6 +530,16 @@
 				18AFAA21187B18A600036ED8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18C3C5CC1930894000FA315C /* keychainHelper */ = {
+			isa = PBXGroup;
+			children = (
+				18C3C5D01930897400FA315C /* SharedInstanceGCD.h */,
+				18C3C5CD1930895800FA315C /* KeyChainHelper.h */,
+				18C3C5CE1930895800FA315C /* KeyChainHelper.m */,
+			);
+			path = keychainHelper;
 			sourceTree = "<group>";
 		};
 		18C586E818F420C00006C172 /* MJRefresh */ = {
@@ -894,6 +909,7 @@
 				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
 				18AD348C18CA228300A5DFC6 /* AddFriendMgr.m in Sources */,
 				18C586F718F420C00006C172 /* MJRefreshHeaderView.m in Sources */,
+				18C3C5CF1930895800FA315C /* KeyChainHelper.m in Sources */,
 				18C586F418F420C00006C172 /* MJRefreshBaseView.m in Sources */,
 				18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */,
 				18B8F77718C4C23700718ADD /* RedBall.m in Sources */,

@@ -33,6 +33,7 @@
 #import "Colours.h"
 #import "KeychainItemWrapper.h"
 #import <Parse/Parse.h>
+#import "KeyChainHelper.h"
 
 
 // Log levels: off, error, warn, info, verbose
@@ -456,8 +457,10 @@
 }
 - (void)registerUser
 {
-    NSString *myJID = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyJID];
-	NSString *myPassword = [[NSUserDefaults standardUserDefaults] stringForKey:kXMPPmyPassword];
+    NSString *myJID = [[KeyChainHelper sharedInstance] getAccount];
+	NSString *myPassword = [[KeyChainHelper sharedInstance] getPass];
+    // NSString *kSecAccount =  [wapper objectForKey:(__bridge id)(kSecAttrAccount)];
+    // NSString *kSecPassword =  [wapper objectForKey:(__bridge id)(kSecValueData)];
     [xmppStream setMyJID:[XMPPJID jidWithString:myJID]];
     NSError *error=nil;
     if (![xmppStream registerWithPassword:myPassword error:&error])
