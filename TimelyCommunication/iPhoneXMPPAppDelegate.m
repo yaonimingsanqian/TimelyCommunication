@@ -189,9 +189,9 @@
             }];
             
             
-            iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
-            [delegate disconnect];
-            [delegate connect];
+//            iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+//            [delegate disconnect];
+//            [delegate connect];
         }];
        // UIView *tmpView = [[UIView alloc]initWithFrame:self.window.frame];
         //tmpView.backgroundColor = [UIColor colorFromHexString:@"wave"];
@@ -586,13 +586,13 @@
     {
         [[DataStorage sharedInstance] saveConversation:user :nil];
     }
-    UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
-    if(tabBarController.selectedIndex != 0 && ![tabBarController.view viewWithTag:111] && tabBarController.hidesBottomBarWhenPushed == YES && [msg isKindOfClass:[TextMessage class]])
-    {
-        UIView *red = [RedBall createRedBallWithoutNumber];
-        red.tag = 111;
-        [tabBarController.view addSubview:red];
-    }
+//    UITabBarController *tabBarController = (UITabBarController*)self.window.rootViewController;
+//    if(tabBarController.selectedIndex != 0 && ![tabBarController.view viewWithTag:111] && tabBarController.hidesBottomBarWhenPushed == YES && [msg isKindOfClass:[TextMessage class]])
+//    {
+//        UIView *red = [RedBall createRedBallWithoutNumber];
+//        red.tag = 111;
+//        [tabBarController.view addSubview:red];
+//    }
     
     [msg doSelfThing];
 }

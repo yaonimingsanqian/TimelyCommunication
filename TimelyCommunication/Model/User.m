@@ -74,24 +74,26 @@
                 if([DataStorage sharedInstance].isDatabaseReady == NO)
                 {
                     [[DataStorage sharedInstance] createDatabaseAndTables:self.username :^{
-                        loginSuccess(nil);
+                        
                         NSArray *friendsInfo = obj[@"friends"];
                         [[DataStorage sharedInstance] deleteContacts:nil :nil :^(BOOL isSuccess) {
                             [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
                             iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
                             [delegate logout];
                             [delegate connect];
+                            loginSuccess(nil);
                         }];
                     }];
                 }else
                 {
-                    loginSuccess(nil);
+                   
                     NSArray *friendsInfo = obj[@"friends"];
                     [[DataStorage sharedInstance] deleteContacts:nil :nil :^(BOOL isSuccess) {
                         [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
                         iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
                         [delegate logout];
                         [delegate connect];
+                         loginSuccess(nil);
                     }];
 //                    [[DataStorage sharedInstance] saveContacts:friendsInfo :nil :nil];
 //                    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
