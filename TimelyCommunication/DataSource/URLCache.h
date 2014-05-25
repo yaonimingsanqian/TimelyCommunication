@@ -20,6 +20,8 @@ typedef enum
     
 }
 + (instancetype)sharedInstance;
+- (void)destory;
 - (void)cacheURLStr :(NSString*)url name:(NSString*)uname type:(CacheType)type;
 - (NSString*)queryURLWithkey :(NSString*)key type:(CacheType)type;
+- (void)removeCacheWithKey :(NSString*)key type:(CacheType)type;
 @end

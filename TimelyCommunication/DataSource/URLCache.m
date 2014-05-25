@@ -22,6 +22,10 @@ SHARED_INSTANCE_GCD_USING_BLOCK(^{
     }
     return self;
 }
+- (void)destory
+{
+    [cache removeAllObjects];
+}
 - (void)cacheURLStr :(NSString*)url name:(NSString*)uname type:(CacheType)type;
 {
     NSString *typeStr = [NSString stringWithFormat:@"%d",type];
@@ -57,5 +61,18 @@ SHARED_INSTANCE_GCD_USING_BLOCK(^{
             return [person objectForKey:@"avatar"];
     }
     return nil;
+}
+- (void)removeCacheWithKey:(NSString *)key type:(CacheType)type
+{
+     NSMutableArray *info = [cache objectForKey:[NSString stringWithFormat:@"%d",type]];
+    for (NSDictionary *person in info)
+    {
+        if([[person objectForKey:@"username"] isEqualToString:key])
+        {
+            [info removeObject:person];
+            [cache setObject:info forKey:[NSString stringWithFormat:@"%d",type]];
+            return;
+        }
+    }
 }
 @end

@@ -76,4 +76,22 @@
         
     }];
 }
+- (void)deletePersonDetail:(NSArray *)usernames :(FMDatabaseQueue *)queue :(void (^)(BOOL, NSError *))complete
+{
+    [queue inDatabase:^(FMDatabase *db) {
+        NSString *deleteStr = [NSString stringWithFormat:@"delete from %@ where username=?",kPersonDetailName];
+        BOOL isScuccess = NO;
+        for (NSString *username in usernames)
+        {
+            isScuccess = [db executeUpdate:deleteStr,username];
+            
+        }
+        if(complete)
+        {
+            MAIN(^{
+                complete(isScuccess,nil);
+            });
+        }
+    }];
+}
 @end

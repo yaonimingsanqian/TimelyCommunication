@@ -13,4 +13,5 @@
 
 - (void)updatePersonDetail :(NSDictionary*)info :(FMDatabaseQueue*)queue :(void(^)(BOOL isSuccrss,NSError *error))complete;
 - (void)queryPersonDetail :(NSArray*)usernames :(FMDatabaseQueue*)queue :(void(^)(NSArray *resultDic,NSError *error))complete;
+- (void)deletePersonDetail :(NSArray*)usernames :(FMDatabaseQueue*)queue :(void(^)(BOOL isSuccess,NSError *error))complete;
 @end

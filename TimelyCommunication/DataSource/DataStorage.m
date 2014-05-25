@@ -359,6 +359,10 @@ static DataStorage *sharedInyance = nil;
 {
     [personDetailHelper updatePersonDetail:info :queue :complete];
 }
+- (void)deletePersonDetail:(NSArray *)usernames :(void (^)(BOOL, NSError *))complete
+{
+    [personDetailHelper deletePersonDetail:usernames :queue :complete];
+}
 - (void)queryPersonDetail:(NSArray *)usernames :(void (^)(NSArray *, NSError *))complete
 {
     [personDetailHelper queryPersonDetail:usernames :queue :complete];

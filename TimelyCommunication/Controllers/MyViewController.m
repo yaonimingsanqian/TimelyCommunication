@@ -19,6 +19,7 @@
 #import "KeychainItemWrapper.h"
 #import <Parse/Parse.h>
 #import "BOSImageResizeOperation.h"
+#import "URLCache.h"
 @interface MyViewController ()
 {
     MBProgressHUD *waiting;
@@ -170,13 +171,14 @@
     [[CommonData sharedCommonData] destoryData];
     [DataStorage destory];
     delegate.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[LoginViewController alloc]init]];
+    [[URLCache sharedInstance] destory];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 1)
     {
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"您退出后将清楚密码，但是历史数据会保存" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出" otherButtonTitles:nil, nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"您退出后将清除密码，但是历史数据会保存" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出" otherButtonTitles:nil, nil];
         [sheet showInView:self.tableView];
     }
     if(indexPath.row == 0 && indexPath.section == 0)
@@ -247,14 +249,16 @@
             NSData *imageData = UIImageJPEGRepresentation(smallerImage,1.f);
             
             PFFile *imageFile = [PFFile fileWithName:@"avatar.jpg" data:imageData];
+            NSLog(@"%@",imageFile.url);
             PFUser *user = [PFUser currentUser];
             user[@"avatar"] = imageFile;
-            
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
                 ContactCell *cell = (ContactCell*)[self.tableView cellForRowAtIndexPath:indexpath];
-                cell.avatar.image = image;
+                cell.avatar.image = smallerImage;
+                [[URLCache sharedInstance] removeCacheWithKey:[CommonData sharedCommonData].curentUser.username type:CacheTypePerson];
+                [[DataStorage sharedInstance] deletePersonDetail:[NSArray arrayWithObject:[CommonData sharedCommonData].curentUser.username] :nil];
                 
             }];
         });

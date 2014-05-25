@@ -60,6 +60,7 @@ typedef void(^CreateComplete)(void);
 #pragma mark - 个人详情
 - (void)updatePersonInfo :(NSDictionary*)info :(void(^)(BOOL isSuccess,NSError *error))complete;
 - (void)queryPersonDetail :(NSArray*)usernames :(void(^)(NSArray *resultDic,NSError *error))complete;
+- (void)deletePersonDetail :(NSArray*)usernames :(void(^)(BOOL isSuccess,NSError *error))complete;
 
 
 @end
