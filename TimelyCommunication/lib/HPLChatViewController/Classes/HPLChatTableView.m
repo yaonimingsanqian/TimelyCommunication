@@ -100,7 +100,7 @@
     int count = 0;
     self.chatSection = [[NSMutableArray alloc] init];
     
-    if (self.chatDataSource && (count = [self.chatDataSource numberOfRowsForChatTable:self]) > 0)
+    if (self.chatDataSource && (count = (int)[self.chatDataSource numberOfRowsForChatTable:self]) > 0)
     {
         NSMutableArray *chatData = [[NSMutableArray alloc] initWithCapacity:count];
         
@@ -176,7 +176,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    int result = [self.chatSection count];
+    int result = (int)[self.chatSection count];
     if (self.typingChat != HPLChatTypingTypeNobody) result++;
     return result;
 }
@@ -189,7 +189,7 @@
     return [[self.chatSection objectAtIndex:section] count] + 1;
 }
 
-- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Now typing
 	if (indexPath.section >= [self.chatSection count])
@@ -209,20 +209,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Now typing
-	if (indexPath.section >= [self.chatSection count])
-    {
-        static NSString *cellId = @"tblChatTypingCell";
-        HPLChatTypingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        
-        if (cell == nil) cell = [[HPLChatTypingTableViewCell alloc] init];
-
-        cell.type = self.typingChat;
-        cell.showAvatar = self.showAvatars;
-        
-        return cell;
-    }
-
+//    // Now typing
+//	if (indexPath.section >= [self.chatSection count])
+//    {
+//        static NSString *cellId = @"tblChatTypingCell";
+//        HPLChatTypingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+//        
+//        if (cell == nil) cell = [[HPLChatTypingTableViewCell alloc] init];
+//
+//        cell.type = self.typingChat;
+//        cell.showAvatar = self.showAvatars;
+//        
+//        return cell;
+//    }
+//
     // Header with date and time
     if (indexPath.row == 0)
     {
@@ -245,7 +245,7 @@
     if (cell == nil) cell = [[HPLChatTableViewCell alloc] init];
     
     cell.data = data;
-    cell.showAvatar = self.showAvatars;
+    cell.showAvatar = YES;
 
     return cell;
 }

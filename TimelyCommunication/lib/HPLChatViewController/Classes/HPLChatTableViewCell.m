@@ -76,7 +76,7 @@
     }
     
     // Adjusting the x coordinate for avatar
-    if (self.showAvatar)
+    if (/*self.showAvatar*/YES)
     {
         [self.avatarView removeFromSuperview];
         

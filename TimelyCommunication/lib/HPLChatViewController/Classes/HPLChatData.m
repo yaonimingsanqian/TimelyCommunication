@@ -48,7 +48,7 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
 - (void)setAvatar:(UIImage *)avatarImage
 {
     if ( avatarImage ) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:avatarImage];
+        EGOImageView *imageView = [[EGOImageView alloc] initWithImage:avatarImage];
         self.avatarView = imageView;
     } else {
         self.avatarView = nil;
@@ -187,6 +187,7 @@ const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
         self.date = date;
         self.type = type;
         self.insets = insets;
+        self.avatarView = [[EGOImageView alloc]init];
     }
     return self;
 }

@@ -133,6 +133,11 @@
     [inputCompent hideKeyboard];
 }
 #pragma mark - 接口
+- (void)reloadDataWithOutAnimation
+{
+    [chatTableView reloadData];
+    [chatTableView scrollToBottomAnimated:NO];
+}
 - (void)reloadDataWithoutScrollToBottom
 {
     [chatTableView reloadWithOutScroll];

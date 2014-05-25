@@ -17,6 +17,7 @@
 #import "DataStorage.h"
 #import "MBProgressHUD.h"
 #import <Parse/Parse.h>
+#import "URLCache.h"
 @interface MainPageUIViewController ()
 {
     MBProgressHUD *mbProgressHUD;
@@ -157,6 +158,7 @@
             {
                 NSDictionary *info = [resultDic firstObject];
                 cell.avatar.imageURL = [NSURL URLWithString:[info objectForKey:@"avatar"]];
+                [[URLCache sharedInstance] cacheURLStr:[info objectForKey:@"avatar"] name:con type:CacheTypePerson];
             }else
             {
                 PFQuery *query = [PFUser query];
@@ -166,7 +168,7 @@
                     PFFile *file = obj[@"avatar"];
                     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:obj[@"username"],@"username",file.url,@"avatar", nil];
                     [[DataStorage sharedInstance] updatePersonInfo:info :nil];
-                    
+                     [[URLCache sharedInstance] cacheURLStr:file.url name:con type:CacheTypePerson];
                     cell.avatar.imageURL = [NSURL URLWithString:file.url];
                 }];
             }

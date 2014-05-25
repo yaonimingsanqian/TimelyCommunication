@@ -8,6 +8,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EGOImageView.h"
 
 typedef enum _HPLChatType {
     ChatTypeMine = 0,
@@ -35,7 +36,7 @@ typedef enum _HPLChatMessageStatus {
 /**
  Set a custom avatar view. If nil then the default Not-Found image is used for avatar.
  */
-@property (readwrite, nonatomic, strong) UIView *avatarView;
+@property (readwrite, nonatomic, strong) EGOImageView *avatarView;
 
 
 /**

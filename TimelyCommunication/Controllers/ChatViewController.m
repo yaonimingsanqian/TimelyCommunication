@@ -14,6 +14,7 @@
 #import "NavigationControllerTitle.h"
 #import<CommonCrypto/CommonDigest.h>
 #import <PArse/Parse.h>
+#import "URLCache.h"
 @interface ChatViewController ()
 {
    
@@ -63,6 +64,7 @@ static int origin;
 #pragma mark - HPLChatTableViewDataSource
 - (NSInteger)numberOfRowsForChatTable:(HPLChatTableView *)tableView
 {
+    TCLog(@"%d",_messageArray.count);
     return _messageArray.count;
 }
 - (HPLChatData*)chatTableView:(HPLChatTableView *)tableView dataForRow:(NSInteger)row
@@ -70,15 +72,46 @@ static int origin;
     HPLChatData *hplData;
     BaseMesage *textMsg = [_messageArray objectAtIndex:row];
     hplData = [[HPLChatData alloc]initWithText:textMsg.msgContent date:textMsg.sendDate type:textMsg.isIncoming];
+    
     int status = textMsg.status;
 
     [hplData setMessageStatus:status];
-    PFUser *user = [PFUser currentUser];
-    PFFile *avatar = user[@"avatar"];
-    [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        UIImage *image = [UIImage imageWithData:data];
-        hplData.avatarView = [[UIImageView alloc]initWithImage:image];
-    }];
+    if(textMsg.from == nil) textMsg.from = [CommonData sharedCommonData].curentUser.username ;
+    textMsg.from = [[textMsg.from componentsSeparatedByString:@"@"] objectAtIndex:0];
+    NSString *urlStr = [[URLCache sharedInstance] queryURLWithkey:textMsg.from type:CacheTypePerson];
+    if(!urlStr)
+    {
+        [[DataStorage sharedInstance] queryPersonDetail:[NSArray arrayWithObject:textMsg.from] :^(NSArray *resultDic, NSError *error) {
+            
+            if(resultDic.count > 0)
+            {
+                NSDictionary *info = [resultDic firstObject];
+                hplData.avatarView.imageURL = [NSURL URLWithString:[info objectForKey:@"avatar"]];
+                [[URLCache sharedInstance] cacheURLStr:[info objectForKey:@"avatar"] name:textMsg.from type:CacheTypePerson];
+            }else
+            {
+                PFQuery *query = [PFUser query];
+                [query whereKey:@"username" equalTo:textMsg.from];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    
+                    if(objects.count > 0)
+                    {
+                        PFObject *obj = [objects firstObject];
+                        PFFile *avatar = obj[@"avatar"];
+                        [[DataStorage sharedInstance] updatePersonInfo:[NSDictionary dictionaryWithObjectsAndKeys:avatar.url,@"avatar",textMsg.from,@"username", nil] :nil];
+                        [[URLCache sharedInstance] cacheURLStr:avatar.url name:textMsg.from type:CacheTypePerson];
+                        hplData.avatarView.imageURL = [NSURL URLWithString:avatar.url];
+                    }
+                }];
+            }
+        }];
+    }else
+    {
+        hplData.avatarView.imageURL = [NSURL URLWithString:urlStr];
+    }
+    
+    
+   
     return hplData;
 }
 
@@ -95,10 +128,15 @@ static int origin;
 - (void)receiveNewMsg
 {
     [[DataStorage sharedInstance] updateConversation:_username :NO];
-    [[DataStorage sharedInstance] loadHistoryMsg:_username :^(NSArray *result) {
-        _messageArray = [NSMutableArray arrayWithArray:result];
-        [chatViewCompent reloadData];
+//    [[DataStorage sharedInstance] loa];
+//    [[DataStorage sharedInstance] loadHistoryMsg:_username :^(NSArray *result) {
+//        
+//    }];
+    [[DataStorage sharedInstance] queryLastMsg:nil :_username :^(TextMessage *msg) {
+        [_messageArray addObject:msg];
+        [chatViewCompent reloadDataWithOutAnimation];
     }];
+    
     
 }
 #pragma mark - 系统方法
