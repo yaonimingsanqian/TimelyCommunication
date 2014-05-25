@@ -49,6 +49,20 @@
 		18979B461931B20A009AA573 /* EGOImageLoadConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B3E1931B20A009AA573 /* EGOImageLoadConnection.m */; };
 		18979B471931B20A009AA573 /* EGOImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B401931B20A009AA573 /* EGOImageLoader.m */; };
 		18979B481931B20A009AA573 /* EGOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B431931B20A009AA573 /* EGOImageView.m */; };
+		18979B631931D719009AA573 /* HPLChatData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B4C1931D719009AA573 /* HPLChatData.m */; };
+		18979B641931D719009AA573 /* HPLChatHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B4E1931D719009AA573 /* HPLChatHeaderTableViewCell.m */; };
+		18979B651931D719009AA573 /* HPLChatTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B501931D719009AA573 /* HPLChatTableView.m */; };
+		18979B661931D719009AA573 /* HPLChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B521931D719009AA573 /* HPLChatTableViewCell.m */; };
+		18979B671931D719009AA573 /* HPLChatTypingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B551931D719009AA573 /* HPLChatTypingTableViewCell.m */; };
+		18979B681931D719009AA573 /* fail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B581931D719009AA573 /* fail@2x.png */; };
+		18979B691931D719009AA573 /* missingAvatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B591931D719009AA573 /* missingAvatar@2x.png */; };
+		18979B6A1931D719009AA573 /* typingMine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B5A1931D719009AA573 /* typingMine@2x.png */; };
+		18979B6B1931D719009AA573 /* typingSomeone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B5B1931D719009AA573 /* typingSomeone@2x.png */; };
+		18979B6C1931D719009AA573 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B5C1931D719009AA573 /* fail.png */; };
+		18979B6D1931D719009AA573 /* missingAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B5D1931D719009AA573 /* missingAvatar.png */; };
+		18979B6E1931D719009AA573 /* symbol-error.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B5E1931D719009AA573 /* symbol-error.png */; };
+		18979B6F1931D719009AA573 /* typingMine.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B5F1931D719009AA573 /* typingMine.png */; };
+		18979B701931D719009AA573 /* typingSomeone.png in Resources */ = {isa = PBXBuildFile; fileRef = 18979B601931D719009AA573 /* typingSomeone.png */; };
 		18A3842918C1CE14000EA528 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842818C1CE14000EA528 /* register.png */; };
 		18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */; };
 		18A3843618C2E69C000EA528 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3843518C2E69C000EA528 /* ContactsViewController.m */; };
@@ -200,6 +214,26 @@
 		18979B401931B20A009AA573 /* EGOImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageLoader.m; sourceTree = "<group>"; };
 		18979B421931B20A009AA573 /* EGOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageView.h; sourceTree = "<group>"; };
 		18979B431931B20A009AA573 /* EGOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageView.m; sourceTree = "<group>"; };
+		18979B4B1931D719009AA573 /* HPLChatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPLChatData.h; sourceTree = "<group>"; };
+		18979B4C1931D719009AA573 /* HPLChatData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPLChatData.m; sourceTree = "<group>"; };
+		18979B4D1931D719009AA573 /* HPLChatHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPLChatHeaderTableViewCell.h; sourceTree = "<group>"; };
+		18979B4E1931D719009AA573 /* HPLChatHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPLChatHeaderTableViewCell.m; sourceTree = "<group>"; };
+		18979B4F1931D719009AA573 /* HPLChatTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPLChatTableView.h; sourceTree = "<group>"; };
+		18979B501931D719009AA573 /* HPLChatTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPLChatTableView.m; sourceTree = "<group>"; };
+		18979B511931D719009AA573 /* HPLChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPLChatTableViewCell.h; sourceTree = "<group>"; };
+		18979B521931D719009AA573 /* HPLChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPLChatTableViewCell.m; sourceTree = "<group>"; };
+		18979B531931D719009AA573 /* HPLChatTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPLChatTableViewDataSource.h; sourceTree = "<group>"; };
+		18979B541931D719009AA573 /* HPLChatTypingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPLChatTypingTableViewCell.h; sourceTree = "<group>"; };
+		18979B551931D719009AA573 /* HPLChatTypingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPLChatTypingTableViewCell.m; sourceTree = "<group>"; };
+		18979B581931D719009AA573 /* fail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fail@2x.png"; sourceTree = "<group>"; };
+		18979B591931D719009AA573 /* missingAvatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "missingAvatar@2x.png"; sourceTree = "<group>"; };
+		18979B5A1931D719009AA573 /* typingMine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "typingMine@2x.png"; sourceTree = "<group>"; };
+		18979B5B1931D719009AA573 /* typingSomeone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "typingSomeone@2x.png"; sourceTree = "<group>"; };
+		18979B5C1931D719009AA573 /* fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fail.png; sourceTree = "<group>"; };
+		18979B5D1931D719009AA573 /* missingAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missingAvatar.png; sourceTree = "<group>"; };
+		18979B5E1931D719009AA573 /* symbol-error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "symbol-error.png"; sourceTree = "<group>"; };
+		18979B5F1931D719009AA573 /* typingMine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typingMine.png; sourceTree = "<group>"; };
+		18979B601931D719009AA573 /* typingSomeone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typingSomeone.png; sourceTree = "<group>"; };
 		18A3842818C1CE14000EA528 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
 		18A3842A18C1F898000EA528 /* iPhoneXMPPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneXMPPAppDelegate.h; sourceTree = "<group>"; };
 		18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneXMPPAppDelegate.m; sourceTree = "<group>"; };
@@ -460,6 +494,7 @@
 		18979B331931B179009AA573 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				18979B491931D719009AA573 /* HPLChatViewController */,
 				18979B341931B20A009AA573 /* helper */,
 			);
 			path = lib;
@@ -520,6 +555,57 @@
 				18979B431931B20A009AA573 /* EGOImageView.m */,
 			);
 			path = EGOImageView;
+			sourceTree = "<group>";
+		};
+		18979B491931D719009AA573 /* HPLChatViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18979B4A1931D719009AA573 /* Classes */,
+				18979B561931D719009AA573 /* Images */,
+			);
+			path = HPLChatViewController;
+			sourceTree = "<group>";
+		};
+		18979B4A1931D719009AA573 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				18979B4B1931D719009AA573 /* HPLChatData.h */,
+				18979B4C1931D719009AA573 /* HPLChatData.m */,
+				18979B4D1931D719009AA573 /* HPLChatHeaderTableViewCell.h */,
+				18979B4E1931D719009AA573 /* HPLChatHeaderTableViewCell.m */,
+				18979B4F1931D719009AA573 /* HPLChatTableView.h */,
+				18979B501931D719009AA573 /* HPLChatTableView.m */,
+				18979B511931D719009AA573 /* HPLChatTableViewCell.h */,
+				18979B521931D719009AA573 /* HPLChatTableViewCell.m */,
+				18979B531931D719009AA573 /* HPLChatTableViewDataSource.h */,
+				18979B541931D719009AA573 /* HPLChatTypingTableViewCell.h */,
+				18979B551931D719009AA573 /* HPLChatTypingTableViewCell.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		18979B561931D719009AA573 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				18979B571931D719009AA573 /* 2x */,
+				18979B5C1931D719009AA573 /* fail.png */,
+				18979B5D1931D719009AA573 /* missingAvatar.png */,
+				18979B5E1931D719009AA573 /* symbol-error.png */,
+				18979B5F1931D719009AA573 /* typingMine.png */,
+				18979B601931D719009AA573 /* typingSomeone.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		18979B571931D719009AA573 /* 2x */ = {
+			isa = PBXGroup;
+			children = (
+				18979B581931D719009AA573 /* fail@2x.png */,
+				18979B591931D719009AA573 /* missingAvatar@2x.png */,
+				18979B5A1931D719009AA573 /* typingMine@2x.png */,
+				18979B5B1931D719009AA573 /* typingSomeone@2x.png */,
+			);
+			path = 2x;
 			sourceTree = "<group>";
 		};
 		18A3842518C1CB83000EA528 /* button */ = {
@@ -874,28 +960,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				1823BAC31914E69100DC85E0 /* name.png in Resources */,
+				18979B701931D719009AA573 /* typingSomeone.png in Resources */,
 				18D2882018CCA91300638879 /* next.png in Resources */,
 				18AFAA0D187B18A500036ED8 /* Main_iPad.storyboard in Resources */,
 				18D2880C18CC410000638879 /* chat.png in Resources */,
+				18979B6E1931D719009AA573 /* symbol-error.png in Resources */,
 				18AD349F18CB0F4F00A5DFC6 /* mainPage.png in Resources */,
 				18DF8265187BC074000FDCFF /* face.png in Resources */,
 				18DF8266187BC074000FDCFF /* more.png in Resources */,
 				18D2880618CC3CAE00638879 /* lightBlack.png in Resources */,
 				1812649A19037A71005E076B /* near_32_32.png in Resources */,
 				18D2881C18CCA6D100638879 /* apply.png in Resources */,
+				18979B691931D719009AA573 /* missingAvatar@2x.png in Resources */,
 				1812649E19038104005E076B /* account_24.png in Resources */,
 				18D2881E18CCA82F00638879 /* addfriend.png in Resources */,
 				18AFAA12187B18A500036ED8 /* Images.xcassets in Resources */,
 				184C835C18F2CC82008D48DB /* navigationtitle.png in Resources */,
 				18DF826A187BC074000FDCFF /* me.png in Resources */,
+				18979B681931D719009AA573 /* fail@2x.png in Resources */,
 				1823BAC91914EC5800DC85E0 /* old.png in Resources */,
+				18979B6A1931D719009AA573 /* typingMine@2x.png in Resources */,
 				18AD348618CA196F00A5DFC6 /* man.png in Resources */,
 				18A3842918C1CE14000EA528 /* register.png in Resources */,
+				18979B6D1931D719009AA573 /* missingAvatar.png in Resources */,
 				18D2882918CCB11000638879 /* SelfInfoViewController.xib in Resources */,
 				1883925F18CA17FC00DC5257 /* personavatar.png in Resources */,
 				1823BAC11914A95D00DC85E0 /* setting_1.png in Resources */,
 				18D2880E18CC716400638879 /* navigationbottom.png in Resources */,
 				18DF8267187BC074000FDCFF /* sound.png in Resources */,
+				18979B6C1931D719009AA573 /* fail.png in Resources */,
+				18979B6F1931D719009AA573 /* typingMine.png in Resources */,
 				18DF826B187BC074000FDCFF /* search.png in Resources */,
 				18D2882418CCABBF00638879 /* searchfriend.png in Resources */,
 				1883925C18C9948000DC5257 /* navBg@2x.png in Resources */,
@@ -910,6 +1004,7 @@
 				18AFAA0A187B18A500036ED8 /* Main_iPhone.storyboard in Resources */,
 				181264A21903E624005E076B /* confirm_24_compy.png in Resources */,
 				18AFAA01187B18A500036ED8 /* InfoPlist.strings in Resources */,
+				18979B6B1931D719009AA573 /* typingSomeone@2x.png in Resources */,
 				18D2882218CCAB4F00638879 /* friend.png in Resources */,
 				1823BAC71914E94D00DC85E0 /* address.png in Resources */,
 				1812649C19037ABE005E076B /* near_24_24.png in Resources */,
@@ -977,6 +1072,7 @@
 				18DF8247187BC053000FDCFF /* BaseMesage.m in Sources */,
 				1812648C1902A252005E076B /* DiscoveryViewController.m in Sources */,
 				1879F34F18C62D4B0054C812 /* SearchFriendViewController.m in Sources */,
+				18979B671931D719009AA573 /* HPLChatTypingTableViewCell.m in Sources */,
 				18C586F618F420C00006C172 /* MJRefreshFooterView.m in Sources */,
 				1812648619023130005E076B /* Contact.m in Sources */,
 				18240381190A5F91007BDB0B /* SettingViewController.m in Sources */,
@@ -994,6 +1090,7 @@
 				18A3843618C2E69C000EA528 /* ContactsViewController.m in Sources */,
 				18296DCF18C33FC600A76D7B /* MainPageUIViewController.m in Sources */,
 				18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */,
+				18979B661931D719009AA573 /* HPLChatTableViewCell.m in Sources */,
 				18AD348C18CA228300A5DFC6 /* AddFriendMgr.m in Sources */,
 				18C586F718F420C00006C172 /* MJRefreshHeaderView.m in Sources */,
 				18C3C5CF1930895800FA315C /* KeyChainHelper.m in Sources */,
@@ -1001,6 +1098,7 @@
 				18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */,
 				18B8F77718C4C23700718ADD /* RedBall.m in Sources */,
 				18979B461931B20A009AA573 /* EGOImageLoadConnection.m in Sources */,
+				18979B641931D719009AA573 /* HPLChatHeaderTableViewCell.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
@@ -1008,6 +1106,7 @@
 				18E7FB4018BB621400148255 /* LoginView.m in Sources */,
 				18AD349018CAE4EF00A5DFC6 /* NewFriendViewController.m in Sources */,
 				18D287FC18CC092400638879 /* DataStorage.m in Sources */,
+				18979B651931D719009AA573 /* HPLChatTableView.m in Sources */,
 				183156A719022B55002AE558 /* ContactsHelper.m in Sources */,
 				18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */,
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
@@ -1019,6 +1118,7 @@
 				18B2F28D18E8279F00D753B0 /* ApplyMsg.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				1812649419037597005E076B /* NaviItems.m in Sources */,
+				18979B631931D719009AA573 /* HPLChatData.m in Sources */,
 				1823BABA19134E2C00DC85E0 /* ReceiptMsg.m in Sources */,
 				1823BACC1914EE3F00DC85E0 /* RegisterVC.m in Sources */,
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
