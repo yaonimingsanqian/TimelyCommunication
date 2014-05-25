@@ -143,8 +143,11 @@
     pfUser[@"age"] = self.age;
     pfUser[@"friends"] = [NSArray arrayWithObject:@"admin"];
     pfUser[@"addme"] = [NSArray array];
-    pfUser[@"addothers"] = [NSArray array];;
-    pfUser[@"blacklist"] = [NSArray array];;
+    pfUser[@"addothers"] = [NSArray array];
+    pfUser[@"blacklist"] = [NSArray array];
+    NSData *avatar = UIImageJPEGRepresentation([UIImage imageNamed:@""], 1.f);
+    PFFile *file = [PFFile fileWithName:@"avatar" data:avatar];
+    pfUser[@"avatar"] = file;
     
     
     [pfUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

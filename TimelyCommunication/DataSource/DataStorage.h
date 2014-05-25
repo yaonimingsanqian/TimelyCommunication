@@ -11,6 +11,7 @@
 #import "ConversationHelper.h"
 #import "FMDataBaseQueue.h"
 #import "ContactsHelper.h"
+#import "PersonDetailHelper.h"
 typedef void(^CreateComplete)(void);
 @interface DataStorage : NSObject
 {
@@ -19,6 +20,7 @@ typedef void(^CreateComplete)(void);
     FMDatabaseQueue *queue;
     CreateComplete createDatabaseAndTableComplete;
     ContactsHelper *contactsHelper;
+    PersonDetailHelper *personDetailHelper;
     NSString *dbName;
     BOOL isNeedUpdateDatabase;
     
@@ -54,6 +56,10 @@ typedef void(^CreateComplete)(void);
 - (void)deleteContacts :(NSArray*)contactIds :(NSArray*)types :(void(^)(BOOL isSuccess))result;
 - (void)queryContacts:(NSArray *)contactIds :(NSArray *)types :(void (^)(NSArray *))result;
 - (void)queryAllContacts :(NSString*)type :(void (^)(NSArray *))result;
+
+#pragma mark - 个人详情
+- (void)updatePersonInfo :(NSDictionary*)info :(void(^)(BOOL isSuccess,NSError *error))complete;
+- (void)queryPersonDetail :(NSArray*)usernames :(void(^)(NSArray *resultDic,NSError *error))complete;
 
 
 @end

@@ -16,6 +16,7 @@
 #import "NavigationControllerTitle.h"
 #import "DataStorage.h"
 #import "MBProgressHUD.h"
+#import <Parse/Parse.h>
 @interface MainPageUIViewController ()
 {
     MBProgressHUD *mbProgressHUD;
@@ -114,7 +115,7 @@
     {
         cell = [[MainPageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.uname = [[UILabel alloc]initWithFrame:CGRectMake(84, 10, 181, 21)];
-        cell.avatar = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mainPage.png"]];
+        cell.avatar = [[EGOImageView alloc]init];
         cell.avatar.frame = CGRectMake(5, 5, 60, 60);
         cell.msg = [[UILabel alloc]initWithFrame:CGRectMake(83, 44, 238, 21)];
         cell.time = [[UILabel alloc]initWithFrame:CGRectMake(171, 10, 137, 21)];
@@ -125,6 +126,7 @@
         [cell.contentView addSubview:cell.avatar];
         [cell.contentView addSubview:cell.msg];
         [cell.contentView addSubview:cell.time];
+        [cell.avatar setPlaceholderImage:[UIImage imageNamed:@"mainPage.png"]];
     }
     cell.uname .text = nil;
     cell.time.text = nil;
@@ -145,6 +147,31 @@
     [self clearRedBall:cell];
    
     cell.uname.text = con;
+    if([con isEqualToString:@"admin"])
+    {
+        cell.avatar.image = [UIImage imageNamed:@"mainPage.png"];
+    }else
+    {
+        [[DataStorage sharedInstance] queryPersonDetail:[NSArray arrayWithObject:con] :^(NSArray *resultDic, NSError *error) {
+            if(resultDic.count > 0)
+            {
+                NSDictionary *info = [resultDic firstObject];
+                cell.avatar.imageURL = [NSURL URLWithString:[info objectForKey:@"avatar"]];
+            }else
+            {
+                PFQuery *query = [PFUser query];
+                [query whereKey:@"username" equalTo:con];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    PFObject *obj = [objects firstObject];
+                    PFFile *file = obj[@"avatar"];
+                    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:obj[@"username"],@"username",file.url,@"avatar", nil];
+                    [[DataStorage sharedInstance] updatePersonInfo:info :nil];
+                    
+                    cell.avatar.imageURL = [NSURL URLWithString:file.url];
+                }];
+            }
+        }];
+    }
     
     [[DataStorage sharedInstance] queryNotReadCount:con :^(int count) {
         

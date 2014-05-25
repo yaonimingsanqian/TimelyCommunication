@@ -98,6 +98,7 @@
             {
                 User *user = [self createUser:[objects objectAtIndex:0]];
                 PersonInfoViewController *personinfo = [[PersonInfoViewController alloc]initWithUser:user];
+                personinfo.pfObject = [objects objectAtIndex:0];
                 personinfo.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:personinfo animated:YES];
                 

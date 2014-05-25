@@ -28,6 +28,7 @@
     refreshView.delegate = self;
     refreshView.scrollView = chatTableView;
     chatTableView.chatDataSource = datsSource;
+    chatTableView.showAvatars = YES;
     
     [self addSubview:chatTableView];
 }

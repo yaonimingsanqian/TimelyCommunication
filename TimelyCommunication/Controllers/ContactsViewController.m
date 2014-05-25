@@ -132,7 +132,7 @@
     if(!cell)
     {
         cell = [[ContactCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.avatar = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 40, 40)];
+        cell.avatar = [[EGOImageView alloc]initWithFrame:CGRectMake(15, 10, 40, 40)];
         cell.name = [[UILabel alloc]initWithFrame:CGRectMake(77, 17, 229, 21)];
         cell.name.font = [UIFont systemFontOfSize:15.f];
         cell.rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(280, 20,20,20)];
@@ -142,9 +142,9 @@
         line.backgroundColor = [UIColor blackColor];
         [cell.contentView addSubview:line];
         [cell.contentView addSubview:cell.rightImage];
+        [cell.avatar setPlaceholderImage:[UIImage imageNamed:@"mainPage.png"]];
     }
     cell.name.text = nil;
-    cell.avatar.image = nil;
     if(indexPath.section == 0)
     {
         if(indexPath.row == 0)
@@ -163,7 +163,34 @@
         
     }else
     {
-        cell.avatar.image = [UIImage imageNamed:@"mainPage.png"];
+         if([[[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row] isEqualToString:@"admin"])
+         {
+             cell.avatar.image = [UIImage imageNamed:@"mainPage.png"];
+         }else
+         {
+             [[DataStorage sharedInstance] queryPersonDetail:[NSArray arrayWithObject:[[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row]] :^(NSArray *resultDic, NSError *error) {
+                 if(resultDic.count <= 0)
+                 {
+                     
+                     PFQuery *query = [PFUser query];
+                     [query whereKey:@"username" equalTo:[[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row]];
+                     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                         PFObject *obj = [objects firstObject];
+                         PFFile *file = obj[@"avatar"];
+                         NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:obj[@"username"],@"username",file.url,@"avatar", nil];
+                         [[DataStorage sharedInstance] updatePersonInfo:info :nil];
+                         
+                         cell.avatar.imageURL = [NSURL URLWithString:file.url];
+                     }];
+                 }else
+                 {
+                     NSDictionary *info = [resultDic firstObject];
+                     cell.avatar.imageURL = [NSURL URLWithString:[info objectForKey:@"avatar"]];
+                 }
+             }];
+         }
+       
+       
         cell.name.text = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     }
     

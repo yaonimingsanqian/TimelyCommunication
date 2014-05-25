@@ -43,6 +43,12 @@
 		1883925A18C9933400DC5257 /* btnbg_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925918C9933400DC5257 /* btnbg_01.png */; };
 		1883925C18C9948000DC5257 /* navBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925B18C9948000DC5257 /* navBg@2x.png */; };
 		1883925F18CA17FC00DC5257 /* personavatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1883925E18CA17FC00DC5257 /* personavatar.png */; };
+		18979B321931A055009AA573 /* PersonDetailHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B311931A055009AA573 /* PersonDetailHelper.m */; };
+		18979B441931B20A009AA573 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B371931B20A009AA573 /* EGOCache.m */; };
+		18979B451931B20A009AA573 /* EGOImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B3B1931B20A009AA573 /* EGOImageButton.m */; };
+		18979B461931B20A009AA573 /* EGOImageLoadConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B3E1931B20A009AA573 /* EGOImageLoadConnection.m */; };
+		18979B471931B20A009AA573 /* EGOImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B401931B20A009AA573 /* EGOImageLoader.m */; };
+		18979B481931B20A009AA573 /* EGOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18979B431931B20A009AA573 /* EGOImageView.m */; };
 		18A3842918C1CE14000EA528 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3842818C1CE14000EA528 /* register.png */; };
 		18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */; };
 		18A3843618C2E69C000EA528 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3843518C2E69C000EA528 /* ContactsViewController.m */; };
@@ -182,6 +188,18 @@
 		1883925918C9933400DC5257 /* btnbg_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnbg_01.png; sourceTree = "<group>"; };
 		1883925B18C9948000DC5257 /* navBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBg@2x.png"; sourceTree = "<group>"; };
 		1883925E18CA17FC00DC5257 /* personavatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personavatar.png; sourceTree = "<group>"; };
+		18979B301931A055009AA573 /* PersonDetailHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonDetailHelper.h; sourceTree = "<group>"; };
+		18979B311931A055009AA573 /* PersonDetailHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonDetailHelper.m; sourceTree = "<group>"; };
+		18979B361931B20A009AA573 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
+		18979B371931B20A009AA573 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
+		18979B3A1931B20A009AA573 /* EGOImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageButton.h; sourceTree = "<group>"; };
+		18979B3B1931B20A009AA573 /* EGOImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageButton.m; sourceTree = "<group>"; };
+		18979B3D1931B20A009AA573 /* EGOImageLoadConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageLoadConnection.h; sourceTree = "<group>"; };
+		18979B3E1931B20A009AA573 /* EGOImageLoadConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageLoadConnection.m; sourceTree = "<group>"; };
+		18979B3F1931B20A009AA573 /* EGOImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageLoader.h; sourceTree = "<group>"; };
+		18979B401931B20A009AA573 /* EGOImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageLoader.m; sourceTree = "<group>"; };
+		18979B421931B20A009AA573 /* EGOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageView.h; sourceTree = "<group>"; };
+		18979B431931B20A009AA573 /* EGOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageView.m; sourceTree = "<group>"; };
 		18A3842818C1CE14000EA528 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
 		18A3842A18C1F898000EA528 /* iPhoneXMPPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneXMPPAppDelegate.h; sourceTree = "<group>"; };
 		18A3842B18C1F898000EA528 /* iPhoneXMPPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneXMPPAppDelegate.m; sourceTree = "<group>"; };
@@ -408,6 +426,8 @@
 				18DF8240187BC053000FDCFF /* MsgSaveHelper.m */,
 				183156A519022B55002AE558 /* ContactsHelper.h */,
 				183156A619022B55002AE558 /* ContactsHelper.m */,
+				18979B301931A055009AA573 /* PersonDetailHelper.h */,
+				18979B311931A055009AA573 /* PersonDetailHelper.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -435,6 +455,71 @@
 				1883925E18CA17FC00DC5257 /* personavatar.png */,
 			);
 			path = common;
+			sourceTree = "<group>";
+		};
+		18979B331931B179009AA573 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				18979B341931B20A009AA573 /* helper */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		18979B341931B20A009AA573 /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				18979B351931B20A009AA573 /* EGOCache */,
+				18979B381931B20A009AA573 /* EGOImageLoading */,
+			);
+			path = helper;
+			sourceTree = "<group>";
+		};
+		18979B351931B20A009AA573 /* EGOCache */ = {
+			isa = PBXGroup;
+			children = (
+				18979B361931B20A009AA573 /* EGOCache.h */,
+				18979B371931B20A009AA573 /* EGOCache.m */,
+			);
+			path = EGOCache;
+			sourceTree = "<group>";
+		};
+		18979B381931B20A009AA573 /* EGOImageLoading */ = {
+			isa = PBXGroup;
+			children = (
+				18979B391931B20A009AA573 /* EGOImageButton */,
+				18979B3C1931B20A009AA573 /* EGOImageLoader */,
+				18979B411931B20A009AA573 /* EGOImageView */,
+			);
+			path = EGOImageLoading;
+			sourceTree = "<group>";
+		};
+		18979B391931B20A009AA573 /* EGOImageButton */ = {
+			isa = PBXGroup;
+			children = (
+				18979B3A1931B20A009AA573 /* EGOImageButton.h */,
+				18979B3B1931B20A009AA573 /* EGOImageButton.m */,
+			);
+			path = EGOImageButton;
+			sourceTree = "<group>";
+		};
+		18979B3C1931B20A009AA573 /* EGOImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				18979B3D1931B20A009AA573 /* EGOImageLoadConnection.h */,
+				18979B3E1931B20A009AA573 /* EGOImageLoadConnection.m */,
+				18979B3F1931B20A009AA573 /* EGOImageLoader.h */,
+				18979B401931B20A009AA573 /* EGOImageLoader.m */,
+			);
+			path = EGOImageLoader;
+			sourceTree = "<group>";
+		};
+		18979B411931B20A009AA573 /* EGOImageView */ = {
+			isa = PBXGroup;
+			children = (
+				18979B421931B20A009AA573 /* EGOImageView.h */,
+				18979B431931B20A009AA573 /* EGOImageView.m */,
+			);
+			path = EGOImageView;
 			sourceTree = "<group>";
 		};
 		18A3842518C1CB83000EA528 /* button */ = {
@@ -483,6 +568,7 @@
 		18AFA9FC187B18A500036ED8 /* TimelyCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				18979B331931B179009AA573 /* lib */,
 				183156A419022ACC002AE558 /* Database */,
 				18296DC018C3308100A76D7B /* Helper */,
 				18296DB618C2F54A00A76D7B /* DataSource */,
@@ -902,6 +988,7 @@
 				18DF8249187BC053000FDCFF /* Conversation.m in Sources */,
 				18AFAA03187B18A500036ED8 /* main.m in Sources */,
 				18AD349418CAEA0800A5DFC6 /* SimpleCell.m in Sources */,
+				18979B481931B20A009AA573 /* EGOImageView.m in Sources */,
 				18E7FB4D18BB7C9C00148255 /* RegisterView.m in Sources */,
 				187F89FE1906BAEF00FD9FBF /* MyViewController.m in Sources */,
 				18A3843618C2E69C000EA528 /* ContactsViewController.m in Sources */,
@@ -913,6 +1000,7 @@
 				18C586F418F420C00006C172 /* MJRefreshBaseView.m in Sources */,
 				18A3842C18C1F898000EA528 /* iPhoneXMPPAppDelegate.m in Sources */,
 				18B8F77718C4C23700718ADD /* RedBall.m in Sources */,
+				18979B461931B20A009AA573 /* EGOImageLoadConnection.m in Sources */,
 				18DF824A187BC053000FDCFF /* MsgSaveHelper.m in Sources */,
 				18D287FF18CC09E600638879 /* ConversationHelper.m in Sources */,
 				18DF826C187BC074000FDCFF /* MainPageCell.m in Sources */,
@@ -924,6 +1012,7 @@
 				18296DCC18C33C4A00A76D7B /* MessageFactory.m in Sources */,
 				18296DD218C3417C00A76D7B /* ConversationMgr.m in Sources */,
 				18AD349D18CB04AB00A5DFC6 /* AgreenApplyMessage.m in Sources */,
+				18979B321931A055009AA573 /* PersonDetailHelper.m in Sources */,
 				18D2881218CC745600638879 /* NavigationControllerTitle.m in Sources */,
 				18B2F28A18E6EC5900D753B0 /* DeleteContactMsg.m in Sources */,
 				18C3C5C51930718D00FA315C /* GTMBase64.m in Sources */,
@@ -935,9 +1024,12 @@
 				18DF8235187BC025000FDCFF /* ConversationListVC.m in Sources */,
 				1823BAB61913411800DC85E0 /* Colours.m in Sources */,
 				1883925718C98B4900DC5257 /* PersonInfoViewController.m in Sources */,
+				18979B441931B20A009AA573 /* EGOCache.m in Sources */,
 				184C835A18F25311008D48DB /* RejectMsg.m in Sources */,
+				18979B451931B20A009AA573 /* EGOImageButton.m in Sources */,
 				18DF8264187BC074000FDCFF /* InputCompent.m in Sources */,
 				18DF824C187BC053000FDCFF /* TextMessage.m in Sources */,
+				18979B471931B20A009AA573 /* EGOImageLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,6 +27,7 @@ typedef void(^RegisterSuccess)(NSDictionary *success);
 @property (nonatomic,copy) NSString *age;
 @property (nonatomic,copy) NSString *address;
 @property (nonatomic,copy) NSString *gender;
+
 - (void)login :(LoginSuccess)success :(LoginFailed)failed;
 - (void)registerUser :(RegisterSuccess)success :(RegisterFailed)failed;
 @end

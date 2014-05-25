@@ -64,7 +64,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0)
-        return 4;
+        return 3;
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,21 +111,11 @@
     if(indexPath.section == 0)
     {
        
-        if(indexPath.row == 1)
+        if(indexPath.row == 0)
         {
             cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.username == nil?@"未知":[CommonData sharedCommonData].curentUser.username];
-            cell.avatar.image = [UIImage imageNamed:@"name"];
-        }else if(indexPath.row == 2)
-        {
+            cell.name.frame = CGRectMake(105, (cell.frame.size.height-21)/2, 229, 21);
             
-            cell.avatar.image = [UIImage imageNamed:@"address.png"];
-            cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.address==nil?@"未知":[CommonData sharedCommonData].curentUser.address];
-        }else if(indexPath.row == 3)
-        {
-            cell.avatar.image = [UIImage imageNamed:@"old"];
-            cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.age==nil?@"未知":[CommonData sharedCommonData].curentUser.age];
-        }else
-        {
             cell.avatar.frame = CGRectMake(18, (80-60)/2, 60, 60);
             PFUser *user = [PFUser currentUser];
             PFFile *userImageFile = user[@"avatar"];
@@ -135,8 +125,16 @@
                     cell.avatar.image = image;
                 }
             }];
-        }
-    }else
+        }else if(indexPath.row == 1)
+        {
+            
+            cell.avatar.image = [UIImage imageNamed:@"address.png"];
+            cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.address==nil?@"未知":[CommonData sharedCommonData].curentUser.address];
+        }else if(indexPath.row == 2)
+        {
+            cell.avatar.image = [UIImage imageNamed:@"old"];
+            cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.age==nil?@"未知":[CommonData sharedCommonData].curentUser.age];
+        }    }else
     {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 290, cell.frame.size.height)];
         label.tag = 10;

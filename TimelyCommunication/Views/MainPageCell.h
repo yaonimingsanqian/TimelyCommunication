@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGOImageView.h"
 
 @interface MainPageCell : UITableViewCell
 
-@property (nonatomic,strong) UIImageView *avatar;
+@property (nonatomic,strong) EGOImageView *avatar;
 @property (nonatomic,strong) UILabel *uname;
 @property (nonatomic,strong) UILabel *msg;
 @property (nonatomic,strong) UILabel *time;

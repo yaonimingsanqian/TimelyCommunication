@@ -41,6 +41,7 @@
 #define kRedPointName @"redpoint"
 #define kContactName @"contact"
 #define kDatabaseJournalName @"databaseupdatejournal"
+#define kPersonDetailName @"persondetail"
 
 #pragma mark - 用户信息
 #define kXMPPmyJID @"kXMPPmyJID"
@@ -86,6 +87,10 @@
 //数据库更新日志
 #define kDatabaseUpdateColumns @[@"dbversion",@"journal",@"isSuccess"]
 #define kDatabaseUpdateColumnsType @[@"VARCHAR",@"VARCHAR",@"VARCHAR"]
+
+//个人详情表
+#define kPersonDetailColumns @[@"username",@"avatar"]
+#define kPersonDetailColumnsType @[@"VARCHAR",@"VARCHAR"]
 
 
 //红点view的tag

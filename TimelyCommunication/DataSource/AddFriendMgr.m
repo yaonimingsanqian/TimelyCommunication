@@ -45,12 +45,13 @@ static AddFriendMgr *shared = nil;
         {
             object[@"addme"] = [NSArray arrayWithObject:[CommonData sharedCommonData].curentUser.username];
             [object saveInBackground];
-            [[Conversation sharedInstance] pushApply:userName];
+            //[[Conversation sharedInstance] pushApply:userName];
         }else
         {
             
             if([self isMeHasSendRqquest:applies])
             {
+                [[Conversation sharedInstance] pushApply:userName];
                 success();
                 return ;
             }

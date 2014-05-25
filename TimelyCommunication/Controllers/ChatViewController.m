@@ -13,6 +13,7 @@
 #import "DataStorage.h"
 #import "NavigationControllerTitle.h"
 #import<CommonCrypto/CommonDigest.h>
+#import <PArse/Parse.h>
 @interface ChatViewController ()
 {
    
@@ -70,8 +71,14 @@ static int origin;
     BaseMesage *textMsg = [_messageArray objectAtIndex:row];
     hplData = [[HPLChatData alloc]initWithText:textMsg.msgContent date:textMsg.sendDate type:textMsg.isIncoming];
     int status = textMsg.status;
-    [hplData setMessageStatus:status];
 
+    [hplData setMessageStatus:status];
+    PFUser *user = [PFUser currentUser];
+    PFFile *avatar = user[@"avatar"];
+    [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage *image = [UIImage imageWithData:data];
+        hplData.avatarView = [[UIImageView alloc]initWithImage:image];
+    }];
     return hplData;
 }
 

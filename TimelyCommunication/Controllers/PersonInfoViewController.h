@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
-
+#import <Parse/Parse.h>
 @interface PersonInfoViewController : UIViewController
 {
     User *user;
@@ -20,5 +20,6 @@
 @property (nonatomic,strong) IBOutlet UILabel *address;
 @property (nonatomic,strong) IBOutlet UILabel *age;
 @property (nonatomic,strong) IBOutlet UIButton *operation;
+@property (nonatomic,strong) PFObject *pfObject;
 - (IBAction)addFriend:(id)sender;
 @end

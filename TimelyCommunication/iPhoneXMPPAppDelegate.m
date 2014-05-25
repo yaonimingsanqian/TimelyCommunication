@@ -301,6 +301,7 @@
 {
     NSXMLElement *message = [self createMsg:msg];
     [message addAttributeWithName:@"type" stringValue:type];
+    NSLog(@"<-%@->",message);
     [xmppStream sendElement:message];
 }
 - (void)pushReject:(BaseMesage *)msg

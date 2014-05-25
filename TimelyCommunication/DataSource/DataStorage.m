@@ -10,7 +10,7 @@
 #import "Config.h"
 #import "DDLog.h"
 #import "TextMessage.h"
-#define kTableCount 5
+#define kTableCount 6
 static DataStorage *sharedInyance = nil;
 @implementation DataStorage
 
@@ -32,6 +32,7 @@ static DataStorage *sharedInyance = nil;
         msgHelper = [[MsgSaveHelper alloc]init];
         conversationHelper = [[ConversationHelper alloc]init];
         contactsHelper = [[ContactsHelper alloc]init];
+        personDetailHelper = [[PersonDetailHelper alloc]init];
         NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:kXMPPmyJID];
         user = [[user componentsSeparatedByString:@"@"] objectAtIndex:0];
        // queue = [FMDatabaseQueue databaseQueueWithPath:DATABASE_PATH(user)];
@@ -166,6 +167,10 @@ static DataStorage *sharedInyance = nil;
 {
     [self addField:kRedPointColumns :kRedPointColumnsType :kRedPointName];
 }
+- (void)createPersonDetail
+{
+    [self addField:kPersonDetailColumns :kPersonDetailColumnsType :kPersonDetailName];
+}
 - (void)createDatabaseAndTables:(NSString *)databaseName :(void (^)(void))complete
 {
     dbName = databaseName;
@@ -198,6 +203,7 @@ static DataStorage *sharedInyance = nil;
         [self createRedPoingTable];
         [self createContactsTable];
         [self createUpdateDatabaseJournal];
+        [self createPersonDetail];
     }else if([dbVersion intValue] < [kDBVersion intValue])
     {
         isNeedUpdateDatabase = YES;
@@ -348,5 +354,13 @@ static DataStorage *sharedInyance = nil;
 - (void)queryAllContacts :(NSString *)type :(void (^)(NSArray *))result
 {
     [contactsHelper queryAllContacts:queue :type :result];
+}
+- (void)updatePersonInfo:(NSDictionary *)info :(void (^)(BOOL, NSError *))complete
+{
+    [personDetailHelper updatePersonDetail:info :queue :complete];
+}
+- (void)queryPersonDetail:(NSArray *)usernames :(void (^)(NSArray *, NSError *))complete
+{
+    [personDetailHelper queryPersonDetail:usernames :queue :complete];
 }
 @end

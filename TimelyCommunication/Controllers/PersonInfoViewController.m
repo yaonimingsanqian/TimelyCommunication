@@ -87,6 +87,10 @@
         [self.operation setTitle:@"发送消息" forState:UIControlStateNormal];
     else
         [self.operation setTitle:@"加为好友" forState:UIControlStateNormal];
+    PFFile *avatar = self.pfObject[@"avatar"];
+    [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        self.avatarImageView.image = [UIImage imageWithData:data];
+    }];
     
 }
 
