@@ -64,19 +64,21 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0)
-        return 3;
+        return 4;
     return 1;
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0 && indexPath.section == 0)
+        return 80;
+    return 40;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if(section == 1) return 80;
     return 0;
 }
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 40;
-//}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString  static *reuseIdentifier = @"reuseIdentifier";
@@ -84,7 +86,10 @@
     if(!cell)
     {
         cell = [[ContactCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(18, cell.frame.size.height-0.5, 320, 0.5)];
+        int rowHeight = cell.frame.size.height;
+        if(indexPath.section == 0 && indexPath.row == 0)
+            rowHeight = 80;
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(18, rowHeight-0.5, 320, 0.5)];
         line.backgroundColor = [UIColor lightGrayColor];
         [cell.contentView addSubview:line];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -106,19 +111,30 @@
     if(indexPath.section == 0)
     {
        
-        if(indexPath.row == 0)
+        if(indexPath.row == 1)
         {
             cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.username == nil?@"未知":[CommonData sharedCommonData].curentUser.username];
             cell.avatar.image = [UIImage imageNamed:@"name"];
-        }else if(indexPath.row == 1)
+        }else if(indexPath.row == 2)
         {
             
             cell.avatar.image = [UIImage imageNamed:@"address.png"];
             cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.address==nil?@"未知":[CommonData sharedCommonData].curentUser.address];
-        }else if(indexPath.row == 2)
+        }else if(indexPath.row == 3)
         {
             cell.avatar.image = [UIImage imageNamed:@"old"];
             cell.name.text = [NSString stringWithFormat:@"%@",[CommonData sharedCommonData].curentUser.age==nil?@"未知":[CommonData sharedCommonData].curentUser.age];
+        }else
+        {
+            cell.avatar.frame = CGRectMake(18, (80-60)/2, 60, 60);
+            PFUser *user = [PFUser currentUser];
+            PFFile *userImageFile = user[@"avatar"];
+            [userImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+                if (!error) {
+                    UIImage *image = [UIImage imageWithData:imageData];
+                    cell.avatar.image = image;
+                }
+            }];
         }
     }else
     {
@@ -164,62 +180,76 @@
         UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"您退出后将清楚密码，但是历史数据会保存" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出" otherButtonTitles:nil, nil];
         [sheet showInView:self.tableView];
     }
+    if(indexPath.row == 0 && indexPath.section == 0)
+    {
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"从相册选择", nil];
+        sheet.tag = 1011;
+        [sheet showInView:self.view];
+    }
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if(actionSheet.tag == 1011)
+    {
+        if(buttonIndex == 0)
+        {
+            [self takePhoto];
+        }else if(buttonIndex == 1)
+        {
+            [self localPhoto];
+        }
+        return;
+    }
     if(buttonIndex == 0)
     {
         [self logout:nil];
     }
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(void)takePhoto{
+    //资源类型为照相机
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    //判断是否有相机
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        //设置拍照后的图片可被编辑
+        picker.allowsEditing = YES;
+        //资源类型为照相机
+        picker.sourceType = sourceType;
+        [self presentViewController:picker animated:YES completion:nil];
+    }else {
+        NSLog(@"该设备无摄像头");
+    }
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)localPhoto
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    //资源类型为图片库
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    //设置选择后的图片可被编辑
+    picker.allowsEditing = YES;
+    [self presentViewController:picker animated:YES completion:nil];
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+#pragma mark - imagepickerdelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    waiting = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    waiting.labelText = @"正在处理...";
+    NSData *imageData = UIImageJPEGRepresentation(image,1.f);
+    PFFile *imageFile = [PFFile fileWithName:@"avatar.jpg" data:imageData];
+    PFUser *user = [PFUser currentUser];
+    user[@"avatar"] = imageFile;
+    
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+        ContactCell *cell = (ContactCell*)[self.tableView cellForRowAtIndexPath:indexpath];
+        cell.avatar.image = image;
+        
+    }];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 - (void)dealloc
 {
 }
