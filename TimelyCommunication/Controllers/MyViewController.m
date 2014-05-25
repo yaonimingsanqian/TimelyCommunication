@@ -18,6 +18,7 @@
 #import "ContactCell.h"
 #import "KeychainItemWrapper.h"
 #import <Parse/Parse.h>
+#import "BOSImageResizeOperation.h"
 @interface MyViewController ()
 {
     MBProgressHUD *waiting;
@@ -235,18 +236,30 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     waiting = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     waiting.labelText = @"正在处理...";
-    NSData *imageData = UIImageJPEGRepresentation(image,1.f);
-    PFFile *imageFile = [PFFile fileWithName:@"avatar.jpg" data:imageData];
-    PFUser *user = [PFUser currentUser];
-    user[@"avatar"] = imageFile;
     
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
-        ContactCell *cell = (ContactCell*)[self.tableView cellForRowAtIndexPath:indexpath];
-        cell.avatar.image = image;
-        
-    }];
+    BOSImageResizeOperation *op = [[BOSImageResizeOperation alloc]initWithImage:image];
+    [op resizeToFitWithinSize:CGSizeMake(160, 160*image.size.height/image.size.width)];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [op start];
+        UIImage* smallerImage = op.result;
+        MAIN(^{
+            NSData *imageData = UIImageJPEGRepresentation(smallerImage,1.f);
+            
+            PFFile *imageFile = [PFFile fileWithName:@"avatar.jpg" data:imageData];
+            PFUser *user = [PFUser currentUser];
+            user[@"avatar"] = imageFile;
+            
+            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+                ContactCell *cell = (ContactCell*)[self.tableView cellForRowAtIndexPath:indexpath];
+                cell.avatar.image = image;
+                
+            }];
+        });
+    });
+   
 }
 - (void)dealloc
 {
