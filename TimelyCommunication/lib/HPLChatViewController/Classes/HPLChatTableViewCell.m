@@ -55,6 +55,10 @@
 
 - (void) setupInternalData
 {
+    for (UIView *sub in self.contentView.subviews)
+    {
+        [sub removeFromSuperview];
+    }
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     HPLChatType type = self.data.type;
     
@@ -89,6 +93,7 @@
         // TODO: How do we want to handle avatars that are not 35x35?
         CGFloat avatarX = (type == ChatTypeSomeoneElse) ? 2 : self.frame.size.width - 45;
         CGFloat avatarY = self.frame.size.height - 35;
+
         
         self.avatarView.frame = CGRectMake(avatarX, avatarY, 35, 35);
         [self addSubview:self.avatarView];
@@ -104,6 +109,8 @@
     self.customView = self.data.view;
     self.customView.frame = CGRectMake(x + self.data.insets.left, y + self.data.insets.top, width, height);
     [self.contentView addSubview:self.customView];
+    
+    
 
     [self.statusImage removeFromSuperview];
     self.statusImage = self.data.statusView;

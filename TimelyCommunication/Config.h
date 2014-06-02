@@ -67,6 +67,7 @@
 #define kSendMsgSuccess @"kSendMsgSuccess"
 #define kSendMsgFailed @"kSendMsgFailed"
 #define kSendMsg @"kSendMsg"
+#define kBuddyTyping @"kBuddyTyping"
 //表字段以及类型
 //会话表
 #define kConversationColumns @[@"conversationName",@"type",@"notReadCount"]
@@ -101,6 +102,10 @@
 
 //数据库版本
 #define kDBVersion @"2"
+
+//openfire所在主机的ip
+#define kOpenfireIP @"192.168.191.2"
+#define kOpenfirePort 5222
 
 
 

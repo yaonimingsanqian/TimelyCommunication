@@ -20,7 +20,8 @@ typedef enum{
     DeleteContactMsgType = 0,
     AgreenMsgType,
     ApplyMsgType,
-    Reject
+    Reject,
+    Enter
 }PushMsgType;
 @implementation Conversation
 + (void)destory
@@ -65,6 +66,11 @@ typedef enum{
             message = [[RejectMsg alloc]init];
             message.msgContent = @"你还不是我的好友,请先加好友";
         }
+        case Enter:
+        {
+            message = [[RejectMsg alloc]init];
+            message.msgContent = @"对方正在输入...";
+        }
             break;
         default:
             break;
@@ -82,6 +88,12 @@ typedef enum{
     BaseMesage *message = [self createMsg:DeleteContactMsgType :uname];
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [delegate pushDeleteContactMsg:message];
+}
+- (void)pushEnter:(NSString *)uname
+{
+    BaseMesage *message = [self createMsg:Enter :uname];
+    iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate pushEnter:message];
 }
 - (void)pushReject:(NSString *)uname
 {

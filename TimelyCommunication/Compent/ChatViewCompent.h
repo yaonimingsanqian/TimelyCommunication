@@ -26,6 +26,7 @@
 }
 @property (nonatomic,assign) id<ChatDelegate> delegate;
 - (id)initWithFrame :(CGRect)frame delegate:(id<HPLChatTableViewDataSource>)dataSource;
+- (id)initWithFrame :(CGRect)frame delegate:(id<HPLChatTableViewDataSource>)dataSource :(void(^)(NSString *text))typing;
 - (void)reloadData;
 - (void)reloadDataWithOutAnimation;
 - (void)reloadDataWithoutScrollToBottom;

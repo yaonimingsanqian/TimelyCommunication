@@ -17,7 +17,7 @@
 #import "URLCache.h"
 @interface ChatViewController ()
 {
-   
+    __block BOOL shouldSendTyping;
 }
 @end
 static int origin;
@@ -64,7 +64,6 @@ static int origin;
 #pragma mark - HPLChatTableViewDataSource
 - (NSInteger)numberOfRowsForChatTable:(HPLChatTableView *)tableView
 {
-    TCLog(@"%d",_messageArray.count);
     return _messageArray.count;
 }
 - (HPLChatData*)chatTableView:(HPLChatTableView *)tableView dataForRow:(NSInteger)row
@@ -174,8 +173,21 @@ static int origin;
 {
    
     [super viewDidLoad];
+    shouldSendTyping = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    chatViewCompent = [[ChatViewCompent alloc]initWithFrame:CGRectMake(0, 0, 320, [[UIScreen mainScreen] bounds].size.height) delegate:self];
+    chatViewCompent = [[ChatViewCompent alloc]initWithFrame:CGRectMake(0, 0, 320, [[UIScreen mainScreen] bounds].size.height) delegate:self :^(NSString *text) {
+        
+//        if(shouldSendTyping)
+//        {
+//            shouldSendTyping = NO;
+//            [[Conversation sharedInstance] pushEnter:_username];
+//        }
+//        if(text.length <= 0)
+//        {
+//            shouldSendTyping = YES;
+//        }
+        
+    }];
     
     chatViewCompent.delegate = self;
     [self.view addSubview:chatViewCompent];
@@ -196,9 +208,21 @@ static int origin;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendStatus:) name:kSendMsgSuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendStatus:) name:kSendMsgFailed object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(msgSendStatus:) name:kSendMsg object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buddyTyping) name:kBuddyTyping object:nil];
      [[DataStorage sharedInstance] updateConversation:_username :NO];
 
     
+}
+- (void)revert
+{
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :_username];
+}
+- (void)buddyTyping
+{
+    [NavigationControllerTitle hide:self.navigationController.navigationBar];
+    [NavigationControllerTitle showInView:self.navigationController.navigationBar :@"对方正在输入..."];
+    [self performSelector:@selector(revert) withObject:nil afterDelay:2.f];
 }
 - (void)reloadData
 {

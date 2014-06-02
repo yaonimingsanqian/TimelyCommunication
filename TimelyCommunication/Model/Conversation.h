@@ -20,4 +20,5 @@
 - (void)pushDeleteContact :(NSString*)uname;
 - (void)pushApply :(NSString*)uname;
 - (void)pushReject :(NSString*)uname;
+- (void)pushEnter :(NSString*)uname;
 @end

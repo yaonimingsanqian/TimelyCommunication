@@ -136,6 +136,7 @@
 		18E7FB4318BB63CE00148255 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4218BB63CE00148255 /* LoginViewController.m */; };
 		18E7FB4D18BB7C9C00148255 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4C18BB7C9C00148255 /* RegisterView.m */; };
 		18E7FB5018BB7DAA00148255 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7FB4F18BB7DAA00148255 /* RegisterViewController.m */; };
+		18F489141936DBEE00FA0E4A /* EnterMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F489131936DBEE00FA0E4A /* EnterMsg.m */; };
 		954B7E2178394CCAB0C27F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF8EE90C2547EE8CD04AE7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -353,6 +354,8 @@
 		18E7FB4C18BB7C9C00148255 /* RegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterView.m; sourceTree = "<group>"; };
 		18E7FB4E18BB7DAA00148255 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		18E7FB4F18BB7DAA00148255 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		18F489121936DBEE00FA0E4A /* EnterMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterMsg.h; sourceTree = "<group>"; };
+		18F489131936DBEE00FA0E4A /* EnterMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterMsg.m; sourceTree = "<group>"; };
 		A4F55087C9D14FCA9019DEAC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		DDEF8EE90C2547EE8CD04AE7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -807,6 +810,8 @@
 				1812648519023130005E076B /* Contact.m */,
 				1823BAB819134E2C00DC85E0 /* ReceiptMsg.h */,
 				1823BAB919134E2C00DC85E0 /* ReceiptMsg.m */,
+				18F489121936DBEE00FA0E4A /* EnterMsg.h */,
+				18F489131936DBEE00FA0E4A /* EnterMsg.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1124,6 +1129,7 @@
 				18B2F28A18E6EC5900D753B0 /* DeleteContactMsg.m in Sources */,
 				18C3C5C51930718D00FA315C /* GTMBase64.m in Sources */,
 				18B2F28D18E8279F00D753B0 /* ApplyMsg.m in Sources */,
+				18F489141936DBEE00FA0E4A /* EnterMsg.m in Sources */,
 				18DF8234187BC025000FDCFF /* ChatViewController.m in Sources */,
 				1812649419037597005E076B /* NaviItems.m in Sources */,
 				18979B631931D719009AA573 /* HPLChatData.m in Sources */,

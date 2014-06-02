@@ -25,7 +25,8 @@
 }
 - (void)sendRecieved
 {
-    XMPPMessage *msg = [XMPPMessage messageWithType:@"received" to:[XMPPJID jidWithString:self.from] elementID:self.messageId];
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:[XMPPJID jidWithString:self.from] elementID:self.messageId];
+    [msg addAttributeWithName:@"cmd" stringValue:@"received"];
     iPhoneXMPPAppDelegate *delegate = (iPhoneXMPPAppDelegate*)[[UIApplication sharedApplication] delegate];
     [msg addAttributeWithName:@"xmlns" stringValue:@"jabber:client"];
     [delegate sendReceive:msg];

@@ -187,7 +187,7 @@ const UIEdgeInsets imageInsetsSomeone = {11, 18, 16, 14};
         self.date = date;
         self.type = type;
         self.insets = insets;
-        self.avatarView = [[EGOImageView alloc]init];
+        self.avatarView = [[EGOImageView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     }
     return self;
 }

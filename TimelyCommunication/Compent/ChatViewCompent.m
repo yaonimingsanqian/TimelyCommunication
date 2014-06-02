@@ -7,11 +7,13 @@
 //
 
 #import "ChatViewCompent.h"
-
+#import "Conversation.h"
+typedef void(^Typing)(NSString *text);
 
 @implementation ChatViewCompent
 {
     BOOL isShowKeyboard;
+    Typing typing;
 }
 
 #pragma mark - 私有
@@ -160,7 +162,20 @@
     }
     return self;
 }
-
+- (id)initWithFrame:(CGRect)frame delegate:(id<HPLChatTableViewDataSource>)dataSource :(void (^)(NSString *))atyping
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        typing = atyping;
+        [self createChatTableView:dataSource];
+        [chatTableView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chatTableViewTapAction:)]];
+        [self createInputFrame];
+        [self listenKeyboardShowAndHide];
+        
+    }
+    return self;
+}
 - (void)dealloc
 {
     [refreshView free];
@@ -204,8 +219,10 @@
     chatTableViewFrame.size.height = inputCompent.frame.origin.y;
     chatTableView.frame = chatTableViewFrame;
     [chatTableView scrollToBottomAnimated:NO];
-
-    
+    if(typing)
+    {
+        typing(textView.text);
+    }
     
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

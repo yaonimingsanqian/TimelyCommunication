@@ -97,7 +97,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
-        cell.avatar = [[UIImageView alloc]initWithFrame:CGRectMake(15, (cell.frame.size.height-20)/2, 20, 20)];
+        cell.avatar = [[EGOImageView alloc]initWithFrame:CGRectMake(15, (cell.frame.size.height-20)/2, 20, 20)];
         cell.name = [[UILabel alloc]initWithFrame:CGRectMake(65, (cell.frame.size.height-21)/2, 229, 21)];
         cell.name.font = [UIFont boldSystemFontOfSize:16];
         [cell.contentView addSubview:cell.name];

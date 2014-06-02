@@ -43,6 +43,7 @@
 - (void)pushDeleteContactMsg :(BaseMesage*)msg;
 - (void)pushApplay :(BaseMesage*)msg;
 - (void)pushReject :(BaseMesage*)msg;
+- (void)pushEnter :(BaseMesage*)msg;
 - (void)logout;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *conversationNavi;

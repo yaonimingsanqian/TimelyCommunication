@@ -24,6 +24,7 @@
 {
     PFQuery *pqueryMe;
     PFQuery *pqueryhis;
+    MBProgressHUD *mb;
 }
 @end
 
@@ -139,7 +140,7 @@
         [cell.contentView addSubview:cell.avatar];
         [cell.contentView addSubview:cell.name];
         UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 59.5, 320, 0.5)];
-        line.backgroundColor = [UIColor blackColor];
+        line.backgroundColor = [UIColor lightGrayColor];
         [cell.contentView addSubview:line];
         [cell.contentView addSubview:cell.rightImage];
         [cell.avatar setPlaceholderImage:[UIImage imageNamed:@"mainPage.png"]];
@@ -263,8 +264,8 @@
 {
     
     
-    //更新自己的朋友列表
-    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+   mb = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+    mb.labelText = @"正在处理...";
     NSString *friendId = [[ContactsMgr sharedInstance].friends objectAtIndex:indexPath.row];
     NSString *meId = [CommonData sharedCommonData].curentUser.username;
     

@@ -210,18 +210,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    // Now typing
-//	if (indexPath.section >= [self.chatSection count])
-//    {
-//        static NSString *cellId = @"tblChatTypingCell";
-//        HPLChatTypingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//        
-//        if (cell == nil) cell = [[HPLChatTypingTableViewCell alloc] init];
-//
-//        cell.type = self.typingChat;
-//        cell.showAvatar = self.showAvatars;
-//        
-//        return cell;
-//    }
+	if (indexPath.section >= [self.chatSection count])
+    {
+        static NSString *cellId = @"tblChatTypingCell";
+        HPLChatTypingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        
+        if (cell == nil) cell = [[HPLChatTypingTableViewCell alloc] init];
+
+        cell.type = self.typingChat;
+        cell.showAvatar = self.showAvatars;
+        
+        return cell;
+    }
 //
     // Header with date and time
     if (indexPath.row == 0)

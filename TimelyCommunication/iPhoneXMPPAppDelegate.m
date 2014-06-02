@@ -182,10 +182,11 @@
             stockUser.password = pass;
             stockUser.username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
             [stockUser login:^(NSDictionary *success) {
-                NSLog(@"stockmob登录成功");
+                NSLog(@"parse登录成功");
                 isLogin = YES;
             } :^(NSError *error) {
-                NSLog(@"登录失败");
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"链接超时" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                [alert show];
             }];
             
             
@@ -231,8 +232,8 @@
 	xmppReconnect = [[XMPPReconnect alloc] init];
 	[xmppReconnect         activate:xmppStream];
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-	[xmppStream setHostName:@"192.168.1.104"];
-	[xmppStream setHostPort:5222];
+	[xmppStream setHostName:kOpenfireIP];
+	[xmppStream setHostPort:kOpenfirePort];
 	allowSelfSignedCertificates = NO;
 	allowSSLHostNameMismatch = NO;
 }
@@ -300,13 +301,16 @@
 - (void)sendCmdMsg :(BaseMesage*)msg :(NSString*)type
 {
     NSXMLElement *message = [self createMsg:msg];
-    [message addAttributeWithName:@"type" stringValue:type];
-    NSLog(@"<-%@->",message);
+    [message addAttributeWithName:@"cmd" stringValue:type];
     [xmppStream sendElement:message];
 }
 - (void)pushReject:(BaseMesage *)msg
 {
     [self sendCmdMsg:msg :@"reject"];
+}
+- (void)pushEnter:(BaseMesage *)msg
+{
+    [self sendCmdMsg:msg :@"enter"];
 }
 - (void)pushApplay:(BaseMesage *)msg
 {
